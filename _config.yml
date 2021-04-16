@@ -20,7 +20,6 @@ paginate_path: "/blog/page:num/"
 permalink: pretty
 
 
-
 # Navigation (2nd level links supported)
 nav:
   Home:
@@ -31,8 +30,6 @@ nav:
     - { Tags: '/blog/tags/' }
   About:
     - '/about/'
-  Github Project:
-    - 'http://ichensky.github.io/'
 
 # Where are tags and categories displayed
 tag_page: '/blog/tags/'

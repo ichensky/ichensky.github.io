@@ -1,41 +1,17 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: home
+layout: default
+title: Blog
 ---
 
-<form name="f">
-<input name="ft" style="border:none;outline:none;font-family:monospace;font-size:16px;color:#333" size="48" readonly="readonly" />  
-</form>
-<script src="/scripts/index.js"></script>
-<br>
-
-    {% if post.tags %} | 
-    {% for tag in post.tags %}
-    <a href="{{ site.baseurl }}{{ site.tag_page }}#{{ tag | slugify }}" class="post-tag">{{ tag }}</a>
-    {% endfor %}
-    {% endif %}
-
-    {% if post.categories %} | 
-    {% for category in post.categories %}
-    <a href="{{ site.baseurl }}{{ site.tag_page }}#{{ category | slugify }}" class="post-tag">{{ category }}</a>
-    {% endfor %}
-    {% endif %}
-
-
-
-
 <h2 class="post-list-heading">Posts</h2>
-<ul class="posts-list">
+<div class="posts-list">
   {% for post in paginator.posts %}
-  <li>
+  <div>
     <h3>
       <a class="post-link" href="{{ site.baseurl }}{{ post.url }}">
         {{ post.title }}
       </a>
     </h1>
-
     <span class="post-meta">{{ post.date | date_to_string }}</span>
     {% if post.tags %} | 
     {% for tag in post.tags %}
@@ -43,11 +19,13 @@ layout: home
     {% endfor %}
     {% endif %}
 
+
     {% if post.categories %} | 
-    {% for tag in post.categories %}
-    <a href="{{ site.baseurl }}{{ site.tag_page }}#{{ tag | slugify }}" class="post-tag">{{ tag }}</a>
+    {% for category in post.categories %}
+    <a href="{{ site.baseurl }}{{ site.tag_page }}#{{ category | slugify }}" class="post-tag">{{ category }}</a>
     {% endfor %}
     {% endif %}
+
 
     <article>
       {{ post.excerpt | markdownify }}
@@ -58,9 +36,10 @@ layout: home
       {% endif %}
       <a href="{{ site.baseurl }}{{ post.url }}"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
     </div>
-  </li>
+    <br>
+  </div>
   {% endfor %}
-</ul>
+</div>
 
 <div class="pagination">
   {% if paginator.next_page %}
