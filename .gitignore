@@ -11,3 +11,6 @@ vendor
 *.un~
 Session.vim
 .netrwhist
+
+#node
+node_modules/
