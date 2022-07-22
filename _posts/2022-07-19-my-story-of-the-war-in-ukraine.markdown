@@ -19,8 +19,11 @@ My first thoughts were what the hell, what happened?
 
 I opened the Internet and saw that the war had begun. **Russia invaded Ukraine**.
 
-The news came as a shock to me. In a moment all plans for summer and spring were destroyed. People from Russia came to take away houses, steal cars, money, other stuff, kill people.
+The news came as a shock to me. In a moment all plans for summer and spring were destroyed. People from Russia came to take away people's houses, steal their cars, money, other stuff and eventually kill them.
 
-There were many questions that needed to be urgently addressed. What to do next? How to proceed? How to save the family. Join the army? Stay at home? Go away? 
+There were important questions that needed to be urgently addressed. 
+- What will happened in the nearest future? 
+- What to do next? 
+- How not to be killed in the end?
 
 ...
