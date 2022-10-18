@@ -30,7 +30,7 @@ leetcode_username: ichensky
 twitter_username: ichensky
 
 # Build settings
-theme: jekyll-theme-hacker
+theme: minima
 plugins:
   - jekyll-feed
 
