@@ -1,1 +1,1 @@
-bundle exec jekyll serve --livereload
+/home/john/gems/bin/bundle exec jekyll serve --livereload

@@ -1,0 +1,63 @@
+---
+layout: post
+title:  "SOLID, C# notes"
+date:   2023-07-27 22:51:02 +0300
+categories: solid
+---
+
+**SOLID** is a mnemonic acronym for five design principles intended *to make* **object-oriented designs** more understandable, flexible, and **maintainable**.
+
+The principles are a subset of many principles first introduced by [Robert C. Martin](https://sites.google.com/site/unclebobconsultingllc) in 2000th in the paper [Design Principles and Design Patterns](https://web.archive.org/web/20150906155800/http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf)
+
+* **Single Responsibility Principle**. 
+  [srp.pdf](https://web.archive.org/web/20150202200348/http://www.objectmentor.com/resources/articles/srp.pdf)
+  
+  "There should never be more than one reason for a class to change." 
+
+* **Open-Closed Principle**. 
+    
+    Original [ocp](https://web.archive.org/web/20150905081105/http://www.objectmentor.com/resources/articles/ocp.pdf)
+
+    > Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification. 
+
+    Update [2014](https://blog.cleancoder.com/uncle-bob/2014/05/12/TheOpenClosedPrinciple.html)
+
+    > You should be able to extend the behavior of a system without having to modify that system. 
+
+* **Liskov Substitution Principle**. 
+  [lcp](https://web.archive.org/web/20150905081111/http://www.objectmentor.com/resources/articles/lsp.pdf)
+
+    > Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it.
+
+* **Interface Segregation Principle**.
+   [isp](https://web.archive.org/web/20150905081110/http://www.objectmentor.com/resources/articles/isp.pdf)
+
+    > Clients should not be forced to depend upon interfaces that they do not use.
+
+* **Dependency Inversion Principle**. 
+  [dip](https://web.archive.org/web/20150905081103/http://www.objectmentor.com/resources/articles/dip.pdf)
+
+    > Depend upon abstractions, [not] concretions."
+
+### C# notes
+
+**Single Responsibility Principle**
+
+A **class** should have only one responsibility, do only one thing. For ex. convert text to html, but not convert text to html and upload it to the storage.
+
+**Open-Closed Principle**
+
+After introducing a new `feature` if code in present **class**, *function*, etc is changing *somehow* this principle is violated.
+Create *plugin* system.
+
+**Liskov Substitution Principle**. 
+
+The [new](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/knowing-when-to-use-override-and-new-keywords) modifier should not be used to override virtual methods in inherited classes.
+
+**Interface Segregation Principle**.
+
+If **two** **classes** need to use different methods from *one* interface, the interface should be split into two.
+
+**Dependency Inversion Principle**. 
+
+Pass `interfaces` as parameters instead of classes.
