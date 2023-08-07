@@ -5,7 +5,7 @@ date:   2023-08-07 22:51:02 +0300
 categories: time
 ---
 
-## Time Scale 
+## [Time Standard](https://en.wikipedia.org/wiki/Time_standard) 
 
 [**International Atomic Time (TIA)**](https://en.wikipedia.org/wiki/International_Atomic_Time) is a man-made, laboratory timescale. Its units the **SI seconds** which is based on the frequency of the cesium-133 atom. **TAI** is the International Atomic Time scale, a statistical timescale based on a large number of atomic clocks.
 
@@ -61,4 +61,4 @@ A [time zone](https://en.wikipedia.org/wiki/Time_zone) is an area which observes
 NTP can usually maintain time to within tens of milliseconds over the public Internet, and can achieve better than one millisecond accuracy in local area networks under ideal conditions.
 
 ## ISO 8601
-[**ISO 8601**](https://en.wikipedia.org/wiki/ISO_8601) is a [time standard](https://en.wikipedia.org/wiki/Time_standard) established by the International Organization for Standardization defining methods of representing dates and times in textual form, including specifications for representing time zones. 
+[**ISO 8601**](https://en.wikipedia.org/wiki/ISO_8601) is a standard established by the International Organization for Standardization defining methods of representing dates and times in textual form, including specifications for representing time zones. 
