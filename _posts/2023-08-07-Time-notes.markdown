@@ -5,8 +5,6 @@ date:   2023-08-07 22:51:02 +0300
 categories: time
 ---
 
-# Time notes
-
 ## Time Scale 
 
 [**International Atomic Time (TIA)**](https://en.wikipedia.org/wiki/International_Atomic_Time) is a man-made, laboratory timescale. Its units the **SI seconds** which is based on the frequency of the cesium-133 atom. **TAI** is the International Atomic Time scale, a statistical timescale based on a large number of atomic clocks.
