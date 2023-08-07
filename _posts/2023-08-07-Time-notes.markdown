@@ -56,5 +56,9 @@ A [time zone](https://en.wikipedia.org/wiki/Time_zone) is an area which observes
 ## Daylight saving time
 [Daylight saving time](https://en.wikipedia.org/wiki/Daylight_saving_time) (DST), also referred to as daylight savings time, daylight time (United States, Canada, and Australia), or summer time (United Kingdom, European Union, and others), is the practice of advancing clocks (typically by one hour) during warmer months so that darkness falls at a later clock time.
 
+## Network Time Protocol
+[The Network Time Protocol](https://en.wikipedia.org/wiki/Network_Time_Protocol) (NTP) is a networking protocol for [**clock synchronization**](https://en.wikipedia.org/wiki/Clock_synchronization) between computer systems over packet-switched, variable-latency data networks. 
+NTP can usually maintain time to within tens of milliseconds over the public Internet, and can achieve better than one millisecond accuracy in local area networks under ideal conditions.
+
 ## ISO 8601
 [**ISO 8601**](https://en.wikipedia.org/wiki/ISO_8601) is a standard established by the International Organization for Standardization defining methods of representing dates and times in textual form, including specifications for representing time zones.
