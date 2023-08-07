@@ -61,4 +61,5 @@ A [time zone](https://en.wikipedia.org/wiki/Time_zone) is an area which observes
 NTP can usually maintain time to within tens of milliseconds over the public Internet, and can achieve better than one millisecond accuracy in local area networks under ideal conditions.
 
 ## ISO 8601
-[**ISO 8601**](https://en.wikipedia.org/wiki/ISO_8601) is a standard established by the International Organization for Standardization defining methods of representing dates and times in textual form, including specifications for representing time zones.
+[**ISO 8601**](https://en.wikipedia.org/wiki/ISO_8601) is a [time standard](Time standard
+) established by the International Organization for Standardization defining methods of representing dates and times in textual form, including specifications for representing time zones. 
