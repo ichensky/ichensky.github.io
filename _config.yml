@@ -28,11 +28,13 @@ github_username: ichensky
 linkedin_username: ichensky
 leetcode_username: ichensky
 twitter_username: ichensky
+google_analytics: 1
 
 # Build settings
 theme: minima
 plugins:
   - jekyll-feed
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.
