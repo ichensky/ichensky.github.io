@@ -12,6 +12,16 @@
             "presentation": {
                 "reveal": "silent"
             }
+        },
+        {
+            "label": "start",
+            "command": "./start.sh",
+            "type": "shell",
+            "args": [ ],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            }
         }
     ]
 }
