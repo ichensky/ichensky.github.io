@@ -37,3 +37,8 @@
   - name: emacs
     items:
     - href: editors/emacs/emacs-hotkeys.md
+
+- name: email
+  items:
+  - href: email/backup-emails-with-getmail.md
+  - href: email/send-email-with-sendemail.md
