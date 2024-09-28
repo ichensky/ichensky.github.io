@@ -1,0 +1,6 @@
+- name: Docs
+  href: docs/
+- name: Contacts
+  href: pages/contacts.md
+- name: About 
+  href: pages/about.md

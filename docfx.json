@@ -1,0 +1,41 @@
+{
+  "build": {
+    "sitemap": {
+      "baseUrl": "https://ichensky.github.io",
+      "priority": 0.5,
+      "changefreq": "daily"
+    },
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern",
+      "template"
+    ],
+    "globalMetadata": {
+      "_appName": "Ivan Chensky",
+      "_appTitle": "Ivan Chensky",
+      "_enableSearch": true,
+      "pdf": false,
+      "_appLogoPath": "public/logo.png",
+      "_appFooter": "<span>Ivan Chensky</span>",
+      "_appFaviconPath": "public/logo.png"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+- name: Dev
+  items:
+  - name: .net
+    items:
+    - name: Design Principles
+      items: 
+      - name: SOLID  
+        items:
+        - href: dev/dotnet/design_principles/solid/solid_theory.md
+        - href: dev/dotnet/design_principles/solid/solid_csharp.md
