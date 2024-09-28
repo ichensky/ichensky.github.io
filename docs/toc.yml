@@ -1,4 +1,4 @@
-- name: Dev
+- name: dev
   items:
   - name: .net
     items:
@@ -16,3 +16,9 @@
 - name: coffee
   items: 
   - href: coffee/v60-technique.md
+
+- name: beagleboard
+  items:
+  - href: beagleboard/install-beagleboard.md
+  - href: beagleboard/clean-ssh-message.md
+  - href: beagleboard/disable-leds.md
