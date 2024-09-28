@@ -1,6 +1,4 @@
-# How to disable `dotnet` telemetry at linux
-
-### Note about how to opt out .NET SDK and .NET CLI [telemetry](https://learn.microsoft.com/en-us/dotnet/core/tools/telemetry)
+# How to opt out .NET SDK and .NET CLI [telemetry](https://learn.microsoft.com/en-us/dotnet/core/tools/telemetry) at linux
 
 1. Add variable to `/etc/environment` file
 ```
