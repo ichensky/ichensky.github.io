@@ -28,3 +28,12 @@
   - name: debian
     items:
     - href: linux/debian/build-package-from-source.md
+
+- name: editors
+  items:
+  - name: vim
+    items:
+    - href: editors/vim/vim-hotkeys.md
+  - name: emacs
+    items:
+    - href: editors/emacs/emacs-hotkeys.md
