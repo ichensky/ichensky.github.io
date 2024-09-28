@@ -22,3 +22,9 @@
   - href: beagleboard/install-beagleboard.md
   - href: beagleboard/clean-ssh-message.md
   - href: beagleboard/disable-leds.md
+
+- name: linux
+  items:
+  - name: debian
+    items:
+    - href: linux/debian/build-package-from-source.md
