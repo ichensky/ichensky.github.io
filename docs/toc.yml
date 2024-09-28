@@ -11,7 +11,7 @@
 
     - name: linux
       items:
-      - href: dev/dotnet/linux/how-to-disable-dotnet-telemetry-at-linux.md
+      - href: dev/dotnet/linux/opt-out-dotnet-telemetry-at-linux.md
 
 - name: coffee
   items: 
