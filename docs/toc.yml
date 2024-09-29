@@ -16,6 +16,19 @@
 
 - name: linux
   items:
+  - name: security
+    items:
+    - name: encyption
+      items:
+      - href: linux/security/encryption/entropy.md
+      - href: linux/security/encryption/generate-password.md
+      - href: linux/security/encryption/gpg.md
+      - href: linux/security/encryption/luks.md
+    - name: sandboxing
+      items:
+      - name: firejail
+        items: 
+        - href: linux/security/sandboxing/firejail/firejail-firefox.md
   - name: debian
     items:
     - href: linux/debian/build-package-from-source.md
@@ -24,12 +37,6 @@
     - href: linux/email/getmail-backup-emails.md
     - href: linux/email/sendemail-send-email.md
     - href: linux/email/thunderbird-change-date-format.md
-  - name: encyption
-    items:
-    - href: linux/encryption/entropy.md
-    - href: linux/encryption/generate-password.md
-    - href: linux/encryption/gpg.md
-    - href: linux/encryption/luks.md
 
 
 
