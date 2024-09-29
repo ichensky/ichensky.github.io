@@ -49,6 +49,9 @@
     - href: devices/beagleboard/clean-ssh-message.md
     - href: devices/beagleboard/disable-leds.md
 
+- name: english
+  items:
+  - href: english/english-sound-pronunciation.md
 
 
 - name: coffee
