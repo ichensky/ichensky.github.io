@@ -21,8 +21,9 @@
     - href: linux/debian/build-package-from-source.md
   - name: email
     items:
-    - href: linux/email/backup-emails-with-getmail.md
-    - href: linux/email/send-email-with-sendemail.md
+    - href: linux/email/getmail-backup-emails.md
+    - href: linux/email/sendemail-send-email.md
+    - href: linux/email/thunderbird-change-date-format.md
   - name: encyption
     items:
     - href: linux/encryption/entropy.md

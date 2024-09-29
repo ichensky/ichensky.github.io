@@ -1,4 +1,4 @@
-# Send email with `sendmail`
+# `sendmail` - send email
 
 ```sh
 #!/bin/sh

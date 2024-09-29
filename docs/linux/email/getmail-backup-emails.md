@@ -1,4 +1,4 @@
-# Backup emails with `getmail`
+# `getmail` - backup emails 
 
 * Install
 ```sh
