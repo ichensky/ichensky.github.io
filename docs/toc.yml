@@ -26,6 +26,9 @@
   - name: encyption
     items:
     - href: linux/encryption/entropy.md
+    - href: linux/encryption/generate-password.md
+    - href: linux/encryption/gpg.md
+    - href: linux/encryption/luks.md
 
 
 
