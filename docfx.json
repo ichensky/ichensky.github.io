@@ -36,7 +36,8 @@
       "pdf": false,
       "_appLogoPath": "public/logo.png",
       "_appFooter": "<span>Ivan Chensky</span>",
-      "_appFaviconPath": "public/logo.png"
+      "_appFaviconPath": "public/logo.png",
+      "_googleAnalyticsTagId": "G-X4C6TSSZQK"
     }
   }
 }
