@@ -13,21 +13,21 @@
       items:
       - href: dev/dotnet/linux/opt-out-dotnet-telemetry-at-linux.md
 
-- name: coffee
-  items: 
-  - href: coffee/v60-technique.md
-
-- name: beagleboard
-  items:
-  - href: beagleboard/install-beagleboard.md
-  - href: beagleboard/clean-ssh-message.md
-  - href: beagleboard/disable-leds.md
 
 - name: linux
   items:
   - name: debian
     items:
     - href: linux/debian/build-package-from-source.md
+  - name: email
+    items:
+    - href: linux/email/backup-emails-with-getmail.md
+    - href: linux/email/send-email-with-sendemail.md
+  - name: encyption
+    items:
+    - href: linux/encryption/entropy.md
+
+
 
 - name: editors
   items:
@@ -38,7 +38,16 @@
     items:
     - href: editors/emacs/emacs-hotkeys.md
 
-- name: email
+- name: devices
   items:
-  - href: email/backup-emails-with-getmail.md
-  - href: email/send-email-with-sendemail.md
+  - name: beagleboard
+    items:
+    - href: devices/beagleboard/install-beagleboard.md
+    - href: devices/beagleboard/clean-ssh-message.md
+    - href: devices/beagleboard/disable-leds.md
+
+
+
+- name: coffee
+  items: 
+  - href: coffee/v60-technique.md
