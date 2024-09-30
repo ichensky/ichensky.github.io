@@ -38,6 +38,13 @@
     - href: linux/email/sendemail-send-email.md
     - href: linux/email/thunderbird-change-date-format.md
 
+- name: wifi
+  items:
+  - href: wifi/generate-qr-for-wifi.md
+  - name: openwrt
+    items:
+    - href: wifi/openwrt/install-openwrt-image.md
+    - href: wifi/openwrt/build-opewrt-image-from-sources.md
 
 
 - name: editors
