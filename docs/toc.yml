@@ -45,6 +45,9 @@
     items:
     - href: wifi/openwrt/install-openwrt-image.md
     - href: wifi/openwrt/build-opewrt-image-from-sources.md
+    - name: wireguard
+      items:
+      - href: wifi/openwrt/wireguard/openwrt-configure-wireguard.md
 
 
 - name: editors
