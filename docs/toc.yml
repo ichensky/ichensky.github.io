@@ -8,13 +8,15 @@
         items:
         - href: dev/dotnet/design-principles/solid/solid-theory.md
         - href: dev/dotnet/design-principles/solid/solid-csharp.md
-
     - name: linux
       items:
       - href: dev/dotnet/linux/opt-out-dotnet-telemetry-at-linux.md
   - name: uml
     items:
     - href: dev/uml/uml-diagrams-short-notes.md
+  - name: time
+    items:
+    - href: dev/time/time_standards.md
 
 - name: linux
   items:
