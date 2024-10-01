@@ -1,6 +1,4 @@
-# `Openvpn` configuration
-
-
+# `openvpn` configuration
 
 ## Server
 #### Server installation

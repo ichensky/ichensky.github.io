@@ -72,6 +72,9 @@
   - name: openvpn
     items:
     - href: vpn/openvpn/openvpn-configuration.md 
+  - name: wireguard
+    items:
+    - href: vpn/wireguard/wireguard-configuration.md
 
 - name: english
   items:
