@@ -61,11 +61,17 @@
 
 - name: devices
   items:
+  - name: uart
+    items:
+    - href: devices/uart/connect-to-device-via-uart.md
   - name: beagleboard
     items:
     - href: devices/beagleboard/install-beagleboard.md
     - href: devices/beagleboard/clean-ssh-message.md
     - href: devices/beagleboard/disable-leds.md
+  - name: webcam
+    items:
+    - href: devices/webcam/play-webcam.md
 
 - name: vpn
   items:
