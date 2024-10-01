@@ -19,7 +19,8 @@
       {
         "files": [
           "images/**",
-          "**/images/**"
+          "**/images/**",
+          "robots.txt"
         ]
       }
     ],
