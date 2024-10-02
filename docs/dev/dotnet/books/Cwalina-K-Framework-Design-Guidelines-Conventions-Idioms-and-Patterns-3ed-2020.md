@@ -101,7 +101,7 @@ Newer compiler understand the readonly modifier on a value type and avoid making
 value copies on operations such as invoking a method on a field declared with the readonly modifier.
 ```public readonly struct ZipCode {...}```
 
-```sh
+```csharp
 class .. { 
     private readonly ZipCode _zipCode;
 

@@ -4,7 +4,7 @@
     items:
     - name: books
       items:
-      - href: dev/dotnet/books/Cwalina K. Framework Design Guidelines. Conventions,Idioms,and Patterns 3ed 2020.md
+      - href: dev/dotnet/books/Cwalina-K-Framework-Design-Guidelines-Conventions-Idioms-and-Patterns-3ed-2020.md
     - name: design principles
       items: 
       - name: SOLID  
