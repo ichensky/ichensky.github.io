@@ -1,7 +1,7 @@
 # Cwalina K. Framework Design Guidelines. Conventions,Idioms,and Patterns 3ed 2020
 
 ## Review
-The book offers quotes and advice from various experts on selecting the optimal code structures for developing libraries and .NET frameworks.<br>
+The book offers quotes and advice from various experts on selecting the optimal code structures for developing libraries and .NET framework.<br>
 It contains many historical backward explanations of why certain things were chosen and the resulting consequences.<br>
 I especially liked the story about exposing `abstract class` vs `interfaces` and what is best to choose. It explains a lot why modern `C# interfaces` can have logic within them. 
 
