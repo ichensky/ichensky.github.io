@@ -20,7 +20,8 @@
         "files": [
           "images/**",
           "**/images/**",
-          "robots.txt"
+          "robots.txt",
+          "favicon.ico"
         ]
       }
     ],
@@ -37,7 +38,7 @@
       "pdf": false,
       "_appLogoPath": "public/logo.png",
       "_appFooter": "<span>Ivan Chensky</span>",
-      "_appFaviconPath": "public/logo.png",
+      "_appFaviconPath": "favicon.ico",
       "_googleAnalyticsTagId": "G-X4C6TSSZQK",
       "_lang": "en"
     }
