@@ -10,6 +10,8 @@ A **module** should have only one responsibility, do only one thing. For ex. con
 
 **Open-Closed Principle**
 
+Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.
+
 After introducing a new `feature` if code in present **class**, *function*, etc is changing *somehow* this principle is violated.
 Create *plugin* system.
 
