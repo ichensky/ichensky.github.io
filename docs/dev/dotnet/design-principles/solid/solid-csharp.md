@@ -2,7 +2,11 @@
 
 **Single Responsibility Principle**
 
-A **class** should have only one responsibility, do only one thing. For ex. convert text to html, but not convert text to html and upload it to the storage.
+A **module** should have only one responsibility, do only one thing. For ex. convert text to html, but not convert text to html and upload it to the storage.
+> .. the final version of the SRP is: A module should be responsible to one, and only one, actor.
+[Robert C. Martin]
+* A **module** is a unit of code that performs a specific task. It can be a class, function, or procedure.
+* An **actor** is a person, system, or process that interacts with the module. 
 
 **Open-Closed Principle**
 
