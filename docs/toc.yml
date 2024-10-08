@@ -14,6 +14,9 @@
         items:
         - href: dev/dotnet/design-principles/solid/solid-theory.md
         - href: dev/dotnet/design-principles/solid/solid-csharp.md
+      - name: oop
+        items:
+        - href: dev/dotnet/design-principles/oop/oop-vs-pp.md
     - name: linux
       items:
       - href: dev/dotnet/linux/opt-out-dotnet-telemetry-at-linux.md
