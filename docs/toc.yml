@@ -13,7 +13,7 @@
       - name: SOLID  
         items:
         - href: dev/dotnet/design-principles/solid/solid-theory.md
-        - href: dev/dotnet/design-principles/solid/solid-csharp.md
+        - href: dev/dotnet/design-principles/solid/solid-single-responsibility-principle.md 
       - name: oop
         items:
         - href: dev/dotnet/design-principles/oop/oop-vs-pp.md
