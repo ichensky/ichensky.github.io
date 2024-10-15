@@ -1,11 +1,12 @@
-# SOLID Single Responsibility Principle
+# SOLID Single Responsibility Principle (SRP)
 
 Robert C. Martin:
 [srp.pdf](https://web.archive.org/web/20150202200348/http://www.objectmentor.com/resources/articles/srp.pdf)
 > There should never be more than one reason for a class to change.
 
 This `principle` is `violated` when `two or more actors` `use the same class`.
-By an actor means a person or a group of people.
+
+By an actor means a person or a group of people. Actor that's the single reason to change a module.
 
 ### Example of violation the principle 
 
