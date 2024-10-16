@@ -10,9 +10,10 @@ By an actor means a person or a group of people. Actor that's the single reason 
 
 ### Example of violation the principle 
 
-An online shop can have a `Product` class, which contains data such as title, description and price. The Product class can have two associated pages: one for users and one for the seller. It also can contain shared method `GetProductInformation` which is both used by users and a seller.
+An online shop have a `Product` class, which contains data such as title, description and price. The Product class have two associated pages: one for users and one for the seller. It also contains shared method `GetProductInformation` which is both used by users and a seller.
 
-`Users` and `seller` are `actors`, and `Product` class and it's method `GetProductInformation` is `shared` between them and exactly this `violates` `Single Responsibility Principle`.
+`Users` and `seller` are `actors`.<br>
+`Product` class and its method `GetProductInformation` is `shared` between them and exactly this `violates` `Single Responsibility Principle`.
 <hidden style="display:none">
 @startuml
 actor Seller
