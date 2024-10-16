@@ -4,9 +4,14 @@ Robert C. Martin:
 [srp.pdf](https://web.archive.org/web/20150202200348/http://www.objectmentor.com/resources/articles/srp.pdf)
 > There should never be more than one reason for a class to change.
 
+Martin, Robert C. (2018). Clean architecture : a craftsman's guide to software structure and design:
+> A module should be responsible to one, and only one, actor.
+
 This `principle` is `violated` when `two or more actors` `use the same class`.
 
 By an actor means a person or a group of people. Actor that's the single reason to change a module.
+
+By `module` means a file with source code, which has structures and function related to each other. Object oriented, languages as `C#` place code in `classes`, in this case `module` can be interpreted as a `class`.
 
 ### Example of violation the principle 
 
