@@ -1,4 +1,4 @@
-# SOLID Single Responsibility Principle (SRP)
+# Single Responsibility Principle (SRP)
 
 Robert C. Martin:
 [srp.pdf](https://web.archive.org/web/20150202200348/http://www.objectmentor.com/resources/articles/srp.pdf)

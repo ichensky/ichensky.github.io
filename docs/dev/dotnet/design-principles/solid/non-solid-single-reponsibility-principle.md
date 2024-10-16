@@ -87,3 +87,5 @@ string CreateReport(Info info)
 
 record Info(string Title, string Content);
 ```
+
+The code became less coupled, functions are smaller, independent, and easier to modify.
