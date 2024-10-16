@@ -7,7 +7,10 @@ The principles are a subset of many principles first introduced by [Robert C. Ma
 * **Single Responsibility Principle**. 
   [srp.pdf](https://web.archive.org/web/20150202200348/http://www.objectmentor.com/resources/articles/srp.pdf)
   
-  "There should never be more than one reason for a class to change." 
+  > There should never be more than one reason for a class to change.
+
+  Update 2018. "Clean architecture: a craftsman's guide to software structure and design":
+  > A module should be responsible to one, and only one, actor.
 
 * **Open-Closed Principle**. 
     
