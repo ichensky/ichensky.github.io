@@ -142,6 +142,10 @@ public class Square : Rectangle
 }
 
 ``` 
+To protect class from the inheritance in C# can be used `sealed` modifier.
+```csharp
+sealed class Foo { }
+```
 
 ## How to protect code from the principle violation 
 
