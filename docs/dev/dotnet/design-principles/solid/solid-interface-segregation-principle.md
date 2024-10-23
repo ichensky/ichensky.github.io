@@ -86,7 +86,8 @@ Console.WriteLine(htmlCleaner.GetHtml());
 ```
 
 Problems with this code that 
-1. Every time it is needed to create another class based on `HtmlClient` or `HtmlCleaner`, it requies to implement all their methods.<br>
+
+**1.** Every time it is needed to create another class based on `HtmlClient` or `HtmlCleaner`, it requies to implement all their methods.<br>
 In this example, `PostDownloadHtmlProcessor()` method has been incorporated solely for the benefit of one of its subclasses. 
 
 To create a class, that, just downloads html file, without any post-processing , it is needed to implement all methods from the base `HtmlClient` class. <br>
@@ -128,7 +129,7 @@ public class HtmlBuilder(HttpClient client) : HtmlCleaner(client)
 ```
 
 
-2. If a client wants to remove only tags from the existing `HTML`, they may be needed to `create extra instances` of classes, call extra methods. Methods, which can be tightly integrated with base class methods. Clients are coupled with other clients.
+**2.** If a client wants to remove only tags from the existing `HTML`, they may be needed to `create extra instances` of classes, call extra methods. Methods, which can be tightly integrated with base class methods. Clients are coupled with other clients.
 
 ```csharp
 // Extra instance of `HttpClient`
@@ -143,8 +144,8 @@ htmlCleaner.RemoveSpanTags();
 
 ## `Adapter` pattern to follow ISP
 
-The code presented above, can be re-worked by extracting methods from the `HtmlCleaner` class that can only clean HTML into a separate class.<br>
-Then, break unwanted coupling between `clients`, either by implementing `adapter` pattern for the `HtmlClient` and `HtmlCleaner` classes, through the `multiple inheritance` (which is not supported in `C#`) or `object delegation`.
+The code presented above can be reworked by cleaning up the `HtmlCleaner` so that it implements only methods for cleaning `HTML`.<br>
+Next, break unwanted coupling between `clients`, either by implementing `adapter` pattern for the `HtmlClient` and `HtmlCleaner` classes, through the `multiple inheritance` (which is not supported in `C#`) or `object delegation`.
 
 ```csharp
 public class HtmlClient(HttpClient client)
