@@ -1,4 +1,4 @@
-# SOLID Liskov Substitution Principle
+# Liskov Substitution Principle
 
 Barbara Liskov, “Data Abstraction and Hierarchy,"
 > What is wanted here is something like the following substitution property: If
@@ -315,10 +315,11 @@ class Square : Rectangle
         // It is not allowed
         // Debug.Assert(width > 1000); 
 
-        // Precondition is weakened here
+        // Precondition can be only weakened here
         Contract.Requires(width > 50);
 
-        this.height = this.width = width;
+        base.SetWidth(width);
+        this.height = this.width;
     }
 }
 ```
@@ -344,9 +345,10 @@ class Square : Rectangle
 {
     public override void SetWidth(int width)
     {
-        this.height = this.width = width;
+        base.SetWidth(width);
+        this.height = this.width;
 
-        // Postcondition is strengthened here
+        // Postcondition can be only strengthened here
         Contract.Ensures(width > 1000);
 
         // It is not allowed

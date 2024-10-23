@@ -17,6 +17,7 @@
         - href: dev/dotnet/design-principles/solid/non-solid-single-reponsibility-principle.md
         - href: dev/dotnet/design-principles/solid/solid-open-closed-principle.md
         - href: dev/dotnet/design-principles/solid/solid-liskov-substitution-principle.md
+        - href: dev/dotnet/design-principles/solid/solid-interface-segregation-principle.md
       - name: oop
         items:
         - href: dev/dotnet/design-principles/oop/oop-vs-pp.md
