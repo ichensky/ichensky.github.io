@@ -18,6 +18,7 @@
         - href: dev/dotnet/design-principles/solid/solid-open-closed-principle.md
         - href: dev/dotnet/design-principles/solid/solid-liskov-substitution-principle.md
         - href: dev/dotnet/design-principles/solid/solid-interface-segregation-principle.md
+        - href: dev/dotnet/design-principles/solid/solid-dependency-inversion-principle.md
       - name: oop
         items:
         - href: dev/dotnet/design-principles/oop/oop-vs-pp.md
