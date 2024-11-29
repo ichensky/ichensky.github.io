@@ -70,6 +70,11 @@
       items:
       - href: wifi/openwrt/wireguard/openwrt-configure-wireguard.md
 
+- name: rfid
+  items:
+  - href: rf/em-410x.md
+  - href: rf/mifare-classic-1k.md
+
 
 - name: editors
   items:
