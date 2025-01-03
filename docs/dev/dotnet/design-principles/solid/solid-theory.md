@@ -35,4 +35,9 @@ The principles are a subset of many principles first introduced by [Robert C. Ma
 * **Dependency Inversion Principle**. 
   [dip](https://web.archive.org/web/20150905081103/http://www.objectmentor.com/resources/articles/dip.pdf)
 
-    > Depend upon abstractions, [not] concretions."
+  > A. High-level modules should not depend upon low-level modules. Both should depend upon abstractions.
+
+  > B. Abstractions should not depend upon details. Details should depend upon abstractions.
+
+   
+
