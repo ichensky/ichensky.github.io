@@ -22,6 +22,10 @@
       - name: oop
         items:
         - href: dev/dotnet/design-principles/oop/oop-vs-pp.md
+      - name: Arhitecture styles
+        items:
+        - href: dev/dotnet/design-principles/architecture-styles/n-tier-architecture.md
+
     - name: linux
       items:
       - href: dev/dotnet/linux/opt-out-dotnet-telemetry-at-linux.md
