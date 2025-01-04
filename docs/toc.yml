@@ -25,6 +25,7 @@
       - name: Arhitecture styles
         items:
         - href: dev/dotnet/design-principles/architecture-styles/n-tier-architecture.md
+        - href: dev/dotnet/design-principles/architecture-styles/clean-arhitecture/clean-arhitecture.md
 
     - name: linux
       items:
