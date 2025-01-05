@@ -26,6 +26,10 @@
         items:
         - href: dev/dotnet/design-principles/architecture-styles/n-tier-architecture.md
         - href: dev/dotnet/design-principles/architecture-styles/clean-arhitecture/clean-arhitecture.md
+        - name: 3-layer-architecture 
+          items:
+          - href: dev/dotnet/design-principles/architecture-styles/3-layer-architecture/3-layer-architecture.md
+          - href: dev/dotnet/design-principles/architecture-styles/3-layer-architecture/domain-layer.md
 
     - name: linux
       items:

@@ -5,7 +5,8 @@
 A `tier` refers to a distinct physical layer or group of servers within an application.   
 Tiers are not just conceptual; they are physically separated, often running on `different machines` or in different parts of a network.   
 
-While `layers` describe the logical organization of an application's components, `tiers` emphasize the physical distribution and deployment of those components.
+While `layers` describe the logical organization of an application's components, `tiers` emphasize the physical distribution and deployment of those components.<br>
+A layer is a logically separated part of the application.
 
 #### Example
 Traditional web applications have 3 tiers: `Presentation Tier`, `Business Tier`, and `Data Access Tier`.
