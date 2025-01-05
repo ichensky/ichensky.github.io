@@ -8,7 +8,13 @@ _layout: landing
 <script src="public/index.js"></script>
 <br>
 
-
 Welcome to my personal page. 
 
 Please, check [about](pages/about.md). 
+
+After reading a book or acquiring useful information, I like to make notes.
+
+Some of them are shared on this website. Please, check `Docs`.
+
+
+![screen](images/screen.png)
