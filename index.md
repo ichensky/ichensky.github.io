@@ -12,9 +12,6 @@ Welcome to my personal page.
 
 Please, check [about](pages/about.md). 
 
-After reading a book or acquiring useful information, I like to make notes.
-
-Some of them are shared on this website. Please, check `Docs`.
-
+Useful notes and articles located in the `Docs` section.
 
 ![screen](images/screen.png)
