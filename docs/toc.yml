@@ -26,10 +26,20 @@
         items:
         - href: dev/dotnet/design-principles/architecture-styles/n-tier-architecture.md
         - href: dev/dotnet/design-principles/architecture-styles/clean-arhitecture/clean-arhitecture.md
-        - name: 3-layer-architecture 
+        - href: dev/dotnet/design-principles/architecture-styles/3-layer-architecture.md
+        - name: Application Layers
           items:
-          - href: dev/dotnet/design-principles/architecture-styles/3-layer-architecture/3-layer-architecture.md
-          - href: dev/dotnet/design-principles/architecture-styles/3-layer-architecture/domain-layer.md
+            - name: Domain Layer
+              items:
+                - href: dev/dotnet/design-principles/application-layers/domain-layer/domain-layer.md
+                - href: dev/dotnet/design-principles/application-layers/domain-layer/transaction-script.md
+                - href: dev/dotnet/design-principles/application-layers/domain-layer/table-module/table-module.md
+                - href: dev/dotnet/design-principles/application-layers/domain-layer/domain-model/domain-model.md
+                - href: dev/dotnet/design-principles/application-layers/domain-layer/ddd-domain-model.md
+            - name: Data Access Layer
+              items:
+                - href: dev/dotnet/design-principles/application-layers/data-access-layer/data-access-layer.md
+                - href: dev/dotnet/design-principles/application-layers/data-access-layer/row-gateway.md
 
     - name: linux
       items:

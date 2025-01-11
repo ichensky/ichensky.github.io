@@ -1,11 +1,11 @@
-# Three Layer Architecture
+# 3 Layer Architecture
 
 A three-layer architecture is a common software design pattern that divides an application into three distinct layers.<br>
 A layer is a logically separated part of the application.
 
 `Presentation Layer` - Handles user clicks, HTTP requests, and provides the API for user interaction. 
 
-`Domain Layer` - Domain(business) logic of the application. This layer handles data and converts it to other data structures."
+`Domain Layer` - Domain(business) logic of the application. This layer handles data and converts it to other data structures.
 
 `Data Access Layer` - Provides access to the database and manages transactions.
 
