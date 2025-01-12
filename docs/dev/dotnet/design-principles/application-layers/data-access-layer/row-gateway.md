@@ -4,18 +4,15 @@ Row Gateway pattern represents a `single row` of a database table as an `object`
 It's methods provides access to individual fields of the row.
 
 ### Q/A
-**Q**: Can Row Gateway pattern modify several rows at once? 
-
+**Q**: Can Row Gateway pattern modify several rows at once?<br>
 **A**: No, the `Row Gateway` pattern is fundamentally designed to encapsulate access to a **single** row within a database table.
 
 
-**Q**: Can `Row Gateway` pattern fetch several rows?
-
+**Q**: Can `Row Gateway` pattern fetch several rows?<br>
 **A**: No, when a class starts fetching multiple rows, it's shifting towards the responsibilities of a `Table Gateway`.
 
 
-**Q**: How to fetch data from joined tables?
-
+**Q**: How to fetch data from joined tables?<br>
 **A**: The `Row Gateway` pattern is primarily designed to encapsulate access to a single row within a database table. To fetch data from joined tables, it is needed to create another Gateway class specifically for the joined data.
 
 ### Row Gateway Pattern Pros
