@@ -38,8 +38,9 @@
                 - href: dev/dotnet/design-principles/application-layers/domain-layer/ddd-domain-model.md
             - name: Data Access Layer
               items:
-                - href: dev/dotnet/design-principles/application-layers/data-access-layer/data-access-layer.md
+                # - href: dev/dotnet/design-principles/application-layers/data-access-layer/data-access-layer.md
                 - href: dev/dotnet/design-principles/application-layers/data-access-layer/row-gateway.md
+                - href: dev/dotnet/design-principles/application-layers/data-access-layer/table-gateway.md
 
     - name: linux
       items:
