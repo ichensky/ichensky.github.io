@@ -10,6 +10,9 @@
       - href: dev/dotnet/coreclr/debug-coreclr-with-visual-studio.md
     - name: design principles
       items: 
+      - name: oop
+        items:
+        - href: dev/dotnet/design-principles/oop/oop-vs-pp.md
       - name: SOLID  
         items:
         - href: dev/dotnet/design-principles/solid/solid-theory.md
@@ -19,14 +22,11 @@
         - href: dev/dotnet/design-principles/solid/solid-liskov-substitution-principle.md
         - href: dev/dotnet/design-principles/solid/solid-interface-segregation-principle.md
         - href: dev/dotnet/design-principles/solid/solid-dependency-inversion-principle.md
-      - name: oop
-        items:
-        - href: dev/dotnet/design-principles/oop/oop-vs-pp.md
       - name: Arhitecture styles
         items:
         - href: dev/dotnet/design-principles/architecture-styles/n-tier-architecture.md
-        - href: dev/dotnet/design-principles/architecture-styles/clean-arhitecture/clean-arhitecture.md
         - href: dev/dotnet/design-principles/architecture-styles/3-layer-architecture.md
+        - href: dev/dotnet/design-principles/architecture-styles/clean-arhitecture/clean-arhitecture.md
         - name: Application Layers
           items:
             - name: Domain Layer
@@ -38,9 +38,12 @@
                 - href: dev/dotnet/design-principles/application-layers/domain-layer/ddd-domain-model.md
             - name: Data Access Layer
               items:
-                # - href: dev/dotnet/design-principles/application-layers/data-access-layer/data-access-layer.md
+                - href: dev/dotnet/design-principles/application-layers/data-access-layer/data-access-layer.md
                 - href: dev/dotnet/design-principles/application-layers/data-access-layer/row-gateway.md
                 - href: dev/dotnet/design-principles/application-layers/data-access-layer/table-gateway.md
+                - href: dev/dotnet/design-principles/application-layers/data-access-layer/active-record.md
+                - href: dev/dotnet/design-principles/application-layers/data-access-layer/data-mapper.md
+                - href: dev/dotnet/design-principles/application-layers/data-access-layer/data-access-object.md
 
     - name: linux
       items:
