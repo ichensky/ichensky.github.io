@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.6">
+  <diagram name="Page-1" id="54w9G7yzfh6iUQYnU1Zs">
+    <mxGraphModel dx="1144" dy="1854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-3" value="Application Layer" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="290" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-6" value="Command" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-3">
+          <mxGeometry x="20" y="50" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-7" value="Query" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-3">
+          <mxGeometry x="20" y="150" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-4" value="Domain Layer" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="-130" width="160" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-21" value="Hotel" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-4">
+          <mxGeometry x="10" y="40" width="140" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-22" value="Id" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-21">
+          <mxGeometry y="29" width="140" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-24" value="Name" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-21">
+          <mxGeometry y="54" width="140" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-23" value="void ChangeName(...)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-21">
+          <mxGeometry y="79" width="140" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-8" value="Data Access Layer" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="70" width="400" height="265" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-9" value="HotelRepository" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-8">
+          <mxGeometry x="20" y="50" width="350" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-13" value="Hotels[] GetByNameAsync(...)" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-9">
+          <mxGeometry y="29" width="350" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-12" value="Task&amp;lt;int&amp;gt; UpdateAsync(Hotel)" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-9">
+          <mxGeometry y="54" width="350" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-14" value="HoteNameDto GetHotelNamesAsync(...)" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-9">
+          <mxGeometry y="79" width="350" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-18" value="HotelNameDto" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-8">
+          <mxGeometry x="20" y="165" width="140" height="79" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-19" value="Id" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-18">
+          <mxGeometry y="29" width="140" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-20" value="Name" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="wJ-Mje8PpJ3iMQONKWg5-18">
+          <mxGeometry y="54" width="140" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-15" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1.012;exitY=0.338;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="wJ-Mje8PpJ3iMQONKWg5-6" target="wJ-Mje8PpJ3iMQONKWg5-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-16" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wJ-Mje8PpJ3iMQONKWg5-6" target="wJ-Mje8PpJ3iMQONKWg5-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wJ-Mje8PpJ3iMQONKWg5-17" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wJ-Mje8PpJ3iMQONKWg5-7" target="wJ-Mje8PpJ3iMQONKWg5-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
