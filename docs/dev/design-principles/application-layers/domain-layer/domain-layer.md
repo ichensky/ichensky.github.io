@@ -89,3 +89,51 @@ class BusinessService {
 }
 ```
 
+### What pattern should be chosen? 
+
+#### Table Module
+
+The `Table Module` pattern would be a good choice if:
+
+- There is no time to consider domain models. 
+- Requirements are not fully defined and can be significantly be changed.
+
+- The team is large, and there is neither time nor staff for code review.
+- Most of the team members lack experience and knowledge of OOP and DDD. 
+- There is not time for unit and integration tests.
+
+- A project mostly consists of CRUD operations.
+- Performance is a priority for the project.
+
+The `Table Module` works well with the `Table Gateway` data access layer pattern.
+
+Code rich in business logic can be moved to separate `business services`, and even parts of the application can be incorporated into `Domain models`.
+
+If performance is a high priority, bottlenecks can be optimized using the `Transaction Script` pattern.
+
+The `Table Module` pattern is well-suited for projects with simple code where the goal is to quickly create a more or less functional prototype with the main functionality.
+
+#### Domain Model
+
+The `Domain Model` pattern would be a good choice if:
+
+- The requirements are reasonably clear, and there is an understanding of which domain models can be created.
+- The application will have business logic that is suitable for being incorporated into domain models.
+- There are architects on the team who can plan the development of domain models that can be reused across different user stories, especially at the beginning of the project.
+
+- The business logic is planned to be covered with unit or integration tests.
+
+- The team lacks knowledge of DDD.
+- It is planned to implement many lazy loadings in the objects from the start for performance improvements. 
+
+#### DDD Domain Model
+
+The `DDD` pattern would be a good choice if:
+
+- Code maintainability, supportability and clear business logic are prioritized over performance.
+- The team has time to carefully plan domain objects, for example, using the `Event Storming` technique.
+- The project is planned for long-term, easy support with minimal effort.
+
+When a project is built with DDD, stabilized, and covered by unit, integration, smoke, and other tests, optimizing different parts of the application without breaking anything can be achieved with relatively little effort. For example, this can be done by introducing lazy loading or even rewriting some parts with the `Transaction Script` pattern for frequently changing elements, such as the status of objects.
+
+Code well-written using DDD is very easy to support. It is a good choice for projects full of business logic.
