@@ -119,11 +119,9 @@ The `Domain Model` pattern would be a good choice if:
 
 - The requirements are reasonably clear, and there is an understanding of which domain models can be created.
 - The application will have business logic that is suitable for being incorporated into domain models.
-- There are architects on the team who can plan the development of domain models that can be reused across different user stories, especially at the beginning of the project.
 
 - The business logic is planned to be covered with unit or integration tests.
 
-- The team lacks knowledge of DDD.
 - It is planned to implement many lazy loadings in the objects from the start for performance improvements. 
 
 #### DDD Domain Model
