@@ -272,9 +272,24 @@ package MVC{
 
 The outermost layer is generally composed of frameworks and tools, such as the Database and the Web Framework. Typically, this layer requires only minimal 'glue code' to interface with the next inner circle.
 
-### Data flow
+### Control flow
 
-A user, with the help of a browser, makes a request to one of the `Controllers` within the `Interface Adapters layer`. This `Controller` validates the input `view model` and then calls one of the `Use Case` services. The `Use Case Service`, using `IAppDbContext` injected through dependency injection, loads the corresponding business object (`Entity`) from the database. Subsequently, the `Use Case Service` invokes the relevant enterprise business rules (methods defined within the `Entity`), saves the modified `Entity` back to the database, and finally returns a response to the `Interface Adapters layer`. The `Interface Adapters layer` then constructs and delivers the response to the user.
+**Request from the UI**: A user interacts with the user interface, triggering a request. This could be anything, like clicking a button or submitting a form.   
 
+**Controller**: The request is received by a controller in the `Presentation layer`. The controller's job is to translate the request into a format that the `Use Case` layer can understand. It doesn't contain any business logic itself.   
 
-![clean arhitecture](images/CleanArhitecture.drawio.png)
+**Use Case**: The controller calls a specific `Use Case` in the `Application layer`. This `Use Case` encapsulates the business logic for that particular request. It orchestrates the necessary actions, potentially interacting with entities in the `Domain layer`.   
+
+**Entities**: The `Use Case` might interact with entities in the `Domain layer`. `Entities` represent the core concepts of the application and contain business logic related to those concepts.   
+
+**Data Access**: If the `Use Case` needs to retrieve or store data, it will interact with an interface in the `Application layer`, which handles the specifics of data access (e.g., database, API), and which implementation resides in the `Infrastructure layer`.   
+
+**Presenter**: Once the `Use Case` has completed its work, it passes the *results*(data) to a `Presenter` in the `Presentation layer`. The `Presenter's` job is to **format the data** in a way that the UI can understand.   
+
+**UI Update**: The `Presenter` updates the UI with the results of the Use Case.
+
+![clean arhitecture control flow](images/clean_arhitecture_control_flow.drawio.png)
+
+### Code Example
+
+[clean-architecture-example of TODO application](https://github.com/ichensky/clean-architecture-example/)
