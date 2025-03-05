@@ -290,6 +290,63 @@ The outermost layer is generally composed of frameworks and tools, such as the D
 
 ![clean arhitecture control flow](images/clean_arhitecture_control_flow.drawio.png)
 
+
 ### Code Example
+
+##### ASP .NET Core MVC(with Razor) Example of the TODO web application
+
+* *Note*: In the classical MVC pattern, the View maintains an observer relationship with the Model. When the Model changes, it notifies the View, which then re-renders the Model's data.
+`Controller -> Model <= View`<br>
+A typical HTTP web application (ASP.NET Core MVC) renders HTML within the same request-response cycle. Therefore, in the code example, the `Controller` explicitly calls the `Presenter` to prepare the `ViewModel` and passes it to the `Razor` library, which then renders the `HTML page` based on the `ViewModel`.
+
+The controller receives data from the user, calls the business logic, and after receiving the result, passes it to the presenter, which adapts it for the view. The controller then returns the result to the user.
+
+<hidden style="display:none">
+@startuml
+actor User
+participant ITodoPresenter
+control TodoController
+participant ITodoService
+entity Todo
+participant ITodoContext
+database db
+
+group Add TODO
+  User -> TodoController : HTTP Request - Add(addTodoInputModel)
+  group Create TODO
+  TodoController -> ITodoService: CreateTodo(title)
+  ITodoService -> Todo: ctor(title)
+  ITodoService <- Todo
+  ITodoService -> ITodoContext: todoContext.Todo.Add(todoModel)
+  ITodoContext -> db: Save(todo)
+  ITodoContext <- db
+  ITodoService <-- ITodoContext: [Todo model is saved]
+  TodoController <-- ITodoService: [Todo is created]
+  end
+  
+  group Get list of TODOs
+  TodoController -> ITodoService: GetTodos()
+  ITodoService -> ITodoContext: todoContext.Todo.ToListAsync()
+  ITodoContext -> db: LoadTodos()
+  ITodoContext <- db
+  ITodoService <- ITodoContext: [returns list of TODOs]
+  TodoController <- ITodoService: [returns list of TODOs]
+  end
+
+  group Prepare TODOs ViewModel
+  TodoController -> ITodoPresenter: CreateTodoViewModel(todos)
+  TodoController <- ITodoPresenter: [returns todos ViewModel]
+  end
+
+  User <- TodoController: HTTP Response [returns todos ViewModel] 
+  
+end
+
+@enduml
+</hidden>
+
+![Clean arhitecture - TODO application example](images/clean_architecture_todo_app_example.png)
+
+* *Note*: For diagram simplicity, the conversion of the ViewModel to HTML using the Razor library is omitted.
 
 [clean-architecture-example of TODO application](https://github.com/ichensky/clean-architecture-example/)
