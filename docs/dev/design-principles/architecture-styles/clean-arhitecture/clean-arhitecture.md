@@ -236,7 +236,7 @@ The outermost layer is generally composed of frameworks and tools, such as the D
 
 **UI Update**: The `Presenter` updates the UI with the results of the `Use Case`.
 
-Clean arhitecture control flow class UML diagram:
+##### Clean arhitecture control flow `class` UML diagram:
 ![Clean arhitecture control flow UML diagram](images/CleanArhitecture_ControlFlow_UML.drawio.png)
 
 * Open arrowheads are using relationships. 
@@ -244,13 +244,18 @@ Clean arhitecture control flow class UML diagram:
 
 **Presenters, gateways, and controllers are just plugins to the application.**
 
-Clean arhitecture control flow components UML diagram:
+##### Clean arhitecture control flow `components` UML diagrams:
+![Clean arhitecture control flow general components UML diagram](images/Clean-arhitecture-general-component-diagram.drawio.png)
+
+Controller-presenter details:
+
 ![Clean arhitecture control flow components UML diagram](images/Clean_Arhitecture_component_diagram.drawio.png)
 
 * The component relationships are indirectional.
 
-Another diagram: 
+##### Data flow diagram:<br> 
 ![clean arhitecture data flow](images/clean_arhitecture_control_flow.drawio.png)
+
 
 ### Code Example
 
@@ -562,3 +567,7 @@ public class TodoController(ITodoService todoService,
     }
 }
 ```
+#### Clean arhitecture control flow components UML diagram:
+![Clean arhitecture control flow components UML diagram](images/Clean_Arhitecture_component_diagram.drawio.png)
+
+* The component relationships are indirectional.
