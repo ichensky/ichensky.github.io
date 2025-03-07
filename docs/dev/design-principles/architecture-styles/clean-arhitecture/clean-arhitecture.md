@@ -238,7 +238,7 @@ The outermost layer is generally composed of frameworks and tools, such as the D
 
 ![clean arhitecture control flow](images/clean_arhitecture_control_flow.drawio.png)
 
-Presenters, gateways, and controllers are just plugins to the application.
+**Presenters, gateways, and controllers are just plugins to the application.**
 
 ![Clean arhitecture control flow UML diagram](images/CleanArhitecture_ControlFlow_UML.drawio.png)
 
