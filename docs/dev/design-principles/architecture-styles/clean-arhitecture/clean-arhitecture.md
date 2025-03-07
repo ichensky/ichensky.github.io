@@ -357,3 +357,63 @@ public class TodoPresenter : ITodoPresenter
     }
 }
 ```
+
+##### Controllers Layer
+
+![Controllers Layer](images/code-example/ControllersLayer.png)
+
+This layer contains the main application code that starts and configures the application, and includes controllers that handle HTTP requests. Ideally, the controllers layer should be separated into a distinct library, but for simplicity, this is omitted.
+
+Because this application doesn't use web sockets or polling to bind view models to the view, and returns an HTML page in the same request/response, the controllers layer has a dependency on the `presentation layer` library, slightly violating `Clean Architecture`.
+
+Here the controller calls the application layer to execute application logic, then calls a presenter to generate a view model, and passes it to the Razor Engine, which converts it to an HTML page. 
+
+
+```csharp
+public class TodoController(ITodoService todoService) : Controller
+{
+    public async Task<IActionResult> Index()
+    {
+        return await ShowIndexView();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(AddTodoInputModel model)
+    {
+        await todoService.CreateTodoCommand(model.Title);
+
+        return await ShowIndexView();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(DeleteTodoInputModel model)
+    {
+        await todoService.DeleteTodoCommand(model.Id);
+
+        return await ShowIndexView();
+    }
+
+    private async Task<IActionResult> ShowIndexView()
+    {
+        var todoPresenter = await GetTodoPresenter(todoService);
+
+        var viewModel = todoPresenter.TodoViewModel();
+
+        return View("Index", viewModel);
+    }
+
+    private static async Task<TodoPresenter> GetTodoPresenter(ITodoService todoService)
+    {
+        var presenters = await todoService.ShowTodosQueue();
+
+        if (presenters.TodoPresenter is not TodoPresenter todoPresenter)
+        {
+            throw new InvalidOperationException("Invalid presenter");
+        }
+
+        return todoPresenter;
+    }
+}
+``` 
+
+
