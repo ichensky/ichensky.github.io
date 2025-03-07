@@ -250,7 +250,7 @@ Presenters, gateways, and controllers are just plugins to the application.
 
 
 ##### Domain Layer
-![DomainLayer](images/code-example/DomainLayer.png)
+![Domain Layer](images/code-example/DomainLayer.png)
 
 The domain layer contains entities (models like the Todo model) that encapsulate enterprise business rules.<br>
 This layer also includes input/output port interfaces.<br>
@@ -259,10 +259,14 @@ The domain layer library has no dependencies on other libraries in this project.
 
 ##### Application Layer
 
-![ApplicationLayer](images/code-example/ApplicationLayer.png)
+![Application Layer](images/code-example/ApplicationLayer.png)
 
-The application layer contains use case interactors. The TodoService interactor calls methods from input/output port plugins.<br>
+The application layer contains use case interactors.<br>
+The TodoService interactor calls methods from input/output port plugins.
+
 The interactor specifies not only **how** the UI is updated and **what** data is saved or provided to the UI, but also **when** the data will be available.
+
+The application layer has a dependency on the domain layer.
 
 ```csharp
 public class TodoService(ITodoContext todoContext, ITodoPresenter todoPresenter, ITodoReportPresenter todoReportPresenter) : ITodoService
@@ -293,6 +297,28 @@ public class TodoService(ITodoContext todoContext, ITodoPresenter todoPresenter,
 
 ##### Infrastructure Layer
 
-![InfrastructureLayer](images/code-example/InfrastructureLayer.png)
+![Infrastructure Layer](images/code-example/InfrastructureLayer.png)
 
 The infrastructure layer contains gateways to interact with external resources, such as databases and services.
+
+The infrastructure layer has a dependency on the domain layer.
+
+```csharp
+public class TodoContext : DbContext, ITodoContext
+{
+    public DbSet<Todo> Todo { get; set; }
+
+    public Task SaveChangesAsync()
+    {
+        return base.SaveChangesAsync();
+    }
+    ...
+}
+
+```
+
+##### Presentation Layer
+
+![Presentation Layer](images/code-example/PresentersLayer.png)
+
+The presentation layer consists of `Presenters` that implement `Output Port` interfaces and adapt `Response Models` to `View models`, which are then passed or bound to the View.
