@@ -14,4 +14,11 @@ Please, check [about](pages/about.md).
 
 Useful notes and articles located in the `Docs` section.
 
-![screen](images/screen.png)
+[Clean arhitecture](docs/dev/design-principles/architecture-styles/clean-arhitecture/clean-arhitecture.html#code-example)
+
+![clean-arhitecture-article-screen](images/clean-arhitecture-article-screen.png)
+
+
+[Domain Layer](docs/dev/design-principles/application-layers/domain-layer/domain-layer.html)
+
+![domain-layer-scree](images/domain-layer-scree.png)
