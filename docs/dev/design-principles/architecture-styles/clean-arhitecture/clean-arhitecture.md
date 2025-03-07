@@ -236,13 +236,18 @@ The outermost layer is generally composed of frameworks and tools, such as the D
 
 **UI Update**: The `Presenter` updates the UI with the results of the `Use Case`.
 
-Clean arhitecture control flow UML diagram:
+Clean arhitecture control flow class UML diagram:
 ![Clean arhitecture control flow UML diagram](images/CleanArhitecture_ControlFlow_UML.drawio.png)
 
 * Open arrowheads are using relationships. 
 * Closed arrowheads are implements or inheritance relationships
 
 **Presenters, gateways, and controllers are just plugins to the application.**
+
+Clean arhitecture control flow components UML diagram:
+![Clean arhitecture control flow components UML diagram](images/Clean_Arhitecture_component_diagram.drawio.png)
+
+* The component relationships are indirectional.
 
 Another diagram: 
 ![clean arhitecture data flow](images/clean_arhitecture_control_flow.drawio.png)
@@ -503,16 +508,33 @@ Ideally, the `controllers layer` should be separated into a `distinct library`, 
 The `controllers layer` has a `dependency` only on the inner layers: `domain layer` and `application layer`.
 But main application code has dependency on all layers.
 
-The controller calls the application layer to execute application logic, then calls a presenter to generate a view model, and passes it to the Razor Engine, which converts it to an HTML page. 
+The controller calls the application layer to execute application logic, then calls a presenter to generate a view model, and passes it to the Razor Engine, which converts it to an HTML page or uploads a generated report as a file. 
 
-TodoController:
+`TodoController`:
 ```csharp
 public class TodoController(ITodoService todoService, ITodoIndexPagePresenter todoIndexPagePresenter) : Controller
+namespace CleanArchitectureExample.Controllers;
+
+public class TodoController(ITodoService todoService, 
+    ITodoIndexPagePresenter todoIndexPagePresenter, 
+    ITodoReportPresenter todoReportPresenter) : Controller
 {
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         return await ShowIndexView();
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Report()
+    {
+        await todoService.PrintTodosQuery(todoReportPresenter);
+
+        var report = todoReportPresenter.GetReport();
+
+        return File(Encoding.Unicode.GetBytes(report), "text/plain", "TodosReport.txt");
+    }
+
 
     [HttpPost]
     public async Task<IActionResult> Add(AddTodoInputModel model)
@@ -539,21 +561,4 @@ public class TodoController(ITodoService todoService, ITodoIndexPagePresenter to
         return View("Index", viewModel);
     }
 }
-``` 
-
-TodoReportController:
-```csharp
-public class TodoReportController(ITodoService todoService, ITodoReportPresenter todoReportPresenter) : Controller
-{
-    [HttpPost]
-    public async Task<IActionResult> Index()
-    {
-        await todoService.PrintTodosQuery(todoReportPresenter);
-
-        var report = todoReportPresenter.GetReport();
-
-        return File(Encoding.Unicode.GetBytes(report), "text/plain", "TodosReport.txt");
-    }
-}
 ```
-The `TodoReportController` calls the use case interactor `ITodoService` with an `ITodoReportPresenter`, which, instead of generating a `view model`, prints a string containing a report. Afterward, the `TodoReportController` uploads a file containing the report to the user.
