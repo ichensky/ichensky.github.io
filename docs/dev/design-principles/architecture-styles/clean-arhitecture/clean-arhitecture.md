@@ -257,7 +257,7 @@ Controller-presenter details:
 ![clean arhitecture data flow](images/clean_arhitecture_control_flow.drawio.png)
 
 
-### Clean arhitecture Code Example
+### Clean arhitecture - Code Example
 
 #### ASP .NET Core MVC(with Razor) Example of the TODO web application
 
