@@ -224,7 +224,7 @@ The outermost layer is generally composed of frameworks and tools, such as the D
 
 **Request from the UI**: A user interacts with the user interface, triggering a request. This could be anything, like clicking a button or submitting a form.   
 
-**Controller**: The request is received by a controller in the `Presentation layer`. The controller's job is to translate the request into a format that the `Use Case` layer can understand. It doesn't contain any business logic itself.   
+**Controller**: The request is received by a controller in the `Controllers layer`. The controller's job is to translate the request into a format that the `Use Case` layer can understand. It doesn't contain any business logic itself.   
 
 **Use Case**: The controller calls a specific `Use Case` in the `Application layer`. This `Use Case` encapsulates the business logic for that particular request. It orchestrates the necessary actions, potentially interacting with entities in the `Domain layer`.   
 
@@ -234,13 +234,18 @@ The outermost layer is generally composed of frameworks and tools, such as the D
 
 **Presenter**: Once the `Use Case` has completed its work, it passes the *results*(data) to a `Presenter` in the `Presentation layer`. The `Presenter's` job is to **format the data** in a way that the UI can understand.   
 
-**UI Update**: The `Presenter` updates the UI with the results of the Use Case.
+**UI Update**: The `Presenter` updates the UI with the results of the `Use Case`.
 
-![clean arhitecture control flow](images/clean_arhitecture_control_flow.drawio.png)
+Clean arhitecture control flow UML diagram:
+![Clean arhitecture control flow UML diagram](images/CleanArhitecture_ControlFlow_UML.drawio.png)
+
+* Open arrowheads are using relationships. 
+* Closed arrowheads are implements or inheritance relationships
 
 **Presenters, gateways, and controllers are just plugins to the application.**
 
-![Clean arhitecture control flow UML diagram](images/CleanArhitecture_ControlFlow_UML.drawio.png)
+Another diagram: 
+![clean arhitecture data flow](images/clean_arhitecture_control_flow.drawio.png)
 
 ### Code Example
 
@@ -252,35 +257,76 @@ The outermost layer is generally composed of frameworks and tools, such as the D
 ##### Domain Layer
 ![Domain Layer](images/code-example/DomainLayer.png)
 
-The domain layer contains entities (models like the Todo model) that encapsulate enterprise business rules.<br>
-This layer also includes input/output port interfaces.<br>
-Domain layer library doesn't have any dependecies to the libraries from other libraries in this project.<br>
+The domain layer contains `entities` (models like the Todo model) that encapsulate enterprise business rules.
+
+```csharp
+    public class Todo
+    {
+        public Todo() { }
+
+        public Todo(string title)
+        {
+            Id = Guid.NewGuid();
+            Date = DateTime.UtcNow;
+            SetTitle(title);
+        }
+
+        public Guid Id { get; protected set; }
+
+        public string Title { get; protected set; }
+
+        public DateTime Date { get; protected set; }
+
+        public DateTime UpdateDate { get; protected set; }
+
+        public void UpdateTitle(string title)
+        {
+            SetTitle(title);
+        }
+
+        private void SetTitle(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                throw new BusinessException("Title cannot be empty");
+            }
+
+            if (title.Length > 100)
+            {
+                throw new BusinessException("Title cannot be longer than 100 characters");
+            }
+
+            Title = title;
+        }
+    }
+```
+
 The domain layer library has no dependencies on other libraries in this project.
+This layer can also contain interfaces that can be reused by other outer layers.
 
 ##### Application Layer
 
 ![Application Layer](images/code-example/ApplicationLayer.png)
 
-The application layer contains use case interactors.<br>
-The TodoService interactor calls methods from input/output port plugins.
+The application layer contains use case interactors, that calls methods from input/output port plugins.<br>
+The `TodoService` interactor implement `Input Port` interface `ITodoService` and use `Ouput Port interfaces`: `ITodoPresenter`, `ITodoContext`.
 
-The interactor specifies not only **how** the UI is updated and **what** data is saved or provided to the UI, but also **when** the data will be available.
+This layer is unaware of which database is used or how data is presented in the View. It mainly contains command methods that modify Entities and query methods that list Entities.
 
-The application layer has a dependency on the domain layer.
+The application layer has a dependency only on the `inner` domain layer.
 
 ```csharp
-public class TodoService(ITodoContext todoContext, ITodoPresenter todoPresenter, ITodoReportPresenter todoReportPresenter) : ITodoService
+namespace ApplicationLayer.Interactors;
+
+public class TodoService(ITodoContext todoContext) : ITodoService
 {
-    public async Task<(ITodoPresenter, ITodoReportPresenter)> ShowTodosQueue()
+    public async Task PrintTodosQuery(ITodoPresenter todoPresenter)
     {
         var todo = await todoContext.Todo.AsNoTracking().OrderByDescending(todo => todo.Date).ToListAsync();
 
         var todosResponseModel = new TodosResponseModel(todo);
 
         todoPresenter.SetTodos(todosResponseModel);
-        todoReportPresenter.SetTodos(todosResponseModel);
-
-        return (todoPresenter, todoReportPresenter);
     }
 
     public async Task CreateTodoCommand(string title)
@@ -291,9 +337,68 @@ public class TodoService(ITodoContext todoContext, ITodoPresenter todoPresenter,
 
         await todoContext.SaveChangesAsync();
     }
-    ...
+
+    //...
+
+    public async Task DeleteTodoCommand(Guid id)
+    {
+        if (id == Guid.Empty)
+        {
+            throw new ArgumentException("Invalid id");
+        }
+
+        var todo = await TryGetTodoById(id) ?? throw new InvalidOperationException("Todo not found");
+
+        todoContext.Todo.Remove(todo);
+
+        await todoContext.SaveChangesAsync();
+    }
+
+    //...
 }
 ```
+
+This layer also includes input/output port interfaces.
+
+##### Input Port interfaces:
+```csharp
+namespace DomainLayer.SeedCore.InputPorts;
+
+public interface ITodoService
+{
+    Task PrintTodosQuery(ITodoPresenter todoPresenter);
+
+    Task CreateTodoCommand(string title);
+
+    Task DeleteTodoCommand(Guid id);
+
+    Task UpdateTodoTitleCommand(UpdateTodoTitleRequestModel updateTodoTitleRequestModel);
+}
+```
+The `input port` takes `RequestModel` as a parameter, which is data received from the User and handled by the interactor.
+
+##### Output Port interfaces:
+```csharp
+namespace DomainLayer.SeedCore.OutputPorts.Presenters;
+
+public interface ITodoPresenter
+{
+    void SetTodos(TodosResponseModel todosResponseModel);
+}
+```
+```csharp
+namespace ApplicationLayer.OutputPorts.Gateways;
+
+public interface ITodoContext
+{
+    DbSet<Todo> Todo { get; set; }
+
+    Task SaveChangesAsync();
+
+    bool DatabaseEnsureCreated();
+}
+```
+The `output port` takes `ResponseModel` as a parameter, which is then used to either `save` `Entities`, `query` `Entities`, or `display` `Entities` on the output terminal/source.
 
 ##### Infrastructure Layer
 
@@ -301,7 +406,7 @@ public class TodoService(ITodoContext todoContext, ITodoPresenter todoPresenter,
 
 The infrastructure layer contains gateways to interact with external resources, such as databases and services.
 
-The infrastructure layer has a dependency on the domain layer.
+The infrastructure layer has a `dependency` on the inner layers: `domain layer` and `application layer`.
 
 ```csharp
 public class TodoContext : DbContext, ITodoContext
@@ -323,37 +428,66 @@ public class TodoContext : DbContext, ITodoContext
 
 The presentation layer consists of `Presenters` that implement `Output Port` interfaces and adapt `Response Models` to `View models`, which are then passed or bound to the View.<br>
 
-The infrastructure layer has a dependency on the domain and application layers.
+The presentation layer has a `dependency` on the inner layers: `domain layer` and `application layer`.
 
+TodoIndexPagePresenter: 
 ```csharp
-public class TodoPresenter : ITodoPresenter
+public class TodoIndexPagePresenter : ITodoIndexPagePresenter
 {
-    private TodosResponseModel? todosResponseModel;
+    private TodosResponseModel todosResponseModel;
 
     public void SetTodos(TodosResponseModel todosResponseModel)
     {
+        ArgumentNullException.ThrowIfNull(todosResponseModel, nameof(todosResponseModel));
+
         this.todosResponseModel = todosResponseModel;
     }
 
-    public TodoViewModel TodoViewModel()
+    public TodoViewModel GetViewModel()
     {
-        if (todosResponseModel is null)
-        {
-            return new TodoViewModel
-            {
-                Title = string.Empty,
-                Todos = []
-            };
-        }
-
         return new TodoViewModel
         {
             Title = string.Empty,
             Todos = [.. todosResponseModel.Todos.Select(todo => new TodoDto(
                 todo.Id,
-                todo.Title.FirstCharToUpper(),
-                todo.Date.ToString("yyyy-MM-dd.hh:mm")))]
+                todo.Title,
+                todo.Date.ToString("yyyy-MM-dd")))]
         };
+    }
+}
+```
+TodoReportPresenter:
+```csharp
+public class TodoReportPresenter : ITodoReportPresenter
+{
+    private TodosResponseModel todosResponseModel;
+
+    public void SetTodos(TodosResponseModel todosResponseModel)
+    {
+        ArgumentNullException.ThrowIfNull(todosResponseModel, nameof(todosResponseModel));
+
+        this.todosResponseModel = todosResponseModel;
+    }
+
+    public string GetReport()
+    {
+        if (todosResponseModel.Todos.Count == 0)
+        {
+            return $"""
+                    There are no todos.
+                    Date: {DateTime.Now:yyyy - MM - dd.hh:mm}
+                    """;
+        }
+
+        return $"""
+                There are {todosResponseModel.Todos.Count} todos.
+                Date: {DateTime.Now:yyyy - MM - dd.hh:mm}
+
+                Todos: 
+                {string.Join(Environment.NewLine,
+                    todosResponseModel.Todos
+                        .Select(todo => $"{todo.Date:yyyyy - MM - dd.hh:mm}: {todo.Title}"))}
+                """;
     }
 }
 ```
@@ -362,15 +496,18 @@ public class TodoPresenter : ITodoPresenter
 
 ![Controllers Layer](images/code-example/ControllersLayer.png)
 
-This layer contains the main application code that starts and configures the application, and includes controllers that handle HTTP requests. Ideally, the controllers layer should be separated into a distinct library, but for simplicity, this is omitted.
+In the current application, this layer contains the Controllers layer and the main application code that starts and configures the application.
 
-Because this application doesn't use web sockets or polling to bind view models to the view, and returns an HTML page in the same request/response, the controllers layer has a dependency on the `presentation layer` library, slightly violating `Clean Architecture`.
+Ideally, the `controllers layer` should be separated into a `distinct library`, for simplicity, this is omitted.
 
-Here the controller calls the application layer to execute application logic, then calls a presenter to generate a view model, and passes it to the Razor Engine, which converts it to an HTML page. 
+The `controllers layer` has a `dependency` only on the inner layers: `domain layer` and `application layer`.
+But main application code has dependency on all layers.
 
+The controller calls the application layer to execute application logic, then calls a presenter to generate a view model, and passes it to the Razor Engine, which converts it to an HTML page. 
 
+TodoController:
 ```csharp
-public class TodoController(ITodoService todoService) : Controller
+public class TodoController(ITodoService todoService, ITodoIndexPagePresenter todoIndexPagePresenter) : Controller
 {
     public async Task<IActionResult> Index()
     {
@@ -395,25 +532,28 @@ public class TodoController(ITodoService todoService) : Controller
 
     private async Task<IActionResult> ShowIndexView()
     {
-        var todoPresenter = await GetTodoPresenter(todoService);
+        await todoService.PrintTodosQuery(todoIndexPagePresenter);
 
-        var viewModel = todoPresenter.TodoViewModel();
+        var viewModel = todoIndexPagePresenter.GetViewModel();
 
         return View("Index", viewModel);
-    }
-
-    private static async Task<TodoPresenter> GetTodoPresenter(ITodoService todoService)
-    {
-        var presenters = await todoService.ShowTodosQueue();
-
-        if (presenters.TodoPresenter is not TodoPresenter todoPresenter)
-        {
-            throw new InvalidOperationException("Invalid presenter");
-        }
-
-        return todoPresenter;
     }
 }
 ``` 
 
+TodoReportController:
+```csharp
+public class TodoReportController(ITodoService todoService, ITodoReportPresenter todoReportPresenter) : Controller
+{
+    [HttpPost]
+    public async Task<IActionResult> Index()
+    {
+        await todoService.PrintTodosQuery(todoReportPresenter);
 
+        var report = todoReportPresenter.GetReport();
+
+        return File(Encoding.Unicode.GetBytes(report), "text/plain", "TodosReport.txt");
+    }
+}
+```
+The `TodoReportController` calls the use case interactor `ITodoService` with an `ITodoReportPresenter`, which, instead of generating a `view model`, prints a string containing a report. Afterward, the `TodoReportController` uploads a file containing the report to the user.
