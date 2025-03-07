@@ -259,7 +259,7 @@ The domain layer library has no dependencies on other libraries in this project.
 
 ##### Application Layer
 
-![ApplicationLyaer](images/code-example/ApplicationLayer.png)
+![ApplicationLayer](images/code-example/ApplicationLayer.png)
 
 The application layer contains use case interactors. The TodoService interactor calls methods from input/output port plugins.<br>
 The interactor specifies not only **how** the UI is updated and **what** data is saved or provided to the UI, but also **when** the data will be available.
@@ -290,3 +290,9 @@ public class TodoService(ITodoContext todoContext, ITodoPresenter todoPresenter,
     ...
 }
 ```
+
+##### Infrastructure Layer
+
+![InfrastructureLayer](images/code-example/InfrastructureLayer.png)
+
+The infrastructure layer contains gateways to interact with external resources, such as databases and services.
