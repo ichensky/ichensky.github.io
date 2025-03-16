@@ -10,8 +10,6 @@ _layout: landing
 
 Welcome to my personal page. 
 
-Please, check [about](pages/about.md). 
-
 Useful notes and articles located in the `Docs` section.
 
 [Clean arhitecture](docs/dev/design-principles/architecture-styles/clean-arhitecture/clean-arhitecture.html#code-example)
