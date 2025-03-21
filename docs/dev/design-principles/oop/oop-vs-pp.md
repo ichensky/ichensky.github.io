@@ -1,31 +1,40 @@
 # OO vs Procedural programming 
 
-#### Object-oriented programming (OOP)
+## Object-oriented programming (OOP)
 `Object-oriented programming` (OOP) is a programming paradigm based on the concept of `objects`.
 `Object` can contain methods and data in form of fields.<br> 
 `Objects` must be self-sufficient with well-defined behavior, providing interfaces/ports/methods through which they can interact with each other. 
 
+### Alan Kay's version of OOP
 > I thought of objects being like biological cells and/or individual computers on a network, only able to `communicate with messages` (so messaging came at the very beginning – it took a while to see how to do messaging in a programming language efficiently enough to be useful).
 
+> (I'm not against types, but I don't know of any type systems that aren't a complete pain, so I still like dynamic typing.)<br>
+OOP to me means only `messaging`, `local retention` and `protection` and `hiding of state-process`, and `extreme late-binding of all things`.<br>
+It can be done in Smalltalk and in LISP. There are possibly other systems in which this is possible, but *I'm not aware of them*.
 [Alan Kay](http://www.purl.org/stefan_ram/pub/doc_kay_oop_en)
 
-This promotes loose coupling and modularity, making it easier to change and extend the system.
+**Only Messaging**: In OOP, the primary means of interaction between objects is through messages.<br>
+Instead of calling functions directly or manipulating data structures, objects communicate by sending messages to one another. This encapsulates behavior and promotes a more modular design.
+
+**Local Retention**: This refers to the idea that an object should manage its own state internally.<br> 
+Each object retains its own state (data) and is responsible for its own behavior, which helps to maintain integrity and reduces dependencies between objects.
+
+**Protection and Hiding of State-Process**: This principle is about encapsulation, where the internal state of an object is hidden from the outside world. Objects expose only what is necessary through their public interface, protecting their internal workings and preventing external entities from directly modifying their state.
+
+**Extreme Late-Binding**: Late binding (or dynamic binding) is a concept where method calls are resolved at runtime rather than compile time. This allows for more flexible and dynamic behavior in programs, as the specific method that gets invoked can depend on the actual object type at runtime, rather than being determined statically.
+
+**Can be Done in Smalltalk and in LISP**: Kay points out that these principles of OOP can be implemented in various programming languages, particularly Smalltalk, which is known for its pure OOP model, and LISP, which supports functional programming and can also encapsulate OOP concepts.
+
+###
+
 
 Interaction between `objects`:
 ```csharp
-// Through methods(ctor,functions)
-// other objects can interact with `user` object
-// by sending messages like `"Bob"`, `"password"`, etc..
-//
 User user = new(30, "123456", "Alan", "Kay");
 user.ChangeFirstName("Bob");
 user.ChangePassword("password");
-// No way to change user data directly like:
-// user.fullName.firstName = "Kate"
 
 internal class FullName {
-    // Data inside of an object
-    // Data can be changed only by calling object methods
     private string firstName;
     private string lastName;
 
