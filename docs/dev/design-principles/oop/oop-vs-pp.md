@@ -1,9 +1,10 @@
 # OO vs Procedural programming 
 
 ## Object-oriented programming (OOP)
-`Object-oriented programming` (OOP) is a programming paradigm based on the concept of `objects`.
+`Object-oriented programming` (OOP) is a programming paradigm based on the concept of `objects`.<br>
+ Objects can contain data (called fields, attributes or properties) and have actions they can perform (called procedures or methods and implemented in code). 
 
-### Alan Kay's version of OOP
+### Alan Kay's (essential)version of the OOP
 > I thought of objects being like biological cells and/or individual computers on a network, only able to `communicate with messages` (so messaging came at the very beginning – it took a while to see how to do messaging in a programming language efficiently enough to be useful).
 
 > (I'm not against types, but I don't know of any type systems that aren't a complete pain, so I still like dynamic typing.)<br>
@@ -23,7 +24,14 @@ Each object retains its own state (data) and is responsible for its own behavior
 
 **Can be Done in Smalltalk and in LISP**: Kay points out that these principles of OOP can be implemented in various programming languages, particularly Smalltalk, which is known for its pure OOP model, and LISP, which supports functional programming and can also encapsulate OOP concepts.
 
+# Modern view on the OOP
+OOP is primarily about `behavior` (functions) rather than just `data`.<br>
+Objects should be seen as "bags of functions," not just "bags of data.".<br>
 
+Encapsulation is crucial. Data should be hidden within the object, and access to it should be controlled through methods.
+
+
+With help of inheritance,
 #### Interaction between `objects`:
 ```csharp
 User user = new(30, "123456", "Alan", "Kay");
