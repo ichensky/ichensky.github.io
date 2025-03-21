@@ -2,8 +2,6 @@
 
 ## Object-oriented programming (OOP)
 `Object-oriented programming` (OOP) is a programming paradigm based on the concept of `objects`.
-`Object` can contain methods and data in form of fields.<br> 
-`Objects` must be self-sufficient with well-defined behavior, providing interfaces/ports/methods through which they can interact with each other. 
 
 ### Alan Kay's version of OOP
 > I thought of objects being like biological cells and/or individual computers on a network, only able to `communicate with messages` (so messaging came at the very beginning – it took a while to see how to do messaging in a programming language efficiently enough to be useful).
@@ -25,7 +23,9 @@ Each object retains its own state (data) and is responsible for its own behavior
 
 **Can be Done in Smalltalk and in LISP**: Kay points out that these principles of OOP can be implemented in various programming languages, particularly Smalltalk, which is known for its pure OOP model, and LISP, which supports functional programming and can also encapsulate OOP concepts.
 
-###
+### Modern version of OOP
+`Object` can contain methods and data in form of fields.<br> 
+`Objects` must be self-sufficient with well-defined behavior, providing interfaces/ports/methods through which they can interact with each other. 
 
 
 Interaction between `objects`:
