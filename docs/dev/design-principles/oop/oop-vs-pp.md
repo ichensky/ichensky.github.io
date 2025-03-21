@@ -23,12 +23,8 @@ Each object retains its own state (data) and is responsible for its own behavior
 
 **Can be Done in Smalltalk and in LISP**: Kay points out that these principles of OOP can be implemented in various programming languages, particularly Smalltalk, which is known for its pure OOP model, and LISP, which supports functional programming and can also encapsulate OOP concepts.
 
-### Modern version of OOP
-`Object` can contain methods and data in form of fields.<br> 
-`Objects` must be self-sufficient with well-defined behavior, providing interfaces/ports/methods through which they can interact with each other. 
 
-
-Interaction between `objects`:
+#### Interaction between `objects`:
 ```csharp
 User user = new(30, "123456", "Alan", "Kay");
 user.ChangeFirstName("Bob");
