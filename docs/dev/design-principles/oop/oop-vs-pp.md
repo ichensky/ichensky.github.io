@@ -73,7 +73,7 @@ public class User {
 ```
 
 #### Procedural programming
-`Procedural programming` is a programming paradigm, that involves implementing the behavior of a computer program as procedures (a.k.a. functions, subroutines) that call each other.
+`Procedural programming` is a programming paradigm, that involves implementing the behavior of a computer program as procedures (a.k.a. functions, subroutines) that call each other and manipulates data structures directly.
 
 Interaction between several `Records` and `Procedures` 
 ```csharp
