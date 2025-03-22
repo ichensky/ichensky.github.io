@@ -435,3 +435,38 @@ class Square : Rectangle
     }
 }
 ```
+
+## Conclusion
+
+The *easiest way* to adhere to the Liskov Substitution Principle is to:
+
+1. Avoid modifying `base class` `fields` in derived classes.
+
+2. Avoid modifying or overriding `base class` `functions` in derived classes.
+
+3. Add new `fields` to `derived classes`.
+
+4. Add new `functions to `derived classes`, which modifies *only** the `derived class`'s new fields.
+
+```csharp
+class Foo 
+{
+    int value;
+
+    public SetValue(int abc)
+    {
+        value = abc;
+    }
+}
+
+class Bar : Foo
+{
+    int smth;
+
+    public ChangeSmth(int newSmth)
+    {
+        smth = newSmth;
+    }
+}
+
+```
