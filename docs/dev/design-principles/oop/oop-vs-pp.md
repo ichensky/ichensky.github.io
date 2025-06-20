@@ -30,8 +30,10 @@ Objects should be seen as "bags of functions," not just "bags of data.".<br>
 
 Encapsulation is crucial. Data should be hidden within the object, and access to it should be controlled through methods.
 
+In modern languages, access to objects is made by direct calls to public methods or functions.
 
-With help of inheritance,
+As practice shows, extreme late-binding may produce bugs which are extremely difficult to fix. For example, when on a Dev environment an object has one bunch of functions, but on Prod one of the functions is missing in some 3rd-party library.  Code becomes more predictable and supportable if all the types are described and verified during compile time.
+
 #### Interaction between `objects`:
 ```csharp
 User user = new(30, "123456", "Alan", "Kay");
