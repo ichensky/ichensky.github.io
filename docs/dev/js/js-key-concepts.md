@@ -327,21 +327,71 @@ fullName(); // Hege Nilsen
 ```
 
 ### Closures
-Variables declared with `var` are either `function-scoped` or `global-scoped`.
+Inner functions have access to outer scope.
+
 ```js
 function Foo(){
     // function-scoped
-    var name = "Bob";
+    let value = 0;
 
+    // inner function
     function Bar(){
-        console.log(name);
+        value++;
+        console.log(value);
     }
 
     Bar();
 }
 
-Foo(); // Bob
+Foo(); // 1
+Foo(); // 1
+
 ```
+
+When the inner function is returned from the outer function, the local variable 'value' will exists durring the whole `foo` object life.
+
+# [js](#tab/jsClosure)
+```js
+function Foo(){
+    // function-scoped
+    let value = 0;
+
+    // inner function
+    function Bar(){
+        value++;
+        console.log(value);
+    }
+
+    return Bar;
+}
+
+let foo = Foo();
+foo(); // 1
+foo(); // 2
+
+```
+
+# [C#](#tab/csharpClosure)
+```csharp
+var foo = Foo();
+foo(); // 1
+foo(); // 2
+
+
+static Action Foo() {
+
+    int value = 0;
+
+    void Bar() { 
+        value++;
+        Console.WriteLine(value);
+    }
+
+    return Bar;
+}
+```
+---
+
 
 ### Callback trick
 ```js
