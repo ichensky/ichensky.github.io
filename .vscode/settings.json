@@ -1,0 +1,12 @@
+{
+    "telemetry.editStats.enabled": false,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "telemetry.feedback.enabled": false,
+    "code-runner.enableAppInsights": false,
+    "dotnetAcquisitionExtension.enableTelemetry": false,
+    "extensions.autoUpdate": false,
+    "extensions.ignoreRecommendations": true,
+    "update.channel": "none",
+    "docker.lsp.telemetry": "off"
+}
