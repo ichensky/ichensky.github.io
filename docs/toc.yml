@@ -56,6 +56,11 @@
     - name: linux
       items:
       - href: dev/dotnet/linux/opt-out-dotnet-telemetry-at-linux.md
+
+    - name: tips
+      items:
+      - href: dev/dotnet/tips/gnuplot-csharp/gnuplot-csharp.md
+
   - name: js
     items:
     - href: dev/js/js-key-concepts.md
