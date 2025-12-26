@@ -126,6 +126,12 @@
   - name: emacs
     items:
     - href: editors/emacs/emacs-hotkeys.md
+  
+- name: tools
+  items:
+  - name: gnuplot
+    items:
+    - href: tools/gnuplot/draw-grayscale-2d-matrix/draw-grayscale-2d-matrix.md
 
 - name: devices
   items:
