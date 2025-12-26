@@ -70,6 +70,12 @@
   - name: time
     items:
     - href: dev/time/time_standards.md
+  
+  - name: algorithms
+    items:
+    - name: normal-distribution
+      items:
+      - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
 
 - name: linux
   items:
