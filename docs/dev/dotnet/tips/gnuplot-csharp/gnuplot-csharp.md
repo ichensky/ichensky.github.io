@@ -4,13 +4,13 @@
 using System.Diagnostics;
 
 // Start first gnuplot window
-var window0 = new GnuPlotWrapper();
+using var window0 = new GnuPlotWrapper();
 window0.Start();
 
 await window0.ExecuteAsync(@" plot sin(x) ".AsMemory());
 
 // Start second gnuplot window 
-var window1 = new GnuPlotWrapper();
+using var window1 = new GnuPlotWrapper();
 window1.Start();
 
 await window1.ExecuteAsync(@"plot '-' with lines ".AsMemory());
@@ -19,15 +19,14 @@ await window1.ExecuteAsync("1 1".AsMemory());
 await window1.ExecuteAsync("2 0".AsMemory());
 await window1.ExecuteAsync("e".AsMemory());
 
-// Keep windows open for 10 seconds
-await Task.Delay(10_000);
-
-window0.Close();
-window1.Close();
+// Kill both gnuplot windows before exiting the program
+await window0.KillAndWaitForExitAsync();
+await window1.KillAndWaitForExitAsync();
 
 
+Console.WriteLine("Exiting...");
 
-using System.Diagnostics;
+
 
 public class GnuPlotWrapper : IDisposable 
 {
@@ -42,8 +41,12 @@ public class GnuPlotWrapper : IDisposable
     /// </summary>
     public void Start()
     {
-        ProcessStartInfo processStartInfo = CreateProcessStartInfo();
-        process = StartProcess(processStartInfo);
+        if (process != null)
+        {
+            throw new InvalidOperationException("GnuPlot process is already started.");
+        }
+
+        process = StartProcess();
     }
 
     /// <summary>
@@ -64,19 +67,31 @@ public class GnuPlotWrapper : IDisposable
             throw new InvalidOperationException("GnuPlot process is not started. Call Start() method first.");
         }
 
+        if (process.HasExited)
+        {
+            throw new InvalidOperationException("GnuPlot process has already exited.");
+        }
+
         await process.StandardInput.WriteLineAsync(script, cancellationToken).ConfigureAwait(false);
         await process.StandardInput.FlushAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>
-    /// Waits for the GnuPlot process to exit.
+    /// Kills the GnuPlot process asynchronously.
     /// </summary>
-    public Task WaitForExitAsync(CancellationToken cancellationToken = default) => process?.WaitForExitAsync(cancellationToken) ?? Task.CompletedTask;
+    public async Task KillAndWaitForExitAsync(CancellationToken cancellationToken = default)
+    {
+        if (process == null || process.HasExited)
+        {
+            return;
+        }
+ 
+        await ExecuteAsync("exit".AsMemory(), cancellationToken).ConfigureAwait(false);
 
-    /// <summary>
-    /// Closes the GnuPlot process.
-    /// </summary>
-    public void Close() => process?.Close();
+        process.Kill(true);
+
+        await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
+    }
 
     /// <summary>
     /// Disposes the GnuPlotWrapper.
@@ -98,7 +113,12 @@ public class GnuPlotWrapper : IDisposable
         if (disposing)
         {
             // Dispose managed state (managed objects).
-            process?.Dispose();
+            if(process != null)
+            {
+                process.StandardInput?.Dispose();
+                process?.Dispose();
+                process = null;
+            }
         }
 
         // Free unmanaged resources.
@@ -106,31 +126,25 @@ public class GnuPlotWrapper : IDisposable
         disposed = true;
     }
 
-    private static Process StartProcess(ProcessStartInfo startInfo)
+    private static Process StartProcess()
     {
         var process = new Process
         {
-            StartInfo = startInfo
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = GnuPlotExecutable,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = false,
+                RedirectStandardError = false,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            } 
         };
 
         process.Start();
         process.StandardInput.AutoFlush = false;
 
         return process;
-    }
-
-    private static ProcessStartInfo CreateProcessStartInfo()
-    {
-        return new ProcessStartInfo
-        {
-            FileName = GnuPlotExecutable,
-            Arguments = "-",
-            RedirectStandardInput = true,
-            RedirectStandardOutput = false,
-            RedirectStandardError = false,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
     }
 }
 
