@@ -1,5 +1,7 @@
 # `gnuplot` C# example of using
 
+see: https://github.com/ichensky/gnuplot-wrapper
+
 ```csharp
 using System.Diagnostics;
 
