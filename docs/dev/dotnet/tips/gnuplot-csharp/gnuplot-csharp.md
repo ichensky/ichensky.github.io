@@ -26,6 +26,9 @@ window0.Close();
 window1.Close();
 
 
+
+using System.Diagnostics;
+
 public class GnuPlotWrapper : IDisposable 
 {
     private const string GnuPlotExecutable = "gnuplot";
@@ -34,16 +37,73 @@ public class GnuPlotWrapper : IDisposable
 
     private Process? process;
 
+    /// <summary>
+    /// Starts the GnuPlot process.
+    /// </summary>
     public void Start()
     {
-        var processStartInfo = CreateProcessStartInfo();
+        ProcessStartInfo processStartInfo = CreateProcessStartInfo();
         process = StartProcess(processStartInfo);
     }
 
+    /// <summary>
+    /// Executes the given GnuPlot script asynchronously.
+    /// </summary>
+    /// <param name="script">
+    /// Example:
+    ///     var script = " plot sin(x) ";
+    ///     .. .ExecuteAsync(script.AsMemory());
+    /// </param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
     public async Task ExecuteAsync(ReadOnlyMemory<char> script, CancellationToken cancellationToken = default)
     {
-        await process!.StandardInput.WriteLineAsync(script, cancellationToken).ConfigureAwait(false);
+        if (process == null)
+        {
+            throw new InvalidOperationException("GnuPlot process is not started. Call Start() method first.");
+        }
+
+        await process.StandardInput.WriteLineAsync(script, cancellationToken).ConfigureAwait(false);
         await process.StandardInput.FlushAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Waits for the GnuPlot process to exit.
+    /// </summary>
+    public Task WaitForExitAsync(CancellationToken cancellationToken = default) => process?.WaitForExitAsync(cancellationToken) ?? Task.CompletedTask;
+
+    /// <summary>
+    /// Closes the GnuPlot process.
+    /// </summary>
+    public void Close() => process?.Close();
+
+    /// <summary>
+    /// Disposes the GnuPlotWrapper.
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposed)
+        {
+            return;
+        }
+
+        if (disposing)
+        {
+            // Dispose managed state (managed objects).
+            process?.Dispose();
+        }
+
+        // Free unmanaged resources.
+
+        disposed = true;
     }
 
     private static Process StartProcess(ProcessStartInfo startInfo)
@@ -72,36 +132,6 @@ public class GnuPlotWrapper : IDisposable
             CreateNoWindow = true
         };
     }
-
-    public Task WaitForExitAsync(CancellationToken cancellationToken = default) => process?.WaitForExitAsync(cancellationToken) ?? Task.CompletedTask;
-
-    public void Close() => Dispose();
-
-    public void Dispose()
-    {
-        Dispose(true);
-
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposed)
-        {
-            return;
-        }
-
-        if (disposing)
-        {
-            // Dispose managed state (managed objects).
-            process?.Dispose();
-        }
-
-        // Free unmanaged resources.
-
-        disposed = true;
-    }
 }
-
 
 ```
