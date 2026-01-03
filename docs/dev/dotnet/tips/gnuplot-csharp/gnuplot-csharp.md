@@ -1,52 +1,67 @@
 # `gnuplot` C# example of using
 
 ```csharp
-
 using System.Diagnostics;
-using System.Threading.Channels;
+
+// Start first gnuplot window
+var window0 = new GnuPlotWrapper();
+window0.Start();
+
+await window0.ExecuteAsync(@" plot sin(x) ".AsMemory());
+
+// Start second gnuplot window 
+var window1 = new GnuPlotWrapper();
+window1.Start();
+
+await window1.ExecuteAsync(@"plot '-' with lines ".AsMemory());
+await window1.ExecuteAsync("0 0".AsMemory());
+await window1.ExecuteAsync("1 1".AsMemory());
+await window1.ExecuteAsync("2 0".AsMemory());
+await window1.ExecuteAsync("e".AsMemory());
+
+// Keep windows open for 10 seconds
+await Task.Delay(10_000);
+
+window0.Close();
+window1.Close();
 
 
-var channel = Channel.CreateBounded<string>(100);
-
-Task.Run(async () =>
+public class GnuPlotWrapper : IDisposable 
 {
-    // Draw two sets of lines
-    await channel.Writer.WriteAsync("plot '-' with lines, "
-                                            + "'-' with lines");
-
-    await channel.Writer.WriteAsync("1 1");
-    await channel.Writer.WriteAsync("2 2");
-    await channel.Writer.WriteAsync("2 0");
-    await channel.Writer.WriteAsync("e");
-
-    await channel.Writer.WriteAsync("0 2");
-    await channel.Writer.WriteAsync("2.5 2.5");
-    await channel.Writer.WriteAsync("0 3.5");
-    await channel.Writer.WriteAsync("e");
-
-    await Task.Delay(10_000);
-
-    // Draw cosine function instead of two sets of lines after 10 seconds
-    await channel.Writer.WriteAsync("plot cos(x)");
-
-
-    // Close the gnuplot process with a dialog
-    //
-    //channel.Writer.Complete();
-});
-
-await GnuPlotExecutor.ExecuteCommandsAsync(channel.Reader);
-
-
-Console.WriteLine("Hello, World!");
-
-
-class GnuPlotExecutor{
     private const string GnuPlotExecutable = "gnuplot";
 
-    public static async Task ExecuteCommandsAsync(ChannelReader<string> commands, CancellationToken cancellationToken = default)
+    private bool disposed = false;
+
+    private Process? process;
+
+    public void Start()
     {
-        ProcessStartInfo startInfo = new()
+        var processStartInfo = CreateProcessStartInfo();
+        process = StartProcess(processStartInfo);
+    }
+
+    public async Task ExecuteAsync(ReadOnlyMemory<char> script, CancellationToken cancellationToken = default)
+    {
+        await process!.StandardInput.WriteLineAsync(script, cancellationToken).ConfigureAwait(false);
+        await process.StandardInput.FlushAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
+    }
+
+    private static Process StartProcess(ProcessStartInfo startInfo)
+    {
+        var process = new Process
+        {
+            StartInfo = startInfo
+        };
+
+        process.Start();
+        process.StandardInput.AutoFlush = false;
+
+        return process;
+    }
+
+    private static ProcessStartInfo CreateProcessStartInfo()
+    {
+        return new ProcessStartInfo
         {
             FileName = GnuPlotExecutable,
             Arguments = "-",
@@ -56,33 +71,37 @@ class GnuPlotExecutor{
             UseShellExecute = false,
             CreateNoWindow = true
         };
+    }
 
-        using Process process = new() { StartInfo = startInfo };
+    public Task WaitForExitAsync(CancellationToken cancellationToken = default) => process?.WaitForExitAsync(cancellationToken) ?? Task.CompletedTask;
 
-        process.Start();
+    public void Close() => Dispose();
 
-        using var input = process.StandardInput;
-        input.AutoFlush = false;
+    public void Dispose()
+    {
+        Dispose(true);
 
-        while (await commands.WaitToReadAsync(cancellationToken).ConfigureAwait(false))
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposed)
         {
-            while (commands.TryRead(out var command))
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                var commandString = command.AsMemory();
-
-                await input.WriteLineAsync(commandString, cancellationToken).ConfigureAwait(false);
-                await input.FlushAsync(cancellationToken).ConfigureAwait(false);
-            }
+            return;
         }
 
-        input.Close();
+        if (disposing)
+        {
+            // Dispose managed state (managed objects).
+            process?.Dispose();
+        }
 
-        await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false); 
+        // Free unmanaged resources.
+
+        disposed = true;
     }
 }
 
 
 ```
-
-![gnuplot cos(x)](images/gnuplot-csharp.png)
