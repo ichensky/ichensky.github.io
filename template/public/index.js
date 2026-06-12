@@ -19,7 +19,7 @@ const tl = new textlist
         b + "-url ", "https://ichensky.github.io ",
         b + "-username ", username + " ",
         b + "-name ", "Ivan Chensky ",
-        b + "-interest ", "Web, scripts, C#, DDD, linux ",
+        b + "-interest ", "Web, scripts, C#, DDD, linux, Clean Architecture ",
         b + "-moto ", "The geeks shall inherit the properties and methods of object earth "
     );
 
@@ -49,5 +49,5 @@ let t = " ichensky.github.io © Ivan Chensky | ";
 (function pageTitle() {
     t = t.substring(1, t.length) + t.substring(0, 1);
     document.title = t;
-    setTimeout(pageTitle, s << 2);
+    setTimeout(pageTitle, s << 3);
 })()
