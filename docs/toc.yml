@@ -64,6 +64,11 @@
   - name: js
     items:
     - href: dev/js/js-key-concepts.md
+
+  - name: sql
+    items:
+    - href: dev/sql/UTF16-vs-UTF8-varchar-vs-nvarchar.md
+
   - name: uml
     items:
     - href: dev/uml/uml-diagrams-short-notes.md
