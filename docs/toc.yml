@@ -61,6 +61,11 @@
       items:
       - href: dev/dotnet/tips/gnuplot-csharp/gnuplot-csharp.md
 
+    - name: csharp
+      items:
+      - href: dev/dotnet/csharp/lambda-closures.md
+      - href: dev/dotnet/csharp/access-modifiers.md
+
   - name: js
     items:
     - href: dev/js/js-key-concepts.md
