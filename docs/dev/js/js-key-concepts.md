@@ -326,6 +326,9 @@ let fullName = person.fullName.bind(member);
 fullName(); // Hege Nilsen
 ```
 
+##### `call()`, `apply()` vs `bind()`
+The `call()` and `apply()` methods are `invoked immediately`, while the `bind()` method returns a `new function` that can be invoked later.
+
 ### Closures
 Inner functions have access to outer scope.
 
