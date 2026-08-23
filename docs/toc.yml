@@ -86,6 +86,9 @@
     - name: essential
       items:
       - href: dev/algorithms/essential/backtracking/backtracking.md
+      - name: string-searching
+        items:
+        - href: dev/algorithms/essential/string-searching/Knuth–Morris–Pratt-algorithm.md
     - name: normal-distribution
       items:
       - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
