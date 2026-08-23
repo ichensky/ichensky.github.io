@@ -83,6 +83,9 @@
   
   - name: algorithms
     items:
+    - name: essential
+      items:
+      - href: dev/algorithms/essential/backtracking/backtracking.md
     - name: normal-distribution
       items:
       - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
