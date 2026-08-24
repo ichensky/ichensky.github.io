@@ -44,6 +44,25 @@
               - href: dev/design-principles/application-layers/data-access-layer/data-mapper.md
               - href: dev/design-principles/application-layers/data-access-layer/data-access-object.md
               - href: dev/design-principles/application-layers/data-access-layer/repository/repository.md
+
+  - name: algorithms
+    items:
+    - name: essential
+      items:
+      - href: dev/algorithms/essential/backtracking/backtracking.md
+      - name: string-searching
+        items:
+        - href: dev/algorithms/essential/string-searching/Knuth–Morris–Pratt-algorithm.md
+        - href: dev/algorithms/essential/string-searching/Z-algorithm.md
+      - name: data-structures
+        items:
+        - name: graph
+          items:
+          - href: dev/algorithms/essential/data-structures/graph/graph-representation/graph-representation.md
+    - name: normal-distribution
+      items:
+      - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
+
   - name: .net
     items:
     - name: books
@@ -81,24 +100,6 @@
     items:
     - href: dev/time/time_standards.md
   
-  - name: algorithms
-    items:
-    - name: essential
-      items:
-      - href: dev/algorithms/essential/backtracking/backtracking.md
-      - name: string-searching
-        items:
-        - href: dev/algorithms/essential/string-searching/Knuth–Morris–Pratt-algorithm.md
-        - href: dev/algorithms/essential/string-searching/Z-algorithm.md
-      - name: data-structures
-        items:
-        - name: graph
-          items:
-          - href: dev/algorithms/essential/data-structures/graph/graph-representation/graph-representation.md
-    - name: normal-distribution
-      items:
-      - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
-
 - name: linux
   items:
   - name: security
