@@ -89,6 +89,11 @@
       - name: string-searching
         items:
         - href: dev/algorithms/essential/string-searching/Knuth–Morris–Pratt-algorithm.md
+      - name: data-structures
+        items:
+        - name: graph
+          items:
+          - href: dev/algorithms/essential/data-structures/graph/graph-representation/graph-representation.md
     - name: normal-distribution
       items:
       - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
