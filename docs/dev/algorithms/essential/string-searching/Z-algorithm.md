@@ -17,8 +17,8 @@ Z-array:    0 1 0 0 2 1 0 3 1 0
 ```
 
 #### After building the Z-array, we can answer on questions like
-- How many times does a pattern, for example `'aa'`, occur in the text?
-- Does the pattern `'aab'` occur in the text? If yes, at which indices?
+- How many times does a prefix, for example `'aa'`, occur in the text?
+- Does the prefix `'aab'` occur in the text? If yes, at which indices?
 
 #### Naive Approach to compute the Z-array (two loops $O(n^2)$ time complexity)
 This approach give an idea of how the Z-array is computed, but it is not efficient for large strings.
@@ -54,10 +54,14 @@ static int[] Zarray(string str)
 
 ```
 
-### Searching for a pattern in a text using the Z-algorithm
+### How to search any pattern in a text using the Z-algorithm
 To search pattern `abc` in text `xabcabcabc`:
 
-1. Concatenate the pattern, a special character (not present in either the pattern or text), and the text: `abc$xabcabcabc`
+1. Concatenate the pattern, a special character (not present in either the pattern or text), and the text: 
+```
+abc$xabcabcabc
+```
+
 2. Compute the Z-array for the concatenated string.
 ```text
 abc.Length = 3
@@ -88,12 +92,12 @@ Zarray:  0,1,0,0, 4,1,0,0,
                       instead of comparing characters from the beginning,
                         just copy the previously computed Z-values to skip comparisons.     
 
-[! Caveat]:
 Word:    a,a,b,x, a,a,b,x, c, a,a,b,x,a,a,b,x, a,y
 Zarray:  0,1,0,0, 4,1,0,0, 0, 8 ...
                              |________________|
                              L                 R
 
+[! Caveat]:
 index:   0 1 2 3  4 5 6 7  8  9 10 11 12 13 14 15 16  17 18
 Word:    a,a,b,x, a,a,b,x, c, a, a, b, x, a, a, b, x,  a, y
 Zarray:  0,1,0,0, 4,1,0,0, 0, 8, 1, 0, 0,[4+]
