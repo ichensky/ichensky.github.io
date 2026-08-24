@@ -8,8 +8,6 @@ There are three ways to represent a graph in memory:
 ![graph-representation](./images/graph_representation.png)
 ![graph-representation2](./images/graph_representation2.png)
 
-Here is a breakdown of the pros and cons for the three primary graph representations, tailored for performance and architectural trade-offs.
-
 ---
 
 ### 1. Adjacency Matrix
