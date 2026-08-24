@@ -89,6 +89,7 @@
       - name: string-searching
         items:
         - href: dev/algorithms/essential/string-searching/Knuth–Morris–Pratt-algorithm.md
+        - href: dev/algorithms/essential/string-searching/Z-algorithm.md
       - name: data-structures
         items:
         - name: graph
