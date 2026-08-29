@@ -59,6 +59,7 @@
         - name: graph
           items:
           - href: dev/algorithms/essential/data-structures/graph/graph-representation/graph-representation.md
+          - href: dev/algorithms/essential/data-structures/graph/dijkstra-algorithm/dijkstra-algorithm.md
     - name: normal-distribution
       items:
       - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
