@@ -44,7 +44,7 @@
         console.log("Available commands:");
         console.log("0. help() - Show available commands.");
         console.log("1. skills() - Display my technical stack in a clean table.");
-        console.log("2. connection() - Check if the connection is active.");
+        console.log("2. connection() - Check the connection.");
         console.log("3. hint() - Get a secret hint.");
     }
     function connection() {
