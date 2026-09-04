@@ -47,6 +47,9 @@
 
   - name: algorithms
     items:
+    - name: problem-solving-models
+      items:
+      - href: dev/algorithms/problem-solving-models/reverse-thinking.md
     - name: essential
       items:
       - href: dev/algorithms/essential/backtracking/backtracking.md
