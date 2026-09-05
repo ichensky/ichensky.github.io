@@ -4,4 +4,5 @@
     items: 
     - href: web/jsonformatter/jsonformatter.md
     - href: web/jwt-decoder/jwt-decoder.md
+    - href: web/base64-encoder-decoder/base64-encoder-decoder.md
    
