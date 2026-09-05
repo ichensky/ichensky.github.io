@@ -11,6 +11,7 @@
     items:
     - href: files/files-diff.md
     - href: files/text-editor.md
+    - href: files/hex-editor.md
 
   - name: hash
     items:
