@@ -1,4 +1,4 @@
-# Text & File Diff Checker
+# File Diff Checker
 
 <style>
     :root {

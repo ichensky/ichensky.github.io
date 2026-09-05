@@ -10,6 +10,7 @@
   - name: files
     items:
     - href: files/files-diff.md
+    - href: files/text-editor.md
 
   - name: hash
     items:
