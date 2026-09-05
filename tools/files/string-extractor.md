@@ -21,21 +21,6 @@
     --offset-color: #005fb8;
   }
 
-  header {
-    border-bottom: 1px solid var(--border-color);
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--text-color);
-  }
-
   button, .button-label {
     border: 1px solid transparent;
     padding: 6px 12px;

@@ -23,21 +23,6 @@
     --text-dim: #5f6368;
   }
 
-  header {
-    border-bottom: 1px solid var(--border-color);
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--text-color);
-  }
-
   .controls {
     display: flex;
     gap: 10px;
