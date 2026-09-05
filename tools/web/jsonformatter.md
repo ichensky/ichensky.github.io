@@ -1,4 +1,4 @@
-# Json formatter
+# Json Formatter
 
 <style>
     :root {
