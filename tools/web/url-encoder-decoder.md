@@ -1,4 +1,4 @@
-# Base64 Encoder / Decoder
+# URL Encoder / Decoder & Query Parser
 
 <style>
     :root {
@@ -23,6 +23,7 @@
       display: flex;
       gap: 10px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     select, button {
@@ -35,6 +36,7 @@
       cursor: pointer;
     }
 
+    /* Dark theme drop-down item styling */
     select option {
       background-color: var(--bg-color);
       color: var(--text-color);
@@ -108,7 +110,6 @@
     .error-msg { color: var(--error-color); }
     .success-msg { color: var(--success-color); }
 
-    /* Action buttons inside panels */
     .panel-actions {
       position: absolute;
       top: 35px;
@@ -124,7 +125,7 @@
     .panel-actions button:hover {
       opacity: 1;
     }
-    .tool{
+    .tool {
       max-height: 80vh;
       height: stretch;
       display: flex;
@@ -138,34 +139,36 @@
 <div class="controls">
   <label for="modeSelect">Mode:</label>
   <select id="modeSelect">
-    <option value="decode" selected>Decode (Base64 -> Text)</option>
-    <option value="encode">Encode (Text -> Base64)</option>
+    <option value="decode" selected>Decode URL / Component</option>
+    <option value="encode">Encode URL / Component</option>
+    <option value="parse">Parse Query Parameters</option>
   </select>
   
-  <label for="urlSafeCheck" style="font-size: 0.85rem; display: flex; align-items: center; gap: 4px; cursor: pointer;">
-    <input type="checkbox" id="urlSafeCheck"> URL-Safe
+  <label for="componentCheck" id="componentCheckLabel" style="font-size: 0.85rem; display: flex; align-items: center; gap: 4px; cursor: pointer;">
+    <input type="checkbox" id="componentCheck" checked> Strict Component Encoding (encodeURIComponent)
   </label>
   
-  <label for="formatJsonCheck" style="font-size: 0.85rem; display: flex; align-items: center; gap: 4px; cursor: pointer;">
-    <input type="checkbox" id="formatJsonCheck" checked> Pretty-print JSON
+  <label for="formatJsonCheck" id="formatJsonCheckLabel" style="font-size: 0.85rem; display: flex; align-items: center; gap: 4px; cursor: pointer;">
+    <input type="checkbox" id="formatJsonCheck" checked> Format as JSON
   </label>
 </div>
+
 <div class="main-container">
   <!-- Input Panel -->
   <div class="panel">
-    <div class="panel-header" id="inputHeader">Base64 Input</div>
+    <div class="panel-header" id="inputHeader">URL Input</div>
     <div class="panel-actions">
       <button id="clearBtn">Clear</button>
     </div>
-    <textarea id="base64Input" placeholder="Paste Base64 encoded string here..."></textarea>
+    <textarea id="urlInput" placeholder="Paste URL or string here..."></textarea>
   </div>
   <!-- Output Panel -->
   <div class="panel">
-    <div class="panel-header" id="outputHeader">Decoded Text Output</div>
+    <div class="panel-header" id="outputHeader">Output</div>
     <div class="panel-actions">
       <button id="copyBtn">Copy</button>
     </div>
-    <pre id="base64Output">Result will appear here...</pre>
+    <pre id="urlOutput">Result will appear here...</pre>
   </div>
 </div>
 
@@ -173,11 +176,13 @@
 </div>
 
 <script>
-  const base64Input = document.getElementById('base64Input');
-  const base64Output = document.getElementById('base64Output');
+  const urlInput = document.getElementById('urlInput');
+  const urlOutput = document.getElementById('urlOutput');
   const modeSelect = document.getElementById('modeSelect');
-  const urlSafeCheck = document.getElementById('urlSafeCheck');
+  const componentCheck = document.getElementById('componentCheck');
+  const componentCheckLabel = document.getElementById('componentCheckLabel');
   const formatJsonCheck = document.getElementById('formatJsonCheck');
+  const formatJsonCheckLabel = document.getElementById('formatJsonCheckLabel');
   const statusBar = document.getElementById('statusBar');
   const copyBtn = document.getElementById('copyBtn');
   const clearBtn = document.getElementById('clearBtn');
@@ -187,98 +192,136 @@
   const defaultOutputText = 'Result will appear here...';
   const errorText = 'Error processing string...';
 
-  // UTF-8 aware Base64 Decode
-  function decodeUtf8Base64(str, isUrlSafe) {
-    let cleanStr = str.trim();
-    if (isUrlSafe) {
-      cleanStr = cleanStr.replace(/-/g, '+').replace(/_/g, '/');
+  // Extract query parameters from full URL or standalone query string
+  function parseQueryParams(str, asJson) {
+    let queryString = str.trim();
+    
+    // Extract query string part if a full URL is passed
+    if (queryString.includes('?')) {
+      queryString = queryString.split('?')[1];
     }
-    while (cleanStr.length % 4 !== 0) {
-      cleanStr += '=';
+    // Remove hash fragment if present
+    if (queryString.includes('#')) {
+      queryString = queryString.split('#')[0];
     }
-    const binaryStr = atob(cleanStr);
-    const bytes = Uint8Array.from(binaryStr, char => char.charCodeAt(0));
-    return new TextDecoder().decode(bytes);
+
+    const params = new URLSearchParams(queryString);
+    const resultObj = {};
+    let count = 0;
+
+    for (const [key, value] of params.entries()) {
+      count++;
+      if (resultObj.hasOwnProperty(key)) {
+        if (Array.isArray(resultObj[key])) {
+          resultObj[key].push(value);
+        } else {
+          resultObj[key] = [resultObj[key], value];
+        }
+      } else {
+        resultObj[key] = value;
+      }
+    }
+
+    if (count === 0) {
+      throw new Error('No query parameters found.');
+    }
+
+    if (asJson) {
+      return JSON.stringify(resultObj, null, 2);
+    } else {
+      return Object.entries(resultObj)
+        .map(([k, v]) => `${k}: ${Array.isArray(v) ? JSON.stringify(v) : v}`)
+        .join('\n');
+    }
   }
 
-  // UTF-8 aware Base64 Encode
-  function encodeUtf8Base64(str, isUrlSafe) {
-    const bytes = new TextEncoder().encode(str);
-    let binaryStr = '';
-    bytes.forEach(b => binaryStr += String.fromCharCode(b));
-    let base64 = btoa(binaryStr);
-    if (isUrlSafe) {
-      base64 = base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-    }
-    return base64;
-  }
-
-  // Main Processing Logic
+  // Main Logic
   function processData() {
-    const rawValue = base64Input.value.trim();
+    const rawValue = urlInput.value.trim();
     const mode = modeSelect.value;
-    const isUrlSafe = urlSafeCheck.checked;
+    const isStrictComponent = componentCheck.checked;
     const shouldFormatJson = formatJsonCheck.checked;
 
     if (!rawValue) {
       updateStatus('Input is empty.', 'error-msg');
-      base64Output.textContent = defaultOutputText;
+      urlOutput.textContent = defaultOutputText;
       return;
     }
 
     try {
       if (mode === 'decode') {
-        let decoded = decodeUtf8Base64(rawValue, isUrlSafe);
-
+        let decoded = decodeURIComponent(rawValue.replace(/\+/g, ' '));
+        
         if (shouldFormatJson) {
           try {
             const parsedJson = JSON.parse(decoded);
             decoded = JSON.stringify(parsedJson, null, 2);
-            updateStatus('Successfully decoded UTF-8 Base64 (Valid JSON formatted).', 'success-msg');
+            updateStatus('Successfully decoded URL (Valid JSON formatted).', 'success-msg');
           } catch {
-            updateStatus('Successfully decoded UTF-8 Base64.', 'success-msg');
+            updateStatus('Successfully decoded URL component.', 'success-msg');
           }
         } else {
-          updateStatus('Successfully decoded UTF-8 Base64.', 'success-msg');
+          updateStatus('Successfully decoded URL component.', 'success-msg');
         }
 
-        base64Output.textContent = decoded;
-      } else {
-        const encoded = encodeUtf8Base64(rawValue, isUrlSafe);
-        base64Output.textContent = encoded;
-        updateStatus('Successfully encoded to UTF-8 Base64.', 'success-msg');
+        urlOutput.textContent = decoded;
+      } else if (mode === 'encode') {
+        const encoded = isStrictComponent ? encodeURIComponent(rawValue) : encodeURI(rawValue);
+        urlOutput.textContent = encoded;
+        updateStatus(`Successfully encoded URL using ${isStrictComponent ? 'encodeURIComponent' : 'encodeURI'}.`, 'success-msg');
+      } else if (mode === 'parse') {
+        const parsed = parseQueryParams(rawValue, shouldFormatJson);
+        urlOutput.textContent = parsed;
+        updateStatus('Successfully extracted query parameters.', 'success-msg');
       }
     } catch (error) {
-      base64Output.textContent = errorText;
+      urlOutput.textContent = errorText;
       updateStatus(`Failed to ${mode}: ${error.message}`, 'error-msg');
     }
   }
 
-  // UI State Updates
+  // Dynamic UI updates based on mode
   function updateUIState() {
-    const isDecode = modeSelect.value === 'decode';
-    inputHeader.textContent = isDecode ? 'Base64 Input' : 'Raw Text Input';
-    outputHeader.textContent = isDecode ? 'Decoded Text Output' : 'Base64 Output';
-    base64Input.placeholder = isDecode ? 'Paste Base64 encoded string here...' : 'Enter raw text to encode...';
-    formatJsonCheck.disabled = !isDecode;
+    const mode = modeSelect.value;
+
+    if (mode === 'decode') {
+      inputHeader.textContent = 'Encoded Input';
+      outputHeader.textContent = 'Decoded Output';
+      urlInput.placeholder = 'Paste URL or encoded component here...';
+      componentCheckLabel.style.display = 'none';
+      formatJsonCheckLabel.style.display = 'flex';
+      formatJsonCheckLabel.querySelector('span')?.remove();
+    } else if (mode === 'encode') {
+      inputHeader.textContent = 'Raw Text / URL Input';
+      outputHeader.textContent = 'Encoded URL Output';
+      urlInput.placeholder = 'Enter plain string or URL to encode...';
+      componentCheckLabel.style.display = 'flex';
+      formatJsonCheckLabel.style.display = 'none';
+    } else if (mode === 'parse') {
+      inputHeader.textContent = 'URL / Query String Input';
+      outputHeader.textContent = 'Extracted Parameters';
+      urlInput.placeholder = 'Paste URL (e.g., https://example.com?param1=val1&param2=val2) or query string...';
+      componentCheckLabel.style.display = 'none';
+      formatJsonCheckLabel.style.display = 'flex';
+    }
+    
     processData();
   }
 
-  // Status Bar Helper
   function updateStatus(message, className = '') {
     statusBar.textContent = message;
     statusBar.className = 'status-bar ' + className;
   }
 
   // Event Listeners
-  base64Input.addEventListener('input', processData);
+  urlInput.addEventListener('input', processData);
   modeSelect.addEventListener('change', updateUIState);
-  urlSafeCheck.addEventListener('change', processData);
+  componentCheck.addEventListener('change', processData);
   formatJsonCheck.addEventListener('change', processData);
 
   // Copy to Clipboard
   copyBtn.addEventListener('click', () => {
-    const textToCopy = base64Output.textContent;
+    const textToCopy = urlOutput.textContent;
     if (textToCopy && textToCopy !== defaultOutputText && textToCopy !== errorText) {
       navigator.clipboard.writeText(textToCopy).then(() => {
         const originalText = copyBtn.textContent;
@@ -290,8 +333,11 @@
 
   // Clear 
   clearBtn.addEventListener('click', () => {
-    base64Input.value = '';
-    base64Output.textContent = defaultOutputText;
+    urlInput.value = '';
+    urlOutput.textContent = defaultOutputText;
     updateStatus('Ready');
   });
+
+  // Initialize UI state
+  updateUIState();
 </script>

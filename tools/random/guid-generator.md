@@ -16,10 +16,17 @@
 
     select, button {
       border: 1px solid transparent;
+      background-color: var(--bs-body-bg, #1e1e1e);
+      color: var(--bs-body-color, #d4d4d4);
       padding: 6px 12px;
       border-radius: 4px;
       font-size: 0.9rem;
       cursor: pointer;
+    }
+
+    select option {
+      background-color: var(--bs-body-bg, #1e1e1e);
+      color: var(--bs-body-color, #d4d4d4);
     }
 
     button.primary-btn {

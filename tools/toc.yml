@@ -5,8 +5,9 @@
     items: 
     - href: web/jsonformatter.md
     - href: web/jwt-decoder.md
-    - href: web/base64-encoder-decoder.md
     - href: web/html-js-live-playground.md
+    - href: web/base64-encoder-decoder.md
+    - href: web/url-encoder-decoder.md
 
   - name: files
     items:
