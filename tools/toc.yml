@@ -13,6 +13,7 @@
     - href: files/text-editor.md
     - href: files/hex-editor.md
     - href: files/string-extractor.md
+    - href: files/file-entropy.md
 
   - name: hash
     items:
