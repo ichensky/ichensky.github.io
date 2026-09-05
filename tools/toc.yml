@@ -18,4 +18,4 @@
   - name: random
     items:
     - href: random/guid-generator.md
-   
+    - href: random/password-generator.md
