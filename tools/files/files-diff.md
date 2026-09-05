@@ -10,6 +10,23 @@
       --diff-add-text: #89d4a1;
       --diff-remove-bg: rgba(244, 135, 113, 0.15);
       --diff-remove-text: #f48771;
+      --bg-color: #1e1e1e;
+      --text-color: #d4d4d4;
+      --subtle-text: #777777;
+    }
+
+    :root[data-bs-theme='light'] {
+      --border-color: #e0e0e0;
+      --accent-color: #007acc;
+      --error-color: #d93025;
+      --success-color: #188038;
+      --diff-add-bg: rgba(24, 128, 56, 0.15);
+      --diff-add-text: #137333;
+      --diff-remove-bg: rgba(217, 48, 37, 0.15);
+      --diff-remove-text: #c5221f;
+      --bg-color: #ffffff;
+      --text-color: #202124;
+      --subtle-text: #70757a;
     }
 
     header {
@@ -105,6 +122,8 @@
       overflow: auto;
       box-sizing: border-box;
       min-height: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
 
     .diff-output-panel {
@@ -123,7 +142,7 @@
 
     .diff-line-number {
       width: 40px;
-      color: #777;
+      color: var(--subtle-text);
       user-select: none;
       text-align: right;
       padding-right: 10px;
@@ -210,7 +229,7 @@
       <span>Line-by-Line Differences</span>
     </div>
     <div class="diff-container" id="diffContainer">
-      <div style="color: #777;">Differences will be highlighted here automatically...</div>
+      <div style="color: var(--subtle-text);">Differences will be highlighted here automatically...</div>
     </div>
   </div>
 </div>
@@ -291,7 +310,7 @@
     const valA = textA.value;
     const valB = textB.value;
     if (!valA && !valB) {
-      diffContainer.innerHTML = '<div style="color: #777;">Differences will be highlighted here automatically...</div>';
+      diffContainer.innerHTML = '<div style="color: var(--subtle-text);">Differences will be highlighted here automatically...</div>';
       updateStatus('Ready');
       return;
     }
