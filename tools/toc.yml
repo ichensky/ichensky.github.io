@@ -14,4 +14,8 @@
   - name: hash
     items:
     - href: hash/hash-generator.md
+
+  - name: random
+    items:
+    - href: random/guid-generator.md
    
