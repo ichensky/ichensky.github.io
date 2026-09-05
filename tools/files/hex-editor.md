@@ -111,8 +111,7 @@
     flex-shrink: 0;
   }
 
-  .hex-bytes-input {
-    flex: 1;
+  .editor-textarea {
     background: transparent;
     border: none;
     color: inherit;
@@ -122,16 +121,21 @@
     resize: none;
     outline: none;
     padding: 0;
-    white-space: pre-wrap;
-    word-break: break-all;
     overflow: hidden;
     height: auto;
   }
 
-  .hex-ascii {
-    color: var(--text-color);
-    user-select: none;
+  .hex-bytes-input {
+    width: 48ch; /* Exact width for 16 hex pairs + spaces */
+    white-space: pre-wrap;
+    word-break: break-all;
+    flex-shrink: 0;
+  }
+
+  .hex-ascii-input {
+    width: 16ch; /* Fixed 16 characters width */
     white-space: pre;
+    word-break: break-all;
     flex-shrink: 0;
   }
 
@@ -172,7 +176,7 @@
 <div class="tool">
   <div class="main-container">
     <div class="panel">
-      <div class="panel-header">Hex Editor</div>
+      <div class="panel-header">Hex & ASCII Editor (16-Byte Wrap)</div>
       <div class="panel-actions">
         <label for="fileInput" class="button-label">Upload File</label>
         <input type="file" id="fileInput" />
@@ -181,8 +185,8 @@
       </div>
       <div class="hex-container" id="hexContainer">
         <div class="hex-offsets" id="hexOffsets">00000000</div>
-        <textarea id="hexBytesInput" class="hex-bytes-input" placeholder="Enter hex pairs (e.g. 48 65 6c 6c 6f)..." spellcheck="false" rows="1"></textarea>
-        <div class="hex-ascii" id="hexAscii"></div>
+        <textarea id="hexBytesInput" class="editor-textarea hex-bytes-input" placeholder="48 65 6c 6c 6f..." spellcheck="false" rows="1"></textarea>
+        <textarea id="hexAsciiInput" class="editor-textarea hex-ascii-input" placeholder="ASCII..." spellcheck="false" rows="1"></textarea>
       </div>
     </div>
   </div>
@@ -192,24 +196,28 @@
 
 <script>
   const hexBytesInput = document.getElementById('hexBytesInput');
+  const hexAsciiInput = document.getElementById('hexAsciiInput');
   const hexOffsets = document.getElementById('hexOffsets');
-  const hexAscii = document.getElementById('hexAscii');
   const statusBar = document.getElementById('statusBar');
   const downloadBtn = document.getElementById('downloadBtn');
   const clearBtn = document.getElementById('clearBtn');
   const fileInput = document.getElementById('fileInput');
-  const hexContainer = document.getElementById('hexContainer');
 
   let currentFileName = 'file.bin';
+  let rawBytes = new Uint8Array(0);
+  let activeEditor = null;
 
   function updateStatus(message, className = '') {
     statusBar.textContent = message;
     statusBar.className = 'status-bar ' + className;
   }
 
-  function adjustTextareaHeight() {
+  function adjustTextareaHeights() {
     hexBytesInput.style.height = 'auto';
-    hexBytesInput.style.height = hexBytesInput.scrollHeight + 'px';
+    hexAsciiInput.style.height = 'auto';
+    const targetHeight = Math.max(hexBytesInput.scrollHeight, hexAsciiInput.scrollHeight) + 'px';
+    hexBytesInput.style.height = targetHeight;
+    hexAsciiInput.style.height = targetHeight;
   }
 
   function parseHex(rawHex) {
@@ -221,41 +229,92 @@
     return bytes;
   }
 
-  function renderHexView() {
-    const bytes = parseHex(hexBytesInput.value);
-    
-    if (bytes.length === 0) {
+  function renderViews() {
+    if (rawBytes.length === 0) {
       hexOffsets.textContent = '00000000';
-      hexAscii.textContent = '';
-      adjustTextareaHeight();
+      if (activeEditor !== 'hex') hexBytesInput.value = '';
+      if (activeEditor !== 'ascii') hexAsciiInput.value = '';
+      adjustTextareaHeights();
       updateStatus('Ready');
       return;
     }
 
-    const linesCount = Math.ceil(bytes.length / 16);
+    const linesCount = Math.ceil(rawBytes.length / 16);
     let offsetsText = '';
+    let hexText = '';
     let asciiText = '';
 
     for (let i = 0; i < linesCount; i++) {
       const offset = (i * 16).toString(16).padStart(8, '0').toUpperCase();
       offsetsText += offset + '\n';
 
+      let lineHex = '';
       let lineAscii = '';
       for (let j = 0; j < 16; j++) {
         const index = i * 16 + j;
-        if (index < bytes.length) {
-          const byte = bytes[index];
+        if (index < rawBytes.length) {
+          const byte = rawBytes[index];
+          lineHex += byte.toString(16).padStart(2, '0').toUpperCase() + ' ';
           lineAscii += (byte >= 32 && byte <= 126) ? String.fromCharCode(byte) : '.';
         }
       }
+      hexText += lineHex.trimEnd() + '\n';
       asciiText += lineAscii + '\n';
     }
 
     hexOffsets.textContent = offsetsText.trimEnd();
-    hexAscii.textContent = asciiText.trimEnd();
-    adjustTextareaHeight();
-    updateStatus(`Size: ${bytes.length} bytes`);
+
+    if (activeEditor !== 'hex') {
+      hexBytesInput.value = hexText.trimEnd();
+    }
+    if (activeEditor !== 'ascii') {
+      hexAsciiInput.value = asciiText.trimEnd();
+    }
+
+    adjustTextareaHeights();
+    updateStatus(`Size: ${rawBytes.length} bytes`);
   }
+
+  // Handle Hex Input
+  hexBytesInput.addEventListener('focus', () => activeEditor = 'hex');
+  hexBytesInput.addEventListener('input', () => {
+    activeEditor = 'hex';
+    rawBytes = parseHex(hexBytesInput.value);
+    renderViews();
+  });
+
+  // Handle ASCII Input
+  hexAsciiInput.addEventListener('focus', () => activeEditor = 'ascii');
+  hexAsciiInput.addEventListener('input', () => {
+    activeEditor = 'ascii';
+    const lines = hexAsciiInput.value.split('\n');
+    let byteList = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const lineLen = Math.min(line.length, 16);
+      for (let j = 0; j < lineLen; j++) {
+        const globalIndex = i * 16 + j;
+        const charCode = line.charCodeAt(j);
+
+        if (globalIndex < rawBytes.length) {
+          const originalByte = rawBytes[globalIndex];
+          const isNonPrintable = (originalByte < 32 || originalByte > 126);
+
+          if (line[j] === '.' && isNonPrintable) {
+            byteList.push(originalByte);
+          } else {
+            byteList.push(charCode <= 255 ? charCode : 46);
+          }
+        } else {
+          byteList.push(charCode <= 255 ? charCode : 46);
+        }
+      }
+    }
+
+    rawBytes = new Uint8Array(byteList);
+    renderViews();
+  });
 
   fileInput.addEventListener('change', (event) => {
     const file = event.target.files[0];
@@ -264,18 +323,10 @@
     currentFileName = file.name;
     const reader = new FileReader();
     reader.onload = (e) => {
-      const arrayBuffer = e.target.result;
-      const bytes = new Uint8Array(arrayBuffer);
-      
-      let hexString = '';
-      for (let i = 0; i < bytes.length; i++) {
-        const hex = bytes[i].toString(16).padStart(2, '0').toUpperCase();
-        hexString += hex + ' ';
-      }
-
-      hexBytesInput.value = hexString.trim();
-      renderHexView();
-      updateStatus(`Uploaded "${file.name}" (${bytes.length} bytes)`, 'success-msg');
+      rawBytes = new Uint8Array(e.target.result);
+      activeEditor = null;
+      renderViews();
+      updateStatus(`Uploaded "${file.name}" (${rawBytes.length} bytes)`, 'success-msg');
       fileInput.value = '';
     };
 
@@ -284,13 +335,12 @@
   });
 
   downloadBtn.addEventListener('click', () => {
-    const bytes = parseHex(hexBytesInput.value);
-    if (bytes.length === 0) {
+    if (rawBytes.length === 0) {
       updateStatus('Cannot download empty buffer.', 'error-msg');
       return;
     }
 
-    const blob = new Blob([bytes], { type: 'application/octet-stream' });
+    const blob = new Blob([rawBytes], { type: 'application/octet-stream' });
     const url = URL.createObjectURL(blob);
     
     const a = document.createElement('a');
@@ -301,14 +351,15 @@
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 
-    updateStatus(`Downloaded "${currentFileName}" (${bytes.length} bytes)`, 'success-msg');
+    updateStatus(`Downloaded "${currentFileName}" (${rawBytes.length} bytes)`, 'success-msg');
   });
 
   clearBtn.addEventListener('click', () => {
+    rawBytes = new Uint8Array(0);
     hexBytesInput.value = '';
+    hexAsciiInput.value = '';
     currentFileName = 'file.bin';
-    renderHexView();
+    activeEditor = null;
+    renderViews();
   });
-
-  hexBytesInput.addEventListener('input', renderHexView);
 </script>
