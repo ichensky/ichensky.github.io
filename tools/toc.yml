@@ -30,3 +30,4 @@
   - name: network
     items:
     - href: network/dns-lookup.md
+    - href: network/my-ip-address.md
