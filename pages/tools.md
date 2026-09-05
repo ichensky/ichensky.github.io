@@ -1,3 +1,3 @@
 ---
-redirect_url: /tools/web/jsonformatter.html
+redirect_url: /tools/time/clock-and-timer.html
 ---

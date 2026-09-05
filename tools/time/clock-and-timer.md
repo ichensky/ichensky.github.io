@@ -15,8 +15,7 @@
   :root[data-bs-theme='light'] {
     --bg-surface: rgba(0, 0, 0, 0.05);
     --border-color: rgba(0, 0, 0, 0.15);
-    }
-
+  }
 
   .tool {
     max-height: 85vh;
@@ -81,6 +80,14 @@
 
   .clock-display {
     font-size: 2.8rem;
+  }
+
+  .date-display {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    font-family: monospace;
+    font-weight: 600;
   }
 
   .timer-display {
@@ -153,12 +160,14 @@
         </select>
       </div>
       <div id="localClockDisplay" class="digital-display clock-display">00:00:00</div>
+      <div id="localDateDisplay" class="date-display">----- --- ---</div>
     </div>
     <div class="clock-section">
       <div class="section-header">
         <span class="section-label">UTC Time</span>
       </div>
       <div id="utcClockDisplay" class="digital-display clock-display">00:00:00</div>
+      <div id="utcDateDisplay" class="date-display">----- --- ---</div>
     </div>
     <div class="info-section full-width">
       <div class="section-label">Timezone Information</div>
@@ -181,16 +190,27 @@
 <script>
   // DOM Elements
   const localClockDisplay = document.getElementById('localClockDisplay');
+  const localDateDisplay = document.getElementById('localDateDisplay');
   const utcClockDisplay = document.getElementById('utcClockDisplay');
+  const utcDateDisplay = document.getElementById('utcDateDisplay');
   const timezoneDisplay = document.getElementById('timezoneDisplay');
   const formatSelect = document.getElementById('formatSelect');
+
+  // Helper function to format date as YYYY-MMM-DD
+  function formatDate(date, isUTC = false) {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const year = isUTC ? date.getUTCFullYear() : date.getFullYear();
+    const month = months[isUTC ? date.getUTCMonth() : date.getMonth()];
+    const day = String(isUTC ? date.getUTCDate() : date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 
   // Clock Update Function
   function updateClocks() {
     const now = new Date();
     const is24Hour = formatSelect.value === '24';
 
-    // Local Time
+    // Local Time & Date
     const localOptions = {
       hour: '2-digit',
       minute: '2-digit',
@@ -198,8 +218,9 @@
       hour12: !is24Hour
     };
     localClockDisplay.textContent = now.toLocaleTimeString([], localOptions);
+    localDateDisplay.textContent = formatDate(now, false);
 
-    // UTC Time
+    // UTC Time & Date
     const utcOptions = {
       hour: '2-digit',
       minute: '2-digit',
@@ -208,6 +229,7 @@
       hour12: !is24Hour
     };
     utcClockDisplay.textContent = now.toLocaleTimeString([], utcOptions);
+    utcDateDisplay.textContent = formatDate(now, true);
   }
 
   // Timezone Details Detection
