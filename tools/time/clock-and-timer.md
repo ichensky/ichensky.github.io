@@ -106,9 +106,14 @@
   }
 
   select {
-    background-color: transparent;
-    color: inherit;
+    background-color: var(--bs-body-bg, #1e1e1e);
+    color: var(--bs-body-color, #d4d4d4);
     padding: 2px 6px;
+  }
+
+  select option {
+    background-color: var(--bs-body-bg, #1e1e1e);
+    color: var(--bs-body-color, #d4d4d4);
   }
 
   button:hover, select:hover {

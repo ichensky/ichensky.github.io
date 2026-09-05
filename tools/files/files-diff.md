@@ -45,12 +45,17 @@
 
     select, button, input[type="file"] {
       border: 1px solid var(--border-color);
-      background: transparent;
-      color: inherit;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       padding: 5px 10px;
       border-radius: 4px;
       font-size: 0.85rem;
       cursor: pointer;
+    }
+
+    select option {
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
 
     select:focus, button:focus {

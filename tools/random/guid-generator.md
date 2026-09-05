@@ -6,6 +6,13 @@
       --accent-color: #007acc;
       --error-color: #f48771;
       --success-color: #89d4a1;
+      --bg-color: #1e1e1e;
+      --text-color: #d4d4d4;
+    }
+
+    :root[data-bs-theme='light'] {
+      --bg-color: #ffffff;
+      --text-color: #202124;
     }
 
     .controls {
@@ -16,8 +23,8 @@
 
     select, button {
       border: 1px solid transparent;
-      background-color: var(--bs-body-bg, #1e1e1e);
-      color: var(--bs-body-color, #d4d4d4);
+      background-color: var(--bg-color);
+      color: var(--text-color);
       padding: 6px 12px;
       border-radius: 4px;
       font-size: 0.9rem;
@@ -25,8 +32,8 @@
     }
 
     select option {
-      background-color: var(--bs-body-bg, #1e1e1e);
-      color: var(--bs-body-color, #d4d4d4);
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
 
     button.primary-btn {
