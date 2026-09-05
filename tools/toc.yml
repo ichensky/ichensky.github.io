@@ -1,11 +1,15 @@
 - name: tools
   items:
-  
+
   - name: web
     items: 
     - href: web/jsonformatter.md
     - href: web/jwt-decoder.md
     - href: web/base64-encoder-decoder.md
+
+  - name: files
+    items:
+    - href: files/files-diff.md
 
   - name: hash
     items:
