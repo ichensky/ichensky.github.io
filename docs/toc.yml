@@ -66,6 +66,12 @@
     - name: normal-distribution
       items:
       - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
+  
+  - name: math
+    items:
+    - name: combinatorics
+      items:
+      - href: dev/math/combinatorics/permutation-vs-combination.md
 
   - name: .net
     items:
