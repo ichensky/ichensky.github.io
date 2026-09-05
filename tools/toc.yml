@@ -19,3 +19,7 @@
     items:
     - href: random/guid-generator.md
     - href: random/password-generator.md
+
+  - name: time
+    items:
+    - href: time/clock-and-timer.md

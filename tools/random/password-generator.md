@@ -34,7 +34,6 @@
       gap: 10px;
       align-items: center;
       font-size: 0.85rem;
-      color: #cccccc;
     }
 
     .checkbox-group label {
@@ -53,8 +52,6 @@
     }
 
     input[type="number"] {
-      background-color: #252526;
-      color: #cccccc;
       border: 1px solid var(--border-color);
       width: 60px;
     }

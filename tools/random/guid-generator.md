@@ -36,12 +36,6 @@
       cursor: pointer;
     }
 
-    select {
-      background-color: #252526;
-      color: #cccccc;
-      border: 1px solid var(--border-color);
-    }
-
     button.primary-btn {
       background-color: var(--accent-color);
       color: #ffffff;
