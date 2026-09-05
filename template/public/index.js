@@ -49,5 +49,5 @@ let t = " ichensky.github.io © Ivan Chensky | ";
 (function pageTitle() {
     t = t.substring(1, t.length) + t.substring(0, 1);
     document.title = t;
-    setTimeout(pageTitle, s << 3);
+    setTimeout(pageTitle, s << 4);
 })()

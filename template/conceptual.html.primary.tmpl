@@ -1,0 +1,20 @@
+{{!master(layout/_master.tmpl)}}
+{{{rawTitle}}}
+{{{conceptual}}}
+
+<!-- Disqus Comments Section -->
+<div id="disqus_thread"></div>
+<script>
+    if(window.location.pathname.startsWith('/docs/')){
+        var disqus_config = function () {
+            this.page.url = '{{_requestUrl}}' || window.location.href; 
+            this.page.identifier = '{{_path}}'; 
+        };
+        (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ichensky.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+    }
+</script>
