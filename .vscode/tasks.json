@@ -7,20 +7,30 @@
             "label": "build",
             "command": "./build.sh",
             "type": "shell",
-            "args": [ ],
+            "args": [],
             "group": "build",
             "presentation": {
                 "reveal": "silent"
+            },
+            "options": {
+                "env": {
+                    "PATH": "${env:HOME}/.dotnet/tools:${env:PATH}"
+                }
             }
         },
         {
             "label": "start",
             "command": "./start.sh",
             "type": "shell",
-            "args": [ ],
+            "args": [],
             "group": "build",
             "presentation": {
                 "reveal": "silent"
+            },
+            "options": {
+                "env": {
+                    "PATH": "${env:HOME}/.dotnet/tools:${env:PATH}"
+                }
             }
         }
     ]

@@ -1,5 +1,7 @@
 - name: Docs
   href: pages/docs.md
+- name: Tools
+  href: pages/tools.md
 - name: Contacts
   href: pages/contacts.md
 - name: About 
