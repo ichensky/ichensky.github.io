@@ -28,7 +28,7 @@
     align-items: center;
   }
 
-  button {
+  button, .button-label {
     border: 1px solid transparent;
     padding: 6px 12px;
     border-radius: 4px;
@@ -36,10 +36,17 @@
     cursor: pointer;
     background-color: var(--accent-color);
     color: #fff;
+    display: inline-block;
+    box-sizing: border-box;
   }
 
-  button:focus {
+  button:focus, .button-label:focus-within {
     outline: 1px solid var(--accent-color);
+  }
+
+  /* Hide default file input */
+  #fileInput {
+    display: none;
   }
 
   .main-container {
@@ -98,7 +105,7 @@
     gap: 8px;
   }
   
-  .panel-actions button {
+  .panel-actions button, .panel-actions .button-label {
     font-size: 0.8rem;
     padding: 4px 8px;
   }
@@ -112,15 +119,18 @@
     padding-bottom: 10px;
   }
 </style>
+
 <div class="tool">
   <div class="main-container">
     <div class="panel">
       <div class="panel-header">Document Editor</div>
       <div class="panel-actions">
+        <label for="fileInput" class="button-label">Upload Text</label>
+        <input type="file" id="fileInput" accept=".txt,.md,.json,.csv,.log,text/*" />
         <button id="downloadBtn">Download Text</button>
         <button id="clearBtn">Clear</button>
       </div>
-      <textarea id="textInput" placeholder="Start typing your text here..."></textarea>
+      <textarea id="textInput" placeholder="Start typing or upload a text file..."></textarea>
     </div>
   </div>
 
@@ -132,6 +142,7 @@
   const statusBar = document.getElementById('statusBar');
   const downloadBtn = document.getElementById('downloadBtn');
   const clearBtn = document.getElementById('clearBtn');
+  const fileInput = document.getElementById('fileInput');
 
   // Status Bar Helper
   function updateStatus(message, className = '') {
@@ -155,6 +166,25 @@
 
     return (sanitized || 'document') + '.txt';
   }
+
+  // Upload Handler
+  fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      textInput.value = e.target.result;
+      updateTextMetrics();
+      updateStatus(`Uploaded "${file.name}"`, 'success-msg');
+      fileInput.value = ''; // Reset input to allow re-uploading the same file
+    };
+    reader.onerror = () => {
+      updateStatus('Error reading file.', 'error-msg');
+    };
+
+    reader.readAsText(file);
+  });
 
   // Download Handler
   downloadBtn.addEventListener('click', () => {
@@ -185,10 +215,13 @@
     updateStatus('Ready');
   });
 
-  // Input Tracking
-  textInput.addEventListener('input', () => {
+  // Helper to update word & char count
+  function updateTextMetrics() {
     const charCount = textInput.value.length;
     const wordCount = textInput.value.trim() ? textInput.value.trim().split(/\s+/).length : 0;
     updateStatus(`Words: ${wordCount} | Characters: ${charCount}`);
-  });
+  }
+
+  // Input Tracking
+  textInput.addEventListener('input', updateTextMetrics);
 </script>
