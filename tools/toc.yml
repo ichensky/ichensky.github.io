@@ -3,4 +3,5 @@
   - name: web
     items: 
     - href: web/jsonformatter/jsonformatter.md
+    - href: web/jwt-decoder/jwt-decoder.md
    
