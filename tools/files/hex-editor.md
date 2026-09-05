@@ -12,7 +12,7 @@
   }
 
   :root[data-bs-theme='light'] {
---border-color: #e0e0e0;
+    --border-color: #e0e0e0;
     --accent-color: #007acc;
     --error-color: #d93025;
     --success-color: #188038;
@@ -20,7 +20,6 @@
     --text-color: #202124;
     --offset-color: #005fb8;
   }
-
 
   header {
     border-bottom: 1px solid var(--border-color);
@@ -94,19 +93,22 @@
     line-height: 1.5;
     border: none;
     outline: none;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     box-sizing: border-box;
     min-height: 0;
     display: flex;
     gap: 20px;
     background-color: var(--bg-color);
     color: var(--text-color);
+    align-items: flex-start;
   }
 
   .hex-offsets {
     color: var(--offset-color);
     user-select: none;
     white-space: pre;
+    flex-shrink: 0;
   }
 
   .hex-bytes-input {
@@ -122,13 +124,15 @@
     padding: 0;
     white-space: pre-wrap;
     word-break: break-all;
-    overflow: auto;
+    overflow: hidden;
+    height: auto;
   }
 
   .hex-ascii {
     color: var(--text-color);
     user-select: none;
     white-space: pre;
+    flex-shrink: 0;
   }
 
   .status-bar {
@@ -149,7 +153,7 @@
     display: flex;
     gap: 8px;
   }
-  
+
   .panel-actions button, .panel-actions .button-label {
     font-size: 0.8rem;
     padding: 4px 8px;
@@ -177,7 +181,7 @@
       </div>
       <div class="hex-container" id="hexContainer">
         <div class="hex-offsets" id="hexOffsets">00000000</div>
-        <textarea id="hexBytesInput" class="hex-bytes-input" placeholder="Enter hex pairs (e.g. 48 65 6c 6c 6f)..." spellcheck="false"></textarea>
+        <textarea id="hexBytesInput" class="hex-bytes-input" placeholder="Enter hex pairs (e.g. 48 65 6c 6c 6f)..." spellcheck="false" rows="1"></textarea>
         <div class="hex-ascii" id="hexAscii"></div>
       </div>
     </div>
@@ -203,6 +207,11 @@
     statusBar.className = 'status-bar ' + className;
   }
 
+  function adjustTextareaHeight() {
+    hexBytesInput.style.height = 'auto';
+    hexBytesInput.style.height = hexBytesInput.scrollHeight + 'px';
+  }
+
   function parseHex(rawHex) {
     const cleanHex = rawHex.replace(/[^0-9a-fA-F]/g, '');
     const bytes = new Uint8Array(Math.floor(cleanHex.length / 2));
@@ -218,6 +227,7 @@
     if (bytes.length === 0) {
       hexOffsets.textContent = '00000000';
       hexAscii.textContent = '';
+      adjustTextareaHeight();
       updateStatus('Ready');
       return;
     }
@@ -235,7 +245,6 @@
         const index = i * 16 + j;
         if (index < bytes.length) {
           const byte = bytes[index];
-          // Printable ASCII characters range (32-126)
           lineAscii += (byte >= 32 && byte <= 126) ? String.fromCharCode(byte) : '.';
         }
       }
@@ -244,10 +253,10 @@
 
     hexOffsets.textContent = offsetsText.trimEnd();
     hexAscii.textContent = asciiText.trimEnd();
+    adjustTextareaHeight();
     updateStatus(`Size: ${bytes.length} bytes`);
   }
 
-  // File Upload Handler
   fileInput.addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -274,7 +283,6 @@
     reader.readAsArrayBuffer(file);
   });
 
-  // Binary Download Handler
   downloadBtn.addEventListener('click', () => {
     const bytes = parseHex(hexBytesInput.value);
     if (bytes.length === 0) {
@@ -296,18 +304,11 @@
     updateStatus(`Downloaded "${currentFileName}" (${bytes.length} bytes)`, 'success-msg');
   });
 
-  // Clear Editor Handler
   clearBtn.addEventListener('click', () => {
     hexBytesInput.value = '';
     currentFileName = 'file.bin';
     renderHexView();
   });
 
-  // Synchronize Scroll & Dynamic Input Rendering
   hexBytesInput.addEventListener('input', renderHexView);
-  
-  hexBytesInput.addEventListener('scroll', () => {
-    hexOffsets.scrollTop = hexBytesInput.scrollTop;
-    hexAscii.scrollTop = hexBytesInput.scrollTop;
-  });
 </script>
