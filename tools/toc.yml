@@ -26,3 +26,7 @@
   - name: time
     items:
     - href: time/clock-and-timer.md
+
+  - name: network
+    items:
+    - href: network/dns-lookup.md
