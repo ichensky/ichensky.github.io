@@ -12,6 +12,12 @@
     --select-bg: #2d2d2d;
   }
 
+  :root[data-bs-theme='light'] {
+    --bg-surface: rgba(0, 0, 0, 0.05);
+    --border-color: rgba(0, 0, 0, 0.15);
+    }
+
+
   .tool {
     max-height: 85vh;
     display: flex;
