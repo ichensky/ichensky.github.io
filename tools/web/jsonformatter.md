@@ -6,6 +6,17 @@
       --accent-color: #007acc;
       --error-color: #f48771;
       --success-color: #89d4a1;
+      --bg-color: #1e1e1e;
+      --text-color: #d4d4d4;
+    }
+
+    :root[data-bs-theme='light'] {
+      --border-color: #e0e0e0;
+      --accent-color: #007acc;
+      --error-color: #d93025;
+      --success-color: #188038;
+      --bg-color: #ffffff;
+      --text-color: #202124;
     }
 
     header {
@@ -20,20 +31,34 @@
       margin: 0;
       font-size: 1.2rem;
       font-weight: 500;
+      color: var(--text-color);
     }
 
     .controls {
       display: flex;
       gap: 10px;
       align-items: center;
+      color: var(--text-color);
+    }
+
+    .controls label {
+      color: var(--text-color);
     }
 
     select, button {
-      border: 1px solid transparent;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-color);
+      color: var(--text-color);
       padding: 6px 12px;
       border-radius: 4px;
       font-size: 0.9rem;
       cursor: pointer;
+    }
+
+    button {
+      background-color: var(--accent-color);
+      color: #fff;
+      border: 1px solid transparent;
     }
 
     select:focus, button:focus {
@@ -65,6 +90,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       border-bottom: 1px solid var(--border-color);
+      color: var(--text-color);
     }
 
     textarea, pre {
@@ -79,6 +105,8 @@
       overflow: auto;
       box-sizing: border-box;
       min-height: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
 
     pre {
@@ -91,6 +119,7 @@
       font-size: 0.85rem;
       border-top: 1px solid var(--border-color);
       min-height: 20px;
+      color: var(--text-color);
     }
 
     .error-msg { color: var(--error-color); }
@@ -105,20 +134,22 @@
     }
     
     .panel-actions button {
-      opacity: 0.6;
+      opacity: 0.8;
       font-size: 0.8rem;
       padding: 4px 8px;
     }
     .panel-actions button:hover {
       opacity: 1;
     }
-    .tool{
+    .tool {
       max-height: 80vh;
       height: stretch;
       display: flex;
       flex-direction: column;
       padding-top: 10px;
       padding-bottom: 10px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
 </style>
 
@@ -205,9 +236,9 @@
 
   // Copy to Clipboard
   copyBtn.addEventListener('click', () => {
-    const outputText = jsonOutput.textContent;
-    if (outputText && outputText !== outputText && outputText !== errorText) {
-      navigator.clipboard.writeText(outputText).then(() => {
+    const currentText = jsonOutput.textContent;
+    if (currentText && currentText !== outputText && currentText !== errorText) {
+      navigator.clipboard.writeText(currentText).then(() => {
         const originalText = copyBtn.textContent;
         copyBtn.textContent = 'Copied!';
         setTimeout(() => copyBtn.textContent = originalText, 2000);

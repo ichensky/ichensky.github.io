@@ -6,6 +6,17 @@
       --accent-color: #007acc;
       --error-color: #f48771;
       --success-color: #89d4a1;
+      --bg-color: #1e1e1e;
+      --text-color: #d4d4d4;
+    }
+
+    :root[data-bs-theme='light'] {
+      --border-color: #e0e0e0;
+      --accent-color: #007acc;
+      --error-color: #d93025;
+      --success-color: #188038;
+      --bg-color: #ffffff;
+      --text-color: #202124;
     }
 
     header {
@@ -29,11 +40,19 @@
     }
 
     select, button {
-      border: 1px solid transparent;
+      border: 1px solid var(--border-color);
+      background-color: transparent;
+      color: var(--text-color);
       padding: 6px 12px;
       border-radius: 4px;
       font-size: 0.9rem;
       cursor: pointer;
+    }
+
+    button {
+      background-color: var(--accent-color);
+      color: #fff;
+      border: 1px solid transparent;
     }
 
     select:focus, button:focus {
@@ -79,6 +98,8 @@
       overflow: auto;
       box-sizing: border-box;
       min-height: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
 
     pre {
@@ -105,7 +126,7 @@
     }
     
     .panel-actions button {
-      opacity: 0.6;
+      opacity: 0.8;
       font-size: 0.8rem;
       padding: 4px 8px;
     }
