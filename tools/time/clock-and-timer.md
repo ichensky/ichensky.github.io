@@ -149,7 +149,6 @@
           <div id="localDateDisplay" class="date-display">----- --- ---</div>
         </div>
       </div>
-
       <div class="panel">
         <div class="panel-header">
           <span>UTC Time</span>
@@ -160,14 +159,12 @@
         </div>
       </div>
     </div>
-
     <div class="panel">
       <div class="panel-header">Timezone Information</div>
       <div class="panel-body">
         <div id="timezoneDisplay" class="info-value">Detecting Timezone...</div>
       </div>
     </div>
-
     <div class="panel">
       <div class="panel-header">Timer / Stopwatch</div>
       <div class="panel-body">
