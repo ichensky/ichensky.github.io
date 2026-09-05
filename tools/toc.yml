@@ -12,6 +12,7 @@
     - href: files/files-diff.md
     - href: files/text-editor.md
     - href: files/hex-editor.md
+    - href: files/string-extractor.md
 
   - name: hash
     items:
