@@ -1,4 +1,4 @@
-# My IP Address 
+## My IP Address
 
 <style>
   :root {
@@ -6,28 +6,13 @@
     --accent-color: #007acc;
     --error-color: #f48771;
     --success-color: #89d4a1;
-    --bg-color: #1e1e1e;
-    --card-bg: #252526;
-    --text-color: #d4d4d4;
-    --text-dim: #858585;
-  }
-
-  :root[data-bs-theme='light'] {
-    --border-color: #e0e0e0;
-    --accent-color: #007acc;
-    --error-color: #d93025;
-    --success-color: #188038;
-    --bg-color: #ffffff;
-    --card-bg: #f3f3f3;
-    --text-color: #202124;
-    --text-dim: #5f6368;
   }
 
   .controls {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
-    color: var(--text-color);
+    margin-bottom: 10px;
   }
 
   button {
@@ -36,43 +21,53 @@
     color: #fff;
     padding: 6px 12px;
     border-radius: 4px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     cursor: pointer;
+  }
+
+  button:hover {
+    opacity: 0.9;
   }
 
   button:focus {
     outline: 1px solid var(--accent-color);
   }
 
+  .btn-secondary {
+    background-color: transparent;
+    color: inherit;
+  }
+
   .main-container {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    gap: 10px;
     overflow-y: auto;
-    padding: 15px;
-    gap: 15px;
+    min-height: 0;
+    flex: 1;
   }
 
-  .card {
-    background-color: var(--card-bg);
+  .panel {
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 15px;
+    border-radius: 4px;
+    min-height: 0;
   }
 
-  .card-header {
-    font-size: 0.85rem;
+  .panel-header {
+    padding: 6px 15px;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--text-dim);
-    margin-bottom: 10px;
-    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 12px;
+    padding: 15px;
   }
 
   .info-item {
@@ -82,8 +77,10 @@
   }
 
   .info-label {
-    font-size: 0.8rem;
-    color: var(--text-dim);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
   }
 
   .info-value {
@@ -97,7 +94,7 @@
     font-size: 0.85rem;
     border-top: 1px solid var(--border-color);
     min-height: 20px;
-    color: var(--text-color);
+    margin-top: 10px;
   }
 
   .error-msg { color: var(--error-color); }
@@ -110,21 +107,19 @@
     flex-direction: column;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
   }
 </style>
 
 <div class="tool">
-  <div class="controls" style="padding: 0 15px 10px 15px; border-bottom: 1px solid var(--border-color);">
+  <div class="controls">
     <button id="refreshBtn">Refresh Data</button>
-    <button id="copyAllBtn" style="background-color: transparent; color: var(--text-color); border: 1px solid var(--border-color);">Copy JSON</button>
+    <button id="copyAllBtn" class="btn-secondary">Copy JSON</button>
   </div>
 
   <div class="main-container">
     <!-- IP & Location Section -->
-    <div class="card">
-      <div class="card-header">Network & Location</div>
+    <div class="panel">
+      <div class="panel-header">Network & Location</div>
       <div class="grid">
         <div class="info-item">
           <span class="info-label">Public IP Address</span>
@@ -145,8 +140,8 @@
       </div>
     </div>
     <!-- Browser & OS Section -->
-    <div class="card">
-      <div class="card-header">Browser & Environment</div>
+    <div class="panel">
+      <div class="panel-header">Browser & Environment</div>
       <div class="grid">
         <div class="info-item">
           <span class="info-label">Browser</span>
@@ -175,8 +170,8 @@
       </div>
     </div>
     <!-- Hardware & Display Section -->
-    <div class="card">
-      <div class="card-header">Display & Hardware</div>
+    <div class="panel">
+      <div class="panel-header">Display & Hardware</div>
       <div class="grid">
         <div class="info-item">
           <span class="info-label">Screen Resolution</span>
@@ -222,14 +217,12 @@
     let browser = "Unknown";
     let os = "Unknown";
 
-    // OS Detection
     if (ua.indexOf("Win") !== -1) os = "Windows";
     else if (ua.indexOf("Mac") !== -1) os = "macOS";
     else if (ua.indexOf("Linux") !== -1) os = "Linux";
     else if (ua.indexOf("Android") !== -1) os = "Android";
     else if (ua.indexOf("like Mac") !== -1) os = "iOS";
 
-    // Browser Detection
     if (ua.indexOf("Firefox") !== -1) browser = "Firefox";
     else if (ua.indexOf("SamsungBrowser") !== -1) browser = "Samsung Internet";
     else if (ua.indexOf("Opera") !== -1 || ua.indexOf("OPR") !== -1) browser = "Opera";
@@ -278,10 +271,17 @@
     updateStatus('Fetching IP information...', '');
     try {
       const response = await fetch('https://ipapi.co/json/');
-      if (!response.ok) throw new Error('Network response was not ok');
       
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       const data = await response.json();
-      
+
+      if (data.error) {
+        throw new Error(data.reason || 'Failed to retrieve IP details.');
+      }
+
       const ipDetails = {
         ip: data.ip || 'N/A',
         isp: data.org || data.asn || 'N/A',
@@ -302,15 +302,15 @@
       document.getElementById('location').textContent = 'Unavailable';
       document.getElementById('ipTimezone').textContent = 'Unavailable';
 
-      updateStatus('Failed to load IP details (Ad-blocker or CORS issue)', 'error-msg');
-      return { error: 'Failed to retrieve IP details' };
+      updateStatus(`Error: ${error.message}`, 'error-msg');
+      return { error: error.message };
     }
   }
 
   async function refreshAllData() {
     const clientDetails = collectClientDetails();
     const ipDetails = await fetchIPDetails();
-    
+
     currentData = {
       network: ipDetails,
       client: clientDetails,
@@ -333,6 +333,5 @@
     document.getElementById('viewportRes').textContent = `${window.innerWidth} x ${window.innerHeight}`;
   });
 
-  // Initial Execution
   refreshAllData();
 </script>

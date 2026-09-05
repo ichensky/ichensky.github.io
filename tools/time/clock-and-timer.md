@@ -1,37 +1,35 @@
-# Digital Clock & Timer
+## Digital Clock & Timer
 
 <style>
   :root {
-    --bg-surface: rgba(255, 255, 255, 0.05);
-    --border-color: rgba(255, 255, 255, 0.15);
+    --border-color: #3c3c3c;
     --accent-color: #007acc;
-    --stop-color: #d16969;
-    --success-color: #4ec9b0;
-    --btn-bg: #7a00cc;
-    --btn-text: #ffffff;
-    --select-bg: #2d2d2d;
-  }
-
-  :root[data-bs-theme='light'] {
-    --bg-surface: rgba(0, 0, 0, 0.05);
-    --border-color: rgba(0, 0, 0, 0.15);
+    --error-color: #f48771;
+    --success-color: #89d4a1;
   }
 
   .tool {
-    max-height: 85vh;
+    max-height: 80vh;
+    height: stretch;
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    background-color: transparent;
-    gap: 16px;
-    box-sizing: border-box;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     overflow-y: auto;
+    min-height: 0;
+    flex: 1;
   }
 
   .grid-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   @media (max-width: 600px) {
@@ -40,68 +38,55 @@
     }
   }
 
-  .clock-section, .timer-section, .info-section {
-    background-color: var(--bg-surface);
+  .panel {
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 16px;
-    text-align: center;
+    border-radius: 4px;
+    min-height: 0;
+  }
+
+  .panel-header {
+    padding: 6px 15px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .panel-body {
+    padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(4px);
-  }
-
-  .full-width {
-    grid-column: 1 / -1;
-  }
-
-  .section-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-
-  .section-label {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    font-weight: 600;
   }
 
   .digital-display {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: monospace;
     font-weight: bold;
-    color: var(--text-primary);
-  }
-
-  .clock-display {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
   }
 
   .date-display {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
+    font-size: 0.95rem;
+    opacity: 0.7;
     margin-top: 4px;
     font-family: monospace;
-    font-weight: 600;
   }
 
   .timer-display {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 3rem;
-    color: var(--success-color);
+    font-family: monospace;
+    font-size: 2.5rem;
   }
 
   .info-value {
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    margin-top: 4px;
+    font-size: 0.95rem;
     font-family: monospace;
-    font-weight: 600;
+    word-break: break-word;
   }
 
   .controls {
@@ -112,74 +97,86 @@
 
   button, select {
     border: 1px solid var(--border-color);
-    padding: 6px 14px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    padding: 6px 12px;
     border-radius: 4px;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.85rem;
     cursor: pointer;
   }
 
+  select {
+    background-color: transparent;
+    color: inherit;
+    padding: 2px 6px;
+  }
+
   button:hover, select:hover {
-    opacity: 0.8;
+    opacity: 0.9;
   }
 
-  .btn-start {
-    background-color: var(--accent-color);
-    color: #ffffff;
-    border: none;
+  button:focus, select:focus {
+    outline: 1px solid var(--accent-color);
   }
 
-  .btn-stop {
-    background-color: var(--stop-color);
-    color: #ffffff;
-    border: none;
-  }
-
-  .btn-reset {
-    background-color: var(--btn-bg);
-    color: var(--btn-text);
+  .btn-secondary {
+    background-color: transparent;
+    color: inherit;
   }
 
   .status-bar {
-    padding: 8px 12px;
+    padding: 5px 20px;
     font-size: 0.85rem;
     border-top: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    font-weight: 500;
+    min-height: 20px;
+    margin-top: 10px;
   }
 </style>
 
 <div class="tool">
-  <div class="grid-layout">
-    <div class="clock-section">
-      <div class="section-header">
-        <span class="section-label">Local Time</span>
-        <select id="formatSelect">
-          <option value="24" selected>24-Hour</option>
-          <option value="12">12-Hour</option>
-        </select>
+  <div class="main-container">
+    <div class="grid-layout">
+      <div class="panel">
+        <div class="panel-header">
+          <span>Local Time</span>
+          <select id="formatSelect">
+            <option value="24" selected>24-Hour</option>
+            <option value="12">12-Hour</option>
+          </select>
+        </div>
+        <div class="panel-body">
+          <div id="localClockDisplay" class="digital-display">00:00:00</div>
+          <div id="localDateDisplay" class="date-display">----- --- ---</div>
+        </div>
       </div>
-      <div id="localClockDisplay" class="digital-display clock-display">00:00:00</div>
-      <div id="localDateDisplay" class="date-display">----- --- ---</div>
-    </div>
-    <div class="clock-section">
-      <div class="section-header">
-        <span class="section-label">UTC Time</span>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span>UTC Time</span>
+        </div>
+        <div class="panel-body">
+          <div id="utcClockDisplay" class="digital-display">00:00:00</div>
+          <div id="utcDateDisplay" class="date-display">----- --- ---</div>
+        </div>
       </div>
-      <div id="utcClockDisplay" class="digital-display clock-display">00:00:00</div>
-      <div id="utcDateDisplay" class="date-display">----- --- ---</div>
     </div>
-    <div class="info-section full-width">
-      <div class="section-label">Timezone Information</div>
-      <div id="timezoneDisplay" class="info-value">Detecting Timezone...</div>
+
+    <div class="panel">
+      <div class="panel-header">Timezone Information</div>
+      <div class="panel-body">
+        <div id="timezoneDisplay" class="info-value">Detecting Timezone...</div>
+      </div>
     </div>
-    <div class="timer-section full-width">
-      <div class="section-label">Timer / Stopwatch</div>
-      <div id="timerDisplay" class="digital-display timer-display">00:00:00.0</div>
-      <div class="controls">
-        <button id="startBtn" class="btn-start">Start</button>
-        <button id="stopBtn" class="btn-stop">Stop</button>
-        <button id="resetBtn" class="btn-reset">Reset</button>
+
+    <div class="panel">
+      <div class="panel-header">Timer / Stopwatch</div>
+      <div class="panel-body">
+        <div id="timerDisplay" class="timer-display">00:00:00.0</div>
+        <div class="controls">
+          <button id="startBtn">Start</button>
+          <button id="stopBtn" class="btn-secondary">Stop</button>
+          <button id="resetBtn" class="btn-secondary">Reset</button>
+        </div>
       </div>
     </div>
   </div>
@@ -195,6 +192,7 @@
   const utcDateDisplay = document.getElementById('utcDateDisplay');
   const timezoneDisplay = document.getElementById('timezoneDisplay');
   const formatSelect = document.getElementById('formatSelect');
+  const statusBar = document.getElementById('statusBar');
 
   // Helper function to format date as YYYY-MMM-DD
   function formatDate(date, isUTC = false) {
@@ -265,7 +263,6 @@
   const startBtn = document.getElementById('startBtn');
   const stopBtn = document.getElementById('stopBtn');
   const resetBtn = document.getElementById('resetBtn');
-  const statusBar = document.getElementById('statusBar');
 
   let timerInterval = null;
   let elapsedTime = 0;
