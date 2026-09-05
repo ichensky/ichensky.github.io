@@ -6,6 +6,17 @@
       --accent-color: #007acc;
       --error-color: #f48771;
       --success-color: #89d4a1;
+      --bg-color: #1e1e1e;
+      --text-color: #d4d4d4;
+    }
+
+    :root[data-bs-theme='light'] {
+      --border-color: #e0e0e0;
+      --accent-color: #007acc;
+      --error-color: #d93025;
+      --success-color: #188038;
+      --bg-color: #ffffff;
+      --text-color: #202124;
     }
 
     header {
@@ -26,18 +37,33 @@
       display: flex;
       gap: 10px;
       align-items: center;
+      padding-bottom: 10px;
     }
 
-    select, button {
-      border: 1px solid transparent;
+    select, button, .button-label {
+      border: 1px solid var(--border-color);
       padding: 6px 12px;
       border-radius: 4px;
       font-size: 0.9rem;
       cursor: pointer;
+      background-color: var(--accent-color);
+      color: #fff;
+      display: inline-block;
+      box-sizing: border-box;
     }
 
-    select:focus, button:focus {
+    select {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      outline: none;
+    }
+
+    select:focus, button:focus, .button-label:focus-within {
       outline: 1px solid var(--accent-color);
+    }
+
+    #fileInput {
+      display: none;
     }
 
     .main-container {
@@ -79,6 +105,8 @@
       overflow: auto;
       box-sizing: border-box;
       min-height: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
 
     pre {
@@ -98,19 +126,18 @@
 
     .panel-actions {
       position: absolute;
-      top: 35px;
+      top: 5px;
       right: 15px;
       z-index: 10;
+      display: flex;
+      gap: 8px;
     }
     
-    .panel-actions button {
-      opacity: 0.6;
+    .panel-actions button, .panel-actions .button-label {
       font-size: 0.8rem;
       padding: 4px 8px;
     }
-    .panel-actions button:hover {
-      opacity: 1;
-    }
+
     .tool {
       max-height: 80vh;
       height: stretch;
@@ -132,11 +159,13 @@
 <div class="main-container">
   <!-- Input Panel -->
   <div class="panel">
-    <div class="panel-header">Input Text</div>
+    <div class="panel-header" id="inputHeader">Input Text</div>
     <div class="panel-actions">
+      <label for="fileInput" class="button-label">Upload File</label>
+      <input type="file" id="fileInput" />
       <button id="clearBtn">Clear</button>
     </div>
-    <textarea id="textInput" placeholder="Enter text to hash..."></textarea>
+    <textarea id="textInput" placeholder="Enter text or upload a file to hash..."></textarea>
   </div>
   <!-- Output Panel -->
   <div class="panel">
@@ -158,7 +187,12 @@
   const statusBar = document.getElementById('statusBar');
   const copyBtn = document.getElementById('copyBtn');
   const clearBtn = document.getElementById('clearBtn');
+  const fileInput = document.getElementById('fileInput');
+  const inputHeader = document.getElementById('inputHeader');
   const defaultOutputText = 'Hashes will appear here...';
+
+  let activeFileBuffer = null;
+  let activeFileName = '';
 
   // Compute checksums strictly via Native Web Crypto API
   async function computeCryptoDigest(algorithm, bytes) {
@@ -170,17 +204,22 @@
 
   // Main Calculation Routine
   async function calculateChecksums() {
-    const rawValue = textInput.value;
-    
-    if (!rawValue) {
-      updateStatus('Input is empty.', 'error-msg');
-      hashOutput.textContent = defaultOutputText;
-      return;
+    let inputBytes;
+
+    if (activeFileBuffer) {
+      inputBytes = activeFileBuffer;
+    } else {
+      const rawValue = textInput.value;
+      if (!rawValue) {
+        updateStatus('Input is empty.', 'error-msg');
+        hashOutput.textContent = defaultOutputText;
+        return;
+      }
+      const encoder = new TextEncoder();
+      inputBytes = encoder.encode(rawValue);
     }
 
     try {
-      const encoder = new TextEncoder();
-      const inputBytes = encoder.encode(rawValue);
       const isUppercase = casingSelect.value === 'uppercase';
 
       const [sha1Result, sha256Result] = await Promise.all([
@@ -194,7 +233,8 @@
         `SHA-1:\n${format(sha1Result)}\n\n` +
         `SHA-256:\n${format(sha256Result)}`;
 
-      updateStatus('Checksums calculated using Web Crypto API.', 'success-msg');
+      const sourceMsg = activeFileName ? `File "${activeFileName}"` : 'Text input';
+      updateStatus(`${sourceMsg} hashed using Web Crypto API.`, 'success-msg');
     } catch (error) {
       hashOutput.textContent = 'Error calculating checksums...';
       updateStatus('Failed to calculate checksums: ' + error.message, 'error-msg');
@@ -208,8 +248,36 @@
   }
 
   // Event Listeners
-  textInput.addEventListener('input', calculateChecksums);
+  textInput.addEventListener('input', () => {
+    if (activeFileBuffer) {
+      activeFileBuffer = null;
+      activeFileName = '';
+      inputHeader.textContent = 'Input Text';
+    }
+    calculateChecksums();
+  });
+
   casingSelect.addEventListener('change', calculateChecksums);
+
+  // Handle File Upload
+  fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    activeFileName = file.name;
+    inputHeader.textContent = `File: ${file.name}`;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      activeFileBuffer = e.target.result;
+      textInput.value = `[Binary / File Content Loaded: "${file.name}" (${file.size} bytes)]`;
+      calculateChecksums();
+      fileInput.value = '';
+    };
+
+    reader.onerror = () => updateStatus('Error reading file.', 'error-msg');
+    reader.readAsArrayBuffer(file);
+  });
 
   // Copy to Clipboard
   copyBtn.addEventListener('click', () => {
@@ -226,6 +294,9 @@
   // Clear 
   clearBtn.addEventListener('click', () => {
     textInput.value = '';
+    activeFileBuffer = null;
+    activeFileName = '';
+    inputHeader.textContent = 'Input Text';
     hashOutput.textContent = defaultOutputText;
     updateStatus('Ready');
   });
