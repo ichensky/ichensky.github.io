@@ -11,6 +11,17 @@
     --offset-color: #569cd6;
   }
 
+  :root[data-bs-theme='light'] {
+--border-color: #e0e0e0;
+    --accent-color: #007acc;
+    --error-color: #d93025;
+    --success-color: #188038;
+    --bg-color: #ffffff;
+    --text-color: #202124;
+    --offset-color: #005fb8;
+  }
+
+
   header {
     border-bottom: 1px solid var(--border-color);
     padding: 10px 20px;
