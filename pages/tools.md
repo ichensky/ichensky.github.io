@@ -1,3 +1,3 @@
 ---
-redirect_url: /tools/web/jsonformatter/jsonformatter.html
+redirect_url: /tools/web/jsonformatter.html
 ---

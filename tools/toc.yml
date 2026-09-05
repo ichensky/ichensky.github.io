@@ -1,8 +1,13 @@
 - name: tools
   items:
+  
   - name: web
     items: 
-    - href: web/jsonformatter/jsonformatter.md
-    - href: web/jwt-decoder/jwt-decoder.md
-    - href: web/base64-encoder-decoder/base64-encoder-decoder.md
+    - href: web/jsonformatter.md
+    - href: web/jwt-decoder.md
+    - href: web/base64-encoder-decoder.md
+
+  - name: hash
+    items:
+    - href: hash/hash-generator.md
    
