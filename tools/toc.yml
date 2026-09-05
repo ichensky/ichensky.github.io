@@ -30,7 +30,12 @@
     items:
     - href: time/clock-and-timer.md
 
+  - name: linux
+    items:
+    - href: linux/chmod-permissions-calculator.md
+
   - name: network
     items:
     - href: network/dns-lookup.md
     - href: network/my-ip-address.md
+    - href: network/ipv4-address-converter.md
