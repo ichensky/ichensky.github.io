@@ -8,30 +8,31 @@ _layout: landing
 <script src="public/index.js"></script>
 <br>
 
-**Ivan Chensky** Senior Software Engineer | Distributed Systems | Cloud Architecture  
+**Ivan Chensky** Senior Software Engineer | Distributed Systems | Cloud Architecture
 
-Architecting high-performance backend platforms and cloud infrastructure that eliminate systemic risk, reduce operational costs, and guarantee enterprise scalability.
-
----
-
-### Core Expertise
-
-* **10+ Years of Engineering Mastery:** A decade of designing and delivering high-concurrency, enterprise-grade platforms.
-* **Architectural Sovereignty:** Advanced implementation of DDD, Clean Architecture, and CQRS to insulate systems against technical debt.
-* **Technical Authority:** Aligning software engineering with corporate growth by driving critical architectural decisions.
+Building fast, reliable backend platforms and cloud systems that lower risks, reduce costs, and support business growth.
 
 ---
 
-### Value Delivery
+**Core Strengths**
 
-Enterprises require infrastructure that survives scale, protects capital, and mitigates operational risk. Mastery is delivered across three critical pillars:
-
-| Pillar | Strategic Impact |
-| :--- | :--- |
-| **Resilient Architecture** | Designing maintainable, event-driven systems engineered to survive massive data evolution and high throughput. |
-| **High-Velocity Performance** | Optimizing APIs, databases, and distributed infrastructure to achieve minimum latency and maximum compute efficiency. |
-| **Technical Leadership** | Providing technical leadership across multiple teams, mentoring engineers, and driving successful delivery of complex backend systems.
+* **10+ Years of Experience:** Over a decade spent building large, high-traffic systems that run reliably.
+* **Smart Software Design:** Using proven design methods like DDD, Clean Architecture, and CQRS to keep code clean and manageable over time.
+* **Technical Guidance:** Making key software design decisions that help products succeed and grow smoothly.
 
 ---
 
-> **Looking for technical blueprints?** > Explore the `Docs` section to review optimization strategies, architectural notes, and production-tested patterns.
+**Value Delivered**
+
+Businesses need software that stays fast and stable under heavy loads. Focus is placed on three main areas:
+
+| Area | Impact |
+| --- | --- |
+| **Solid Architecture** | Building simple, event-driven systems that stay reliable as data and user numbers grow. |
+| **High Speed** | Speeding up APIs, database queries, and cloud resources to maximize server efficiency. |
+| **Engineering Leadership** | Guiding development teams, mentoring engineers, and steering complex technical projects to completion. |
+
+---
+
+> **Looking for technical blueprints?**
+> Check out the `Docs` section for performance tips, design notes, and practical patterns.

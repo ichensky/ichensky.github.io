@@ -35,7 +35,7 @@
         </tr>
         <tr>
         <td>email</td>
-        <td>ichensky@live.com</td>
+        <td><a href="mailto:ichensky@live.com">ichensky@live.com</a></td>
     </tr>
 </tbody>
 </table></div>
