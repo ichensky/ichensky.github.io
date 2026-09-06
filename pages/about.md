@@ -28,7 +28,7 @@ Tested in high-traffic environments, my work centers on leading tech teams, upda
 
 * **Languages & Frameworks:** C#, .NET, ASP.NET Core, TypeScript, JavaScript, Node.js, Angular
 * **System Design:** Domain-Driven Design (DDD), Clean Architecture, Distributed Systems
-* **Cloud & Operations:** Azure (Service Bus, App Services, Functions, Key Vault, Application Insights), Docker, Kubernetes, CI/CD
+* **Cloud & Operations:** Azure (Service Bus, App Services, Functions, Key Vault, Application Insights, Entra ID), Docker, Kubernetes, CI/CD
 * **Databases:** MS SQL Server, MongoDB, Redis
 
 ---
@@ -37,4 +37,4 @@ Tested in high-traffic environments, my work centers on leading tech teams, upda
 
 Looking for detailed technical guides? Check out the **Docs** section.
 
-If your team needs to fix performance issues or scale up a complex system, reach out at **ichensky@live.com**.
+If your team needs to fix performance issues or scale up a complex system, reach out at <ichensky@live.com>.
