@@ -1,4 +1,4 @@
-# Key Concepts in `JavaScript`
+# &#9733; Key Concepts in `JavaScript`
 
 ### `null` vs `undefined`
 ```js
@@ -461,4 +461,27 @@ Foo();
 // Foo: end..
 // Bar: ...
 
+```
+
+### Micro & Macro Tasks
+1. **Synchronous Code** Call Stack: Runs first.  
+2. **Microtask Queue**: Runs immediately after the synchronous stack empties, before the engine moves on to rendering or executing the next macrotask. The Event Loop processes the entire microtask queue until it is completely empty.  
+3. **Macrotask Queue**: Executes one single task per Event Loop tick. Once that single macrotask finishes, the Event Loop checks and drains the microtask queue again before picking up the next macrotask.  
+
+```js
+console.log('1: Synchronous');
+
+setTimeout(() => { console.log('2: Macrotask (setTimeout)'); }, 0);
+
+Promise.resolve().then(() => { console.log('3: Microtask (Promise)'); });
+
+queueMicrotask(() => { console.log('4: Microtask (queueMicrotask)'); }); 
+
+console.log('5: Synchronous');
+
+// 1: Synchronous
+// 5: Synchronous
+// 3: Microtask (Promise)
+// 4: Microtask (queueMicrotask)
+// 2: Macrotask (setTimeout)
 ```
