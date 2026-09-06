@@ -36,6 +36,23 @@
     height: calc(100% - 45px);
   }
 
+  .playground-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 6px 8px;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .playground-toolbar.is-expanded {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1051;
+  }
+
   .main-container.is-expanded {
     position: fixed;
     inset: 0;
@@ -150,12 +167,16 @@
   }
 </style>
 
+<div class="playground-toolbar">
+  <button id="shareBtn" class="btn">Share</button>
+  <button id="expandBtn" class="btn" type="button" aria-label="Expand playground" aria-pressed="false">Expand</button>
+</div>
+
 <div class="main-container">
   <div class="panel editor-panel">
     <div class="panel-header">
       <span>Source Code (HTML + JS)</span>
       <div class="btn-group">
-        <button id="shareBtn" class="btn">Share</button>
         <button id="clearBtn" class="btn">Clear</button>
       </div>
     </div>
@@ -165,7 +186,6 @@
   <div class="panel">
     <div class="panel-header">
       <span>Rendered Preview</span>
-      <button id="expandBtn" class="btn" type="button" aria-label="Expand playground" aria-pressed="false">Expand</button>
     </div>
     <iframe id="previewFrame" sandbox="allow-scripts allow-modals"></iframe>
   </div>
@@ -178,6 +198,7 @@
   const shareBtn = document.getElementById('shareBtn');
   const expandBtn = document.getElementById('expandBtn');
   const playground = document.querySelector('.main-container');
+  const toolbar = document.querySelector('.playground-toolbar');
   const editorPanel = document.querySelector('.editor-panel');
   const splitter = document.getElementById('splitter');
 
@@ -190,6 +211,7 @@
 
   expandBtn.addEventListener('click', () => {
     playground.classList.toggle('is-expanded');
+    toolbar.classList.toggle('is-expanded', playground.classList.contains('is-expanded'));
     updateExpandButton();
   });
 
