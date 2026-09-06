@@ -1,4 +1,4 @@
-# String Extractor
+# &#128269; String Extractor
 
 <style>
   :root {

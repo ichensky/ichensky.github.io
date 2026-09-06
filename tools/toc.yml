@@ -11,8 +11,8 @@
 
   - name: files
     items:
-    - href: files/files-diff.md
     - href: files/text-editor.md
+    - href: files/files-diff.md
     - href: files/hex-editor.md
     - href: files/string-extractor.md
     - href: files/file-entropy.md

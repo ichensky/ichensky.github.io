@@ -1,4 +1,4 @@
-# Text Editor
+# &#128393; Text Editor
 
 <style>
   :root {

@@ -1,4 +1,4 @@
-# HTML & JavaScript Live Playground
+# &#9885; HTML & JavaScript Live Playground
 
   <style>
     :root {

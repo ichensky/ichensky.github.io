@@ -1,4 +1,4 @@
-# URL Encoder / Decoder & Query Parser
+# &#128279; URL Encoder / Decoder & Query Parser
 
 <style>
     :root {

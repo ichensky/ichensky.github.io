@@ -1,4 +1,4 @@
-# Base64 Encoder / Decoder
+# &#128190; Base64 Encoder / Decoder
 
 <style>
     :root {

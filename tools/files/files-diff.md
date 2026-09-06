@@ -1,4 +1,4 @@
-# File Diff Checker
+# &#9777; File Diff Checker
 
 <style>
     :root {

@@ -1,4 +1,4 @@
-# JWT Decoder
+# &#9919; JWT Decoder
 
 <style>
     :root {

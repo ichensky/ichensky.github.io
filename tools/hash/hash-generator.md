@@ -1,4 +1,4 @@
-# Hash Generator (SHA-1, SHA-256)
+# &#35; Hash Generator (SHA-1, SHA-256)
 
 <style>
     :root {

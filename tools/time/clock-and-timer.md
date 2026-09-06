@@ -1,4 +1,4 @@
-# Digital Clock & Timer
+# - &#58; - Clock & Timer
 
 <style>
   :root {

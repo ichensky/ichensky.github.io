@@ -1,4 +1,4 @@
-# File Entropy & Hash Calculator
+# &#8721; File Entropy & Hash Calculator
 
 <style>
     :root {

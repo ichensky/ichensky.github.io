@@ -1,4 +1,4 @@
-# Json Formatter
+# &#123; &#125; Json Formatter
 
 <style>
     :root {

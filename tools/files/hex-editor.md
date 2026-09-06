@@ -1,4 +1,4 @@
-# Hex Editor
+# &#9783; Hex Editor
 
 <style>
   :root {
