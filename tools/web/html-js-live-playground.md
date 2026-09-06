@@ -54,6 +54,24 @@
     border-right: 1px solid var(--border-color);
   }
 
+  .editor-panel {
+    flex: 0 0 50%;
+  }
+
+  .splitter {
+    flex: 0 0 8px;
+    background-color: var(--header-bg);
+    border-right: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+    cursor: col-resize;
+    touch-action: none;
+  }
+
+  .splitter:hover,
+  .splitter.is-dragging {
+    background-color: var(--accent-color);
+  }
+
   .panel:last-child {
     border-right: none;
   }
@@ -121,11 +139,19 @@
       border-right: none;
       border-bottom: 1px solid var(--border-color);
     }
+
+    .editor-panel {
+      flex-basis: auto;
+    }
+
+    .splitter {
+      display: none;
+    }
   }
 </style>
 
 <div class="main-container">
-  <div class="panel">
+  <div class="panel editor-panel">
     <div class="panel-header">
       <span>Source Code (HTML + JS)</span>
       <div class="btn-group">
@@ -135,6 +161,7 @@
     </div>
     <textarea id="htmlInput" placeholder="Enter HTML/JS code here..."></textarea>
   </div>
+  <div class="splitter" id="splitter" role="separator" aria-label="Resize editor and preview" aria-orientation="vertical" tabindex="0"></div>
   <div class="panel">
     <div class="panel-header">
       <span>Rendered Preview</span>
@@ -151,6 +178,8 @@
   const shareBtn = document.getElementById('shareBtn');
   const expandBtn = document.getElementById('expandBtn');
   const playground = document.querySelector('.main-container');
+  const editorPanel = document.querySelector('.editor-panel');
+  const splitter = document.getElementById('splitter');
 
   function updateExpandButton() {
     const isExpanded = playground.classList.contains('is-expanded');
@@ -162,6 +191,33 @@
   expandBtn.addEventListener('click', () => {
     playground.classList.toggle('is-expanded');
     updateExpandButton();
+  });
+
+  splitter.addEventListener('pointerdown', event => {
+    if (window.matchMedia('(max-width: 768px)').matches) return;
+    splitter.setPointerCapture(event.pointerId);
+    splitter.classList.add('is-dragging');
+  });
+
+  splitter.addEventListener('pointermove', event => {
+    if (!splitter.hasPointerCapture(event.pointerId)) return;
+    const bounds = playground.getBoundingClientRect();
+    const splitterWidth = splitter.getBoundingClientRect().width;
+    const availableWidth = bounds.width - splitterWidth;
+    const editorWidth = event.clientX - bounds.left;
+    const editorPercent = Math.min(80, Math.max(20, (editorWidth / availableWidth) * 100));
+    editorPanel.style.flexBasis = `${editorPercent}%`;
+  });
+
+  splitter.addEventListener('pointerup', event => {
+    if (splitter.hasPointerCapture(event.pointerId)) {
+      splitter.releasePointerCapture(event.pointerId);
+    }
+    splitter.classList.remove('is-dragging');
+  });
+
+  splitter.addEventListener('pointercancel', () => {
+    splitter.classList.remove('is-dragging');
   });
 
   function updatePreview() {
