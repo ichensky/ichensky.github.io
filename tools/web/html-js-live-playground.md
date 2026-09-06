@@ -36,6 +36,15 @@
     height: calc(100% - 45px);
   }
 
+  .main-container.is-expanded {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color);
+    z-index: 1050;
+  }
+
   .panel {
     flex: 1;
     display: flex;
@@ -129,6 +138,7 @@
   <div class="panel">
     <div class="panel-header">
       <span>Rendered Preview</span>
+      <button id="expandBtn" class="btn" type="button" aria-label="Expand playground" aria-pressed="false">Expand</button>
     </div>
     <iframe id="previewFrame" sandbox="allow-scripts allow-modals"></iframe>
   </div>
@@ -139,6 +149,20 @@
   const previewFrame = document.getElementById('previewFrame');
   const clearBtn = document.getElementById('clearBtn');
   const shareBtn = document.getElementById('shareBtn');
+  const expandBtn = document.getElementById('expandBtn');
+  const playground = document.querySelector('.main-container');
+
+  function updateExpandButton() {
+    const isExpanded = playground.classList.contains('is-expanded');
+    expandBtn.textContent = isExpanded ? 'Collapse' : 'Expand';
+    expandBtn.setAttribute('aria-label', isExpanded ? 'Collapse playground' : 'Expand playground');
+    expandBtn.setAttribute('aria-pressed', String(isExpanded));
+  }
+
+  expandBtn.addEventListener('click', () => {
+    playground.classList.toggle('is-expanded');
+    updateExpandButton();
+  });
 
   function updatePreview() {
     previewFrame.srcdoc = htmlInput.value;
