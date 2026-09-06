@@ -7,6 +7,8 @@ Instead of asking "How can I be healthy?", you ask "What makes me unhealthy?".
 
 Answers like "junk food," "no exercise," or "poor sleep" immediately show you what to cut out. Avoiding those bad habits is often the fastest way to get healthy.
 
+![Reverse thinking](images/reverse-thinking.png)
+
 ## Pros 
 - Helps identify potential edge cases and mistakes before the algorithm is even implemented.
 - Encourages creative problem-solving by considering alternative perspectives.
