@@ -111,7 +111,7 @@
     gap: 6px;
   }
 
-  .btn {
+  .playground-btn {
     background-color: var(--accent-color);
     color: #ffffff;
     border: none;
@@ -122,7 +122,7 @@
     transition: background-color 0.2s ease;
   }
 
-  .btn:hover {
+  .playground-btn:hover {
     background-color: var(--accent-hover);
   }
 
@@ -168,8 +168,8 @@
 </style>
 
 <div class="playground-toolbar">
-  <button id="shareBtn" class="btn">Share</button>
-  <button id="expandBtn" class="btn" type="button" aria-label="Expand playground" aria-pressed="false">Expand</button>
+  <button id="shareBtn" class="playground-btn">Share</button>
+  <button id="expandBtn" class="playground-btn" type="button" aria-label="Expand playground" aria-pressed="false">Expand</button>
 </div>
 
 <div class="main-container">
@@ -177,7 +177,7 @@
     <div class="panel-header">
       <span>Source Code (HTML + JS)</span>
       <div class="btn-group">
-        <button id="clearBtn" class="btn">Clear</button>
+        <button id="clearBtn" class="playground-btn">Clear</button>
       </div>
     </div>
     <textarea id="htmlInput" placeholder="Enter HTML/JS code here..."></textarea>
