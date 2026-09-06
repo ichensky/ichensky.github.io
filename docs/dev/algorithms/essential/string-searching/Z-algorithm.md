@@ -1,4 +1,4 @@
-# Z-algorithm
+# &rarr; Z-algorithm
 
 The Z-algorithm is a linear time string matching algorithm that finds all occurrences of a pattern in a text. 
 

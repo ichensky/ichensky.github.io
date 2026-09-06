@@ -1,4 +1,4 @@
-# Dijkstra's Algorithm
+# &#9738; Dijkstra's Algorithm
 
 Finds the shortest path from a **source vertex** to **all reachable vertices** in a weighted graph.
 

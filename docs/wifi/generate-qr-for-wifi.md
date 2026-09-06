@@ -1,4 +1,4 @@
-# Generate QR code for Wi-FI
+# &#128732; Generate QR code for Wi-FI
 
 
 ### Prepare Wi-Fi information using the below format:

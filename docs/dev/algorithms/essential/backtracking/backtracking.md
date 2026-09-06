@@ -1,4 +1,4 @@
-# Backtracking
+# &#11152; Backtracking
 
 ## Find all permutations of an array 
 1. **Explore** all possible arrangements of the array elements.

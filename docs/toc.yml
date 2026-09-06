@@ -1,6 +1,28 @@
 - name: dev
   items:
 
+  - name: algorithms
+    items:
+    - name: problem-solving-models
+      items:
+      - href: dev/algorithms/problem-solving-models/reverse-thinking.md
+    - name: essential
+      items:
+      - href: dev/algorithms/essential/backtracking/backtracking.md
+      - name: string-searching
+        items:
+        - href: dev/algorithms/essential/string-searching/Knuth–Morris–Pratt-algorithm.md
+        - href: dev/algorithms/essential/string-searching/Z-algorithm.md
+      - name: data-structures
+        items:
+        - name: graph
+          items:
+          - href: dev/algorithms/essential/data-structures/graph/graph-representation/graph-representation.md
+          - href: dev/algorithms/essential/data-structures/graph/dijkstra-algorithm/dijkstra-algorithm.md
+    - name: normal-distribution
+      items:
+      - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
+  
   - name: design principles
     items: 
     - name: oop
@@ -45,28 +67,6 @@
               - href: dev/design-principles/application-layers/data-access-layer/data-access-object.md
               - href: dev/design-principles/application-layers/data-access-layer/repository/repository.md
 
-  - name: algorithms
-    items:
-    - name: problem-solving-models
-      items:
-      - href: dev/algorithms/problem-solving-models/reverse-thinking.md
-    - name: essential
-      items:
-      - href: dev/algorithms/essential/backtracking/backtracking.md
-      - name: string-searching
-        items:
-        - href: dev/algorithms/essential/string-searching/Knuth–Morris–Pratt-algorithm.md
-        - href: dev/algorithms/essential/string-searching/Z-algorithm.md
-      - name: data-structures
-        items:
-        - name: graph
-          items:
-          - href: dev/algorithms/essential/data-structures/graph/graph-representation/graph-representation.md
-          - href: dev/algorithms/essential/data-structures/graph/dijkstra-algorithm/dijkstra-algorithm.md
-    - name: normal-distribution
-      items:
-      - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
-  
   - name: math
     items:
     - name: combinatorics

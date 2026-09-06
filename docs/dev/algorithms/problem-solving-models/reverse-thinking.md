@@ -1,4 +1,4 @@
-# Reverse thinking
+# &#8634; Reverse thinking
 
 `Reverse thinking`, aka `inversion`, is a way to solve problems by looking at them `backward`. Instead of asking "How to succeed?", you ask "How to fail?". By figuring out what would make a situation `worse`, you learn what `mistakes to avoid`.
 
@@ -90,7 +90,7 @@ public class Solution
 }
 ```
 </details>
-
+<br>
 
 ### Reverse-thinking approach
 
@@ -166,6 +166,7 @@ public class Solution {
 ```
 
 </details>
+<br>
 
 **Step 3 (Refining, Optimizing):** 
 
@@ -179,7 +180,6 @@ If we iterate through the set in only one direction, we no longer need to track 
 
 As a result, the dictionary can be simplified to a `HashSet<int>` that stores unique numbers.
 
-<details>
 <summary>Solution HashSet<int>(...)</summary>
 
 ```csharp
@@ -207,8 +207,6 @@ public class Solution {
     }
 }
 ```
-
-</details>
 
 ### Conclusion
 By starting with a `reverse-thinking` approach, we explored `multiple solution paths`, refined our state management, and ultimately arrived at an optimal $O(n)$ `HashSet<int>` solution.

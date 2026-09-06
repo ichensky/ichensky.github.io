@@ -1,4 +1,4 @@
-# Graph Representation
+# &#128423; Graph Representation
 
 There are three ways to represent a graph in memory:
 - Adjacency Matrix
