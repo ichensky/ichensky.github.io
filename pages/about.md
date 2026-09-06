@@ -3,37 +3,38 @@
 
 ---
 
-# About 
+**About**
 
-Building resilient cloud platforms and high-performance backends requires more than writing code, it demands clean architectural foundations designed for growth. Modern software quickly decays without discipline; authority comes from cutting through hype to deliver predictable, production-tested systems.
+Building reliable cloud platforms and fast backends takes more than writing code, it needs simple, solid foundations built to grow. Software breaks down without focus; progress comes from `skipping hype` and delivering steady, tested systems.
 
-### Core Engineering Principles
+**Core Principles**
 
-1. **Predictability Over "Magic"**
-Runtime complexity introduces silent failures. Explicit types, strong contracts, and compile-time verification build systems that are easy to reason about, maintain, and debug.
-2. **Pragmatic Architecture**
-Clean Architecture and Domain-Driven Design (DDD) aren't academic exercises, they isolate core business logic from infrastructure churn. This keeps technical debt low and allows global teams to ship features fast without breaking production.
-3. **Empirical Optimization**
-Optimization is driven by telemetry, micro-benchmarking, and profiling under load—never intuition. Performance is engineered by systematically eliminating bottlenecks in memory, database queries, and network paths.
-
----
-
-### Experience & Focus
-
-Forged in high-concurrency enterprise environments, my background centers on leading cross-border technical execution, modernizing legacy systems, and scaling backend architecture. Outside distributed systems, this engineering focus extends to algorithmic efficiency, CPU, low-level memory optimizations.
-
---- 
-### Primary Stack & Expertise
-
-* **Languages & Runtimes:** C#, .NET, ASP.NET Core, TypeScript, JavaScript, Node.js, Angular
-* **Architecture & Patterns:** Domain-Driven Design (DDD), Clean Architecture, Distributed Systems
-* **Cloud & DevOps:** Azure (Service Bus, App Services, Functions, Key Vault), Docker, Kubernetes, CI/CD Pipelines
-* **Data & Storage:** MS SQL Server (Performance Tuning, Query Optimization), MongoDB, Redis
+1. **Clear Code Over Tricks**
+Hidden complexity brings hidden bugs. Clear rules and early checks make systems easy to understand, fix, and maintain.
+2. **Practical Design**
+Good design keeps core business logic separate from underlying tools. This keeps code clean so teams can release features quickly without breaking production.
+3. **Data-Driven Performance**
+Speed comes from real measurements, tests, and heavy-load profiling—never guessing. Performance improves by finding and fixing exact bottlenecks in memory, databases, and networks.
 
 ---
 
-### Let's Build
+**Experience & Focus**
 
-Looking for architectural deep-dives and production notes? Explore the **Docs** section.
+Tested in high-traffic environments, my work centers on leading tech teams, updating old software, and scaling backends. Outside cloud systems, I focus on code efficiency, CPU performance, and low-level memory tuning.
 
-If your team is tackling critical performance bottlenecks or scaling complex architecture, let's talk: **ichensky@live.com**
+---
+
+**Main Stack**
+
+* **Languages & Frameworks:** C#, .NET, ASP.NET Core, TypeScript, JavaScript, Node.js, Angular
+* **System Design:** Domain-Driven Design (DDD), Clean Architecture, Distributed Systems
+* **Cloud & Operations:** Azure (Service Bus, App Services, Functions, Key Vault, Application Insights), Docker, Kubernetes, CI/CD
+* **Databases:** MS SQL Server, MongoDB, Redis
+
+---
+
+**Let's Connect**
+
+Looking for detailed technical guides? Check out the **Docs** section.
+
+If your team needs to fix performance issues or scale up a complex system, reach out at **ichensky@live.com**.
