@@ -129,8 +129,7 @@
         <button id="downloadBtn">Download Strings</button>
         <button id="clearBtn">Clear</button>
       </div>
-      
-      <textarea id="textDisplay" placeholder="Upload a file or type text to view extracted strings..." readonly></textarea>
+      <textarea id="textDisplay" placeholder="Upload a file to view extracted strings..." readonly></textarea>
     </div>
   </div>
 
