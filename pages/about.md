@@ -32,10 +32,17 @@ Tested in high-traffic environments, my work centers on leading tech teams, upda
 
 **Main Stack**
 
-* **Languages & Frameworks:** C#, .NET, ASP.NET Core, TypeScript, JavaScript, Node.js, Angular
-* **System Design:** Domain-Driven Design (DDD), Clean Architecture, Distributed Systems
-* **Cloud & Operations:** Azure (Service Bus, App Services, Functions, Key Vault, Application Insights, Entra ID), Docker, Kubernetes, CI/CD
-* **Databases:** MS SQL Server, MongoDB, Redis
+* **Languages & Frameworks:** <svg xmlns="http://w3.org" viewBox="0 0 16 16" width="16" height="16">
+  <path d="M8 0l6.5 3.75v8.5L8 16l-6.5-3.75v-8.5z" fill="#9B4F96"/>
+  <path d="M7.8 5.2c-.4 0-.7.1-1 .3-.3.3-.5.7-.5 1.3v2.4c0 .6.2 1 .5 1.3.3.2.6.3 1 .3.4 0 .8-.1 1.1-.4v1.2c-.3.2-.7.3-1.3.3-.9 0-1.6-.3-2-.9-.4-.5-.6-1.3-.6-2.3V6.6c0-1 .2-1.8.6-2.3.4-.6 1.1-.9 2-.9.6 0 1 .1 1.3.3v1.2c-.3-.2-.7-.3-1.1-.3z" fill="#FFFFFF"/>
+  <path d="M11.5 4.5h.7l-.3 2.1h1.4v.6h-1.5l-.3 1.6h1.5v.6h-1.6l-.3 2.1h-.7l.3-2.1H9.6l-.3 2.1h-.7l.3-2.1H7.8v-.6h1.2l.3-1.6H8.1v-.6h1.3l.3-2.1h.7l-.3 2.1h1.4l.3-2.1zm-.5 2.7H9.6l-.3 1.6h1.4l.3-1.6z" fill="#FFFFFF"/>
+</svg> C#, .NET, ASP.NET Core, TypeScript, JavaScript, Node.js, Angular
+* **System Design:** <svg xmlns="http://w3.org" viewBox="0 0 16 16" width="16" height="16"> <path d="M6 1.5l4.5 2.6v5.2L6 11.9 1.5 9.3V4.1z" fill="#0078D4" fill-opacity="0.15" stroke="#0078D4" stroke-width="1.2" stroke-linejoin="round"/> <path d="M10.5 5.5l4 2.3v4.6l-4 2.3-4-2.3V7.8z" fill="#00828A" fill-opacity="0.15" stroke="#00828A" stroke-width="1.2" stroke-linejoin="round"/> <path d="M6.5 7.8L10.5 5.5v2.3L6.5 10.1z" fill="#00BCF2" opacity="0.4"/> <circle cx="6" cy="6.7" r="1.5" fill="#0078D4"/> <line x1="6" y1="6.7" x2="3.5" y2="5.2" stroke="#0078D4" stroke-width="1" stroke-linecap="round"/> <line x1="6" y1="6.7" x2="8.5" y2="5.2" stroke="#0078D4" stroke-width="1" stroke-linecap="round"/> <line x1="6" y1="6.7" x2="6" y2="9.5" stroke="#0078D4" stroke-width="1" stroke-linecap="round"/> <circle cx="10.5" cy="10.1" r="1.2" fill="#00828A"/>
+</svg> Domain-Driven Design (DDD), Clean Architecture, Distributed Systems
+* **Cloud & Operations:** <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"> <defs> <linearGradient id="azureGrad" x1="0%" y1="0%" x2="100%" y2="100%"> <stop offset="0%" stop-color="#0078D4"/> <stop offset="100%" stop-color="#50E6FF"/> </linearGradient> </defs> <path fill="url(#azureGrad)" d="M12.5 6A4.5 4.5 0 0 0 8.1 3a4.5 4.5 0 0 0-4.3 3.1A3.5 3.5 0 0 0 0 9.5 3.5 3.5 0 0 0 3.5 13h9a3.5 3.5 0 0 0 3.5-3.5A3.5 3.5 0 0 0 12.5 6z"/>
+</svg>
+ Azure (Service Bus, App Services, Functions, Key Vault, Application Insights, Entra ID), Docker, Kubernetes, CI/CD
+* **Databases:** <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-label="Microsoft SQL Server"> <rect width="16" height="16" rx="2" fill="#CC2927"/> <ellipse cx="8" cy="4" rx="4.2" ry="1.8" fill="none" stroke="#fff" stroke-width="1"/> <path d="M3.8 4v6.2c0 1 1.9 1.8 4.2 1.8s4.2-.8 4.2-1.8V4" fill="none" stroke="#fff" stroke-width="1"/> <path d="M3.8 7c0 1 1.9 1.8 4.2 1.8s4.2-.8 4.2-1.8" fill="none" stroke="#fff" stroke-width="1"/> </svg> MS SQL Server, MongoDB, Redis
 
 ---
 
