@@ -1,4 +1,4 @@
-## My IP Address
+# My IP Address
 
 <style>
   :root {
@@ -109,13 +109,11 @@
     padding-bottom: 10px;
   }
 </style>
-
 <div class="tool">
   <div class="controls">
     <button id="refreshBtn">Refresh Data</button>
     <button id="copyAllBtn" class="btn-secondary">Copy JSON</button>
   </div>
-
   <div class="main-container">
     <!-- IP & Location Section -->
     <div class="panel">
@@ -196,10 +194,8 @@
       </div>
     </div>
   </div>
-
   <div class="status-bar" id="statusBar">Ready</div>
 </div>
-
 <script>
   const statusBar = document.getElementById('statusBar');
   const refreshBtn = document.getElementById('refreshBtn');
