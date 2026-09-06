@@ -200,25 +200,20 @@
   const statusBar = document.getElementById('statusBar');
   const refreshBtn = document.getElementById('refreshBtn');
   const copyAllBtn = document.getElementById('copyAllBtn');
-
   let currentData = {};
-
   function updateStatus(message, className = '') {
     statusBar.textContent = message;
     statusBar.className = 'status-bar ' + className;
   }
-
   function detectBrowserOS() {
     const ua = navigator.userAgent;
     let browser = "Unknown";
     let os = "Unknown";
-
     if (ua.indexOf("Win") !== -1) os = "Windows";
     else if (ua.indexOf("Mac") !== -1) os = "macOS";
     else if (ua.indexOf("Linux") !== -1) os = "Linux";
     else if (ua.indexOf("Android") !== -1) os = "Android";
     else if (ua.indexOf("like Mac") !== -1) os = "iOS";
-
     if (ua.indexOf("Firefox") !== -1) browser = "Firefox";
     else if (ua.indexOf("SamsungBrowser") !== -1) browser = "Samsung Internet";
     else if (ua.indexOf("Opera") !== -1 || ua.indexOf("OPR") !== -1) browser = "Opera";
@@ -226,13 +221,10 @@
     else if (ua.indexOf("Edge") !== -1 || ua.indexOf("Edg") !== -1) browser = "Microsoft Edge";
     else if (ua.indexOf("Chrome") !== -1) browser = "Chrome";
     else if (ua.indexOf("Safari") !== -1) browser = "Safari";
-
     return { browser, os };
   }
-
   function collectClientDetails() {
     const { browser, os } = detectBrowserOS();
-
     const details = {
       browser,
       os,
@@ -246,50 +238,40 @@
       deviceMemory: navigator.deviceMemory ? `~${navigator.deviceMemory} GB` : "N/A",
       cpuCores: navigator.hardwareConcurrency || "N/A"
     };
-
     document.getElementById('browser').textContent = details.browser;
     document.getElementById('os').textContent = details.os;
     document.getElementById('language').textContent = details.language;
     document.getElementById('cookies').textContent = details.cookiesEnabled;
     document.getElementById('onlineStatus').textContent = details.onlineStatus;
     document.getElementById('userAgent').textContent = details.userAgent;
-
     document.getElementById('screenRes').textContent = details.screenResolution;
     document.getElementById('viewportRes').textContent = details.viewportResolution;
     document.getElementById('colorDepth').textContent = details.colorDepth;
     document.getElementById('deviceMemory').textContent = details.deviceMemory;
     document.getElementById('cpuCores').textContent = details.cpuCores;
-
     return details;
   }
-
   async function fetchIPDetails() {
     updateStatus('Fetching IP information...', '');
     try {
       const response = await fetch('https://ipapi.co/json/');
-      
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
       const data = await response.json();
-
       if (data.error) {
         throw new Error(data.reason || 'Failed to retrieve IP details.');
       }
-
       const ipDetails = {
         ip: data.ip || 'N/A',
         isp: data.org || data.asn || 'N/A',
         location: [data.city, data.region, data.country_name].filter(Boolean).join(', ') || 'N/A',
         timezone: data.timezone || 'N/A'
       };
-
       document.getElementById('ipAddress').textContent = ipDetails.ip;
       document.getElementById('isp').textContent = ipDetails.isp;
       document.getElementById('location').textContent = ipDetails.location;
       document.getElementById('ipTimezone').textContent = ipDetails.timezone;
-
       updateStatus('Data loaded successfully', 'success-msg');
       return ipDetails;
     } catch (error) {
@@ -297,25 +279,20 @@
       document.getElementById('isp').textContent = 'Unavailable';
       document.getElementById('location').textContent = 'Unavailable';
       document.getElementById('ipTimezone').textContent = 'Unavailable';
-
       updateStatus(`Error: ${error.message}`, 'error-msg');
       return { error: error.message };
     }
   }
-
   async function refreshAllData() {
     const clientDetails = collectClientDetails();
     const ipDetails = await fetchIPDetails();
-
     currentData = {
       network: ipDetails,
       client: clientDetails,
       timestamp: new Date().toISOString()
     };
   }
-
   refreshBtn.addEventListener('click', refreshAllData);
-
   copyAllBtn.addEventListener('click', () => {
     if (Object.keys(currentData).length === 0) return;
     navigator.clipboard.writeText(JSON.stringify(currentData, null, 2)).then(() => {
@@ -324,10 +301,8 @@
       setTimeout(() => copyAllBtn.textContent = origText, 2000);
     });
   });
-
   window.addEventListener('resize', () => {
     document.getElementById('viewportRes').textContent = `${window.innerWidth} x ${window.innerHeight}`;
   });
-
   refreshAllData();
 </script>
