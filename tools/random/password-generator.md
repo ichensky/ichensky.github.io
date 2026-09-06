@@ -1,4 +1,4 @@
-# Password Generator
+# &#128273; Password Generator
 
 <style>
     :root {

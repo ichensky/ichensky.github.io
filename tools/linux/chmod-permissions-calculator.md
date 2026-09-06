@@ -1,4 +1,4 @@
-# Chmod Permissions Calculator
+# &#128274; Chmod Permissions Calculator
 
 <style>
     :root {

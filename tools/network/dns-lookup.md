@@ -1,4 +1,4 @@
-# DNS Lookup Tool
+# &#127104; DNS Lookup Tool
 
 This DNS Lookup Tool allows you to query Domain Name System (DNS) records directly from your browser without needing command-line tools like dig or nslookup.
 

@@ -1,4 +1,4 @@
-# GUID/UUID Generator
+# &#8635; GUID/UUID Generator
 
 <style>
     :root {
