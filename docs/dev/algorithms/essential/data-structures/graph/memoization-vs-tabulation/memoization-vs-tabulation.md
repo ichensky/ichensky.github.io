@@ -18,6 +18,7 @@ Every dynamic programming problem relies on two core elements:
 * **Transitions:** Directed edges represent state dependencies (how one subproblem relies on or transitions to another).
 
 Because subproblems must be resolved prior to the states that depend on them, these dependencies form a **Directed Acyclic Graph (DAG)**. Solving a dynamic programming problem is equivalent to finding a `shortest path`, `longest path`, or `counting paths` through this `DAG via depth-first search (DFS)` or `topological sorting`.
+
 ![Graph DAG](images/graph-dag.png)
 
 * **Memoization** uses `DFS with recursion`, starting at the target node and diving down to base cases, caching results along the way.
