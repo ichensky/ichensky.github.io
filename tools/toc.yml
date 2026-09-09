@@ -39,3 +39,7 @@
     - href: network/dns-lookup.md
     - href: network/my-ip-address.md
     - href: network/ipv4-address-converter.md
+
+  - name: algorithms
+    items:
+    - href: algorithms/graph-visualizer.md
