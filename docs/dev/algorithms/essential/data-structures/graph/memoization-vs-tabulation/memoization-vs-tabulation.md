@@ -4,11 +4,11 @@ Memoization and tabulation are two fundamental techniques in dynamic programming
 
 ### Memoization
 
-In memoization, we store the results of expensive function calls and reuse them when the same inputs recur. This technique eliminates redundant calculations and substantially improves the performance of recursive algorithms.
+In memoization, we `store the results of expensive function calls and reuse them when the same inputs recur`. This technique eliminates redundant calculations and substantially improves the performance of recursive algorithms.
 
 ### Tabulation
 
-Tabulation involves solving subproblems iteratively and storing their results in a table (typically an array or matrix). This approach begins at the base cases and works upward to the target solution, ensuring each subproblem is evaluated exactly once.
+Tabulation `involves solving subproblems iteratively and storing their results in a table (typically an array or matrix)`. This approach begins at the base cases and works upward to the target solution, ensuring each subproblem is evaluated exactly once.
 
 ## The Graph Connection
 
@@ -29,9 +29,9 @@ Because subproblems must be resolved prior to the states that depend on them, th
 ### Longest Common Subsequence (LCS)
 An `LCS (longest common subsequence)` is the longest subsequence shared across a set of sequences. 
 
-LCS dynamic programming solutions can be viewed through graph theory as a Directed Acyclic Graph (DAG) of overlapping subproblems.
+LCS dynamic programming solutions can be viewed through graph theory as a `Directed Acyclic Graph (DAG) of overlapping subproblems`.
 
-It can be computed efficiently using dynamic programming via memoization or tabulation.
+It can be computed efficiently using dynamic programming via `memoization` or `tabulation`.
 
 An LCS is used to implement diff tools, compare file versions, and find similarities between sequences.
 
@@ -52,11 +52,13 @@ An LCS is used to implement diff tools, compare file versions, and find similari
 > Input: text1 = "abcde", text2 = "ace" 
 > Output: 3  
 > Explanation: The longest common subsequence is "ace" and its length is 3.
+
 > **Example 2:**
 
 > Input: text1 = "abc", text2 = "abc"
 > Output: 3
 > Explanation: The longest common subsequence is "abc" and its length is 3.
+
 > **Example 3:**
 
 > Input: text1 = "abc", text2 = "def"
