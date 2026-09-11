@@ -127,6 +127,7 @@
         <label for="fileInput" class="button-label">Upload Text</label>
         <input type="file" id="fileInput" accept=".txt,.md,.json,.csv,.log,text/*" />
         <button id="downloadBtn">Download Text</button>
+        <button id="shareBtn">Share</button>
         <button id="clearBtn">Clear</button>
       </div>
       <textarea id="textInput" placeholder="Start typing or upload a text file..."></textarea>
@@ -140,6 +141,7 @@
   const textInput = document.getElementById('textInput');
   const statusBar = document.getElementById('statusBar');
   const downloadBtn = document.getElementById('downloadBtn');
+  const shareBtn = document.getElementById('shareBtn');
   const clearBtn = document.getElementById('clearBtn');
   const fileInput = document.getElementById('fileInput');
 
@@ -213,6 +215,45 @@
     textInput.value = '';
     updateStatus('Ready');
   });
+
+  // Share Handler - encode text into URL and copy link to clipboard
+  shareBtn.addEventListener('click', async () => {
+    const content = textInput.value;
+    if (!content) {
+      updateStatus('Cannot share empty text.', 'error-msg');
+      return;
+    }
+
+    try {
+      const encoded = encodeURIComponent(btoa(unescape(encodeURIComponent(content))));
+      const url = new URL(window.location.href);
+      url.hash = '';
+      url.searchParams.set('text', encoded);
+
+      await navigator.clipboard.writeText(url.toString());
+      updateStatus('Share link copied to clipboard!', 'success-msg');
+    } catch (err) {
+      updateStatus('Error creating share link.', 'error-msg');
+    }
+  });
+
+  // Load text from URL parameter (if present) on page load
+  function loadFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const encoded = params.get('text');
+    if (!encoded) return;
+
+    try {
+      const decoded = decodeURIComponent(escape(atob(decodeURIComponent(encoded))));
+      textInput.value = decoded;
+      updateTextMetrics();
+      updateStatus('Loaded shared text.', 'success-msg');
+    } catch (err) {
+      updateStatus('Error loading shared text.', 'error-msg');
+    }
+  }
+
+  loadFromUrl();
 
   // Helper to update word & char count
   function updateTextMetrics() {
