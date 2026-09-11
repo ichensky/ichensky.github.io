@@ -135,12 +135,12 @@
     <div class="panel">
       <div class="panel-header">Document Editor</div>
       <div class="panel-actions">
+        <button id="clearBtn">Clear</button>
         <label for="fileInput" class="button-label">Upload Text</label>
         <input type="file" id="fileInput" accept=".txt,.md,.json,.csv,.log,text/*" />
         <button id="downloadBtn">Download Text</button>
         <button id="shareBtn">Share</button>
         <button id="expandBtn" type="button" aria-label="Expand editor" aria-pressed="false">Expand</button>
-        <button id="clearBtn">Clear</button>
       </div>
       <textarea id="textInput" placeholder="Start typing or upload a text file..."></textarea>
     </div>
