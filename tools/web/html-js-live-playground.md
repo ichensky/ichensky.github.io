@@ -276,7 +276,8 @@
     if (!htmlInput.value.trim()) return;
     try {
       const compressed = await compressText(htmlInput.value);
-      const shareUrl = `${window.location.origin}${window.location.pathname}#code=${compressed}`;
+      const isExpanded = playground.classList.contains('is-expanded');
+      const shareUrl = `${window.location.origin}${window.location.pathname}#code=${compressed}${isExpanded ? '&expand=1' : ''}`;
       window.history.replaceState(null, '', shareUrl);
       
       await navigator.clipboard.writeText(shareUrl);
@@ -293,10 +294,16 @@
     const hash = window.location.hash;
     if (hash.startsWith('#code=')) {
       try {
-        const compressed = hash.replace('#code=', '');
+        const params = new URLSearchParams(hash.slice(1));
+        const compressed = params.get('code');
         const decompressed = await decompressText(compressed);
         htmlInput.value = decompressed;
         updatePreview();
+        if (params.get('expand') === '1') {
+          playground.classList.add('is-expanded');
+          toolbar.classList.add('is-expanded');
+          updateExpandButton();
+        }
       } catch (err) {
         console.error('Failed to decompress URL parameter:', err);
       }
