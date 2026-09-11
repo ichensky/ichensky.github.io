@@ -117,6 +117,17 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
+
+  .tool.is-expanded {
+    position: fixed;
+    inset: 0;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    background-color: var(--bg-color);
+    z-index: 1050;
+  }
 </style>
 
 <div class="tool">
@@ -128,6 +139,7 @@
         <input type="file" id="fileInput" accept=".txt,.md,.json,.csv,.log,text/*" />
         <button id="downloadBtn">Download Text</button>
         <button id="shareBtn">Share</button>
+        <button id="expandBtn" type="button" aria-label="Expand editor" aria-pressed="false">Expand</button>
         <button id="clearBtn">Clear</button>
       </div>
       <textarea id="textInput" placeholder="Start typing or upload a text file..."></textarea>
@@ -142,8 +154,22 @@
   const statusBar = document.getElementById('statusBar');
   const downloadBtn = document.getElementById('downloadBtn');
   const shareBtn = document.getElementById('shareBtn');
+  const expandBtn = document.getElementById('expandBtn');
   const clearBtn = document.getElementById('clearBtn');
   const fileInput = document.getElementById('fileInput');
+  const tool = document.querySelector('.tool');
+
+  function updateExpandButton() {
+    const isExpanded = tool.classList.contains('is-expanded');
+    expandBtn.textContent = isExpanded ? 'Collapse' : 'Expand';
+    expandBtn.setAttribute('aria-label', isExpanded ? 'Collapse editor' : 'Expand editor');
+    expandBtn.setAttribute('aria-pressed', String(isExpanded));
+  }
+
+  expandBtn.addEventListener('click', () => {
+    tool.classList.toggle('is-expanded');
+    updateExpandButton();
+  });
 
   // Status Bar Helper
   function updateStatus(message, className = '') {
