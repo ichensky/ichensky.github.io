@@ -223,4 +223,15 @@
 
   // Input Tracking
   textInput.addEventListener('input', updateTextMetrics);
+    // Tab key handler - insert tab character instead of moving focus
+  textInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      const start = textInput.selectionStart;
+      const end = textInput.selectionEnd;
+      textInput.value = textInput.value.substring(0, start) + '\t' + textInput.value.substring(end);
+      textInput.selectionStart = textInput.selectionEnd = start + 1;
+      updateTextMetrics();
+    }
+  });
 </script>
