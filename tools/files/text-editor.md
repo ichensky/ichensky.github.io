@@ -216,7 +216,30 @@
     updateStatus('Ready');
   });
 
-  // Share Handler - encode text into URL and copy link to clipboard
+  // Compress & Base64 (URL-safe) Encode
+  async function compressText(text) {
+    const stream = new Blob([text]).stream().pipeThrough(new CompressionStream('gzip'));
+    const buffer = await new Response(stream).arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+    let binary = '';
+    bytes.forEach(b => binary += String.fromCharCode(b));
+    return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+
+  // Decode Base64 (URL-safe) & Decompress
+  async function decompressText(base64) {
+    let str = base64.replace(/-/g, '+').replace(/_/g, '/');
+    while (str.length % 4) str += '=';
+    const binary = atob(str);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+    return await new Response(stream).text();
+  }
+
+  // Share Handler - encode compressed text into URL and copy link to clipboard
   shareBtn.addEventListener('click', async () => {
     const content = textInput.value;
     if (!content) {
@@ -225,7 +248,7 @@
     }
 
     try {
-      const encoded = encodeURIComponent(btoa(unescape(encodeURIComponent(content))));
+      const encoded = await compressText(content);
       const url = new URL(window.location.href);
       url.hash = '';
       url.searchParams.set('text', encoded);
@@ -238,13 +261,13 @@
   });
 
   // Load text from URL parameter (if present) on page load
-  function loadFromUrl() {
+  async function loadFromUrl() {
     const params = new URLSearchParams(window.location.search);
     const encoded = params.get('text');
     if (!encoded) return;
 
     try {
-      const decoded = decodeURIComponent(escape(atob(decodeURIComponent(encoded))));
+      const decoded = await decompressText(encoded);
       textInput.value = decoded;
       updateTextMetrics();
       updateStatus('Loaded shared text.', 'success-msg');
