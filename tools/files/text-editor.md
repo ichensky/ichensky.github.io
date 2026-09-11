@@ -278,6 +278,11 @@
       const url = new URL(window.location.href);
       url.hash = '';
       url.searchParams.set('text', encoded);
+      if (tool.classList.contains('is-expanded')) {
+        url.searchParams.set('expand', '1');
+      } else {
+        url.searchParams.delete('expand');
+      }
 
       await navigator.clipboard.writeText(url.toString());
       updateStatus('Share link copied to clipboard!', 'success-msg');
@@ -296,6 +301,10 @@
       const decoded = await decompressText(encoded);
       textInput.value = decoded;
       updateTextMetrics();
+      if (params.get('expand') === '1') {
+        tool.classList.add('is-expanded');
+        updateExpandButton();
+      }
       updateStatus('Loaded shared text.', 'success-msg');
     } catch (err) {
       updateStatus('Error loading shared text.', 'error-msg');
