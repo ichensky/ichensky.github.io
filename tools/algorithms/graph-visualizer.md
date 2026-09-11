@@ -155,6 +155,10 @@
       <option value="directed" selected>Directed</option>
       <option value="undirected">Undirected</option>
     </select>
+    <label for="treeLayoutCheckbox">
+      <input type="checkbox" id="treeLayoutCheckbox" />
+      Draw as Tree
+    </label>
   </div>
 
   <div class="main-container">
@@ -184,6 +188,7 @@
   const copyBtn = document.getElementById('copyBtn');
   const clearBtn = document.getElementById('clearBtn');
   const graphTypeSelect = document.getElementById('graphTypeSelect');
+  const treeLayoutCheckbox = document.getElementById('treeLayoutCheckbox');
   const canvas = document.getElementById('graphCanvas');
   const ctx = canvas.getContext('2d');
   const container = document.getElementById('canvasContainer');
@@ -206,6 +211,11 @@
 
     edgeInput.addEventListener('input', updateGraphData);
     graphTypeSelect.addEventListener('change', drawGraph);
+    treeLayoutCheckbox.addEventListener('change', () => {
+      // Discard previous positions so the layout is recomputed from scratch
+      nodes = {};
+      updateGraphData();
+    });
 
     copyBtn.addEventListener('click', () => {
       if (edgeInput.value) {
@@ -256,28 +266,33 @@
       }
     });
 
-    // Layout nodes evenly on a circular layout
-    const newNodes = {};
     const nodeArray = Array.from(uniqueNodeNames);
-    const count = nodeArray.length;
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const radius = Math.min(centerX, centerY) - 60;
 
-    nodeArray.forEach((name, i) => {
-      // Keep position if node already existed
-      if (nodes[name]) {
-        newNodes[name] = nodes[name];
-      } else {
-        const angle = (i / (count || 1)) * 2 * Math.PI - Math.PI / 2;
-        newNodes[name] = {
-          x: centerX + (radius > 50 ? radius * Math.cos(angle) : 0),
-          y: centerY + (radius > 50 ? radius * Math.sin(angle) : 0)
-        };
-      }
-    });
+    if (treeLayoutCheckbox.checked) {
+      nodes = layoutTree(nodeArray);
+    } else {
+      // Layout nodes evenly on a circular layout, keeping existing positions
+      const newNodes = {};
+      const count = nodeArray.length;
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = Math.min(centerX, centerY) - 60;
 
-    nodes = newNodes;
+      nodeArray.forEach((name, i) => {
+        if (nodes[name]) {
+          newNodes[name] = nodes[name];
+        } else {
+          const angle = (i / (count || 1)) * 2 * Math.PI - Math.PI / 2;
+          newNodes[name] = {
+            x: centerX + (radius > 50 ? radius * Math.cos(angle) : 0),
+            y: centerY + (radius > 50 ? radius * Math.sin(angle) : 0)
+          };
+        }
+      });
+
+      nodes = newNodes;
+    }
+
     drawGraph();
     
     if (nodeArray.length === 0 && edges.length === 0) {
@@ -285,6 +300,65 @@
     } else {
       updateStatus(`Graph updated: ${Object.keys(nodes).length} nodes, ${edges.length} edges.`, 'success-msg');
     }
+  }
+
+  // Layout nodes by BFS depth from root(s) - nodes with no incoming edges, or first node if all have incoming edges
+  function layoutTree(nodeArray) {
+    const adjacency = {};
+    nodeArray.forEach(name => adjacency[name] = []);
+
+    const hasIncoming = new Set();
+    edges.forEach(edge => {
+      if (!edge.from || !edge.to) return;
+      adjacency[edge.from].push(edge.to);
+      if (graphTypeSelect.value !== 'directed') {
+        adjacency[edge.to].push(edge.from);
+      }
+      hasIncoming.add(edge.to);
+    });
+
+    const roots = nodeArray.filter(name => !hasIncoming.has(name));
+    const queue = roots.length ? [...roots] : nodeArray.slice(0, 1);
+    const levels = {};
+    queue.forEach(name => levels[name] = 0);
+
+    while (queue.length) {
+      const current = queue.shift();
+      adjacency[current].forEach(next => {
+        if (!(next in levels)) {
+          levels[next] = levels[current] + 1;
+          queue.push(next);
+        }
+      });
+    }
+
+    // Disconnected nodes not reached become their own root at level 0
+    nodeArray.forEach(name => {
+      if (!(name in levels)) levels[name] = 0;
+    });
+
+    const levelGroups = {};
+    nodeArray.forEach(name => {
+      const level = levels[name];
+      (levelGroups[level] = levelGroups[level] || []).push(name);
+    });
+
+    const levelKeys = Object.keys(levelGroups).map(Number).sort((a, b) => a - b);
+    const verticalSpacing = Math.max(80, (canvas.height - 100) / (levelKeys.length || 1));
+    const newNodes = {};
+
+    levelKeys.forEach((level, levelIndex) => {
+      const nodesInLevel = levelGroups[level];
+      const horizontalSpacing = canvas.width / (nodesInLevel.length + 1);
+      nodesInLevel.forEach((name, idx) => {
+        newNodes[name] = {
+          x: horizontalSpacing * (idx + 1),
+          y: 60 + verticalSpacing * levelIndex
+        };
+      });
+    });
+
+    return newNodes;
   }
 
   function drawGraph() {
