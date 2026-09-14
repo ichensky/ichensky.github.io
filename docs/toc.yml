@@ -96,6 +96,9 @@
       items:
       - href: dev/dotnet/csharp/lambda-closures.md
       - href: dev/dotnet/csharp/access-modifiers.md
+      - name: tasks
+        items:
+        - href: dev/dotnet/csharp/tasks/how-to-handel-tasks-in-batches.md
 
   - name: js
     items:
