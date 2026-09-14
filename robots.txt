@@ -1,7 +1,5 @@
-User-agent: Googlebot
-Disallow: /public/
-
 User-agent: *
 Allow: /
+Disallow: /public/
 
-sitemap: https://ichensky.github.io/sitemap.xml
+Sitemap: https://ichensky.github.io/sitemap.xml
