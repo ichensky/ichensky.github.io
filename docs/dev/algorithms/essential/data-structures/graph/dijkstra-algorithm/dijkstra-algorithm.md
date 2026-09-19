@@ -150,3 +150,93 @@ public class PrintDijkstraDistanceTable<TVertexId>(Graph<TVertexId> graph,
     }
 }
 ```
+
+### Example Usage: Network Delay Time
+
+#### Problem Description
+
+You are given a network of $n$ nodes, labeled from $1$ to $n$. You are also given `times`, a list of travel times as directed edges `times[i] = (u_i, v_i, w_i)`, where $u_i$ is the source node, $v_i$ is the target node, and $w_i$ is the time it takes for a signal to travel from source to target.
+
+We will send a signal from a given node $k$. Return the minimum time it takes for all the $n$ nodes to receive the signal. If it is impossible for all the $n$ nodes to receive the signal, return `-1`.
+
+#### Examples
+
+**Example 1:**
+
+* **Input:** `times = [[2,1,1],[2,3,1],[3,4,1]]`, `n = 4`, `k = 2`
+* **Output:** `2`
+
+**Example 2:**
+
+* **Input:** `times = [[1,2,1]]`, `n = 2`, `k = 1`
+* **Output:** `1`
+
+**Example 3:**
+
+* **Input:** `times = [[1,2,1]]`, `n = 2`, `k = 2`
+* **Output:** `-1`
+
+#### Constraints
+
+* $1 \le k \le n \le 100$
+* $1 \le \text{times.length} \le 6000$
+* $\text{times}[i].\text{length} == 3$
+* $1 \le u_i, v_i \le n$
+* $u_i \neq v_i$
+* $0 \le w_i \le 100$
+* All the pairs $(u_i, v_i)$ are unique (i.e., no multiple edges).
+
+#### Solution
+```csharp
+public class Solution {
+    public int NetworkDelayTime(int[][] times, int n, int k) {
+        var adj = new Dictionary<int, IList<(int id, int time)>>();
+        // Distance table to keep track of the shortest known distance
+        // from the source node `k` to each node
+        var table = new int[n + 1];
+        var INF = 1_000_000;
+        Array.Fill(table, INF);
+        
+        table[k] = 0;
+
+        for (int i = 0; i < times.Length; i++) {
+            var from = times[i][0];
+            var to = times[i][1];
+            var time = times[i][2];
+            if (!adj.ContainsKey(from)) {
+                adj.Add(from, []);
+            }
+            adj[from].Add((to, time));
+        }
+
+        var queue = new PriorityQueue<int, int>();
+        queue.Enqueue(k, 0);
+
+        while (queue.TryDequeue(out var el, out var priority)) {       
+            if (priority > table[el]) {
+                continue;
+            }
+
+            if (adj.ContainsKey(el)) {
+                foreach (var neigh in adj[el]) {
+                    var dist = neigh.time + priority;
+                    if (dist < table[neigh.id]) {
+                        table[neigh.id] = dist;
+                        queue.Enqueue(neigh.id, dist);
+                    }                            
+                }
+            }
+        }
+
+        var maxTime = 0;
+        for (int i = 1; i <= n; i++) {
+            if (table[i] == INF) {
+                return -1; 
+            }
+            maxTime = Math.Max(maxTime, table[i]);
+        }
+
+        return maxTime;
+    }
+}
+```
