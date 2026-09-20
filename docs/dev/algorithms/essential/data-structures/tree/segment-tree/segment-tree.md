@@ -1,32 +1,12 @@
 # Segment Tree
 
-![Segment Tree](images/segment-tree.png)
-
-<details>
-<summary>Segment Tree Structure</summary>
-```pre
-1 2
-1 3
-2 4
-2 5
-3 6
-3 7
-4 8
-4 9
-5 10
-5 11
-6 12
-6 13
-7 14
-7 15
-```
-</details>
-
-<br>
-
 The array `1, 2, 3, 4, 5` in the segment tree is represented as follows:
 
 `15, 6, 9, 3, 3, 4, 5, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0`
+
+![Segment Tree](images/segment-tree.png)
+
+
 
 ```csharp
 var numArray = new NumArray([1, 2, 3, 4, 5]);
@@ -131,3 +111,27 @@ public class NumArray
     }
 }
 ```
+
+## Segement Tree index update
+
+![Segment Tree](images/segment-tree-index-update.png)
+
+<details>
+<summary>Segment Tree Structure</summary>
+```pre
+1 2
+1 3
+2 4
+2 5
+3 6
+3 7
+4 8
+4 9
+5 10
+5 11
+6 12
+6 13
+7 14
+7 15
+```
+</details>
