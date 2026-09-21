@@ -24,6 +24,7 @@
         - name: tree
           items:
           - href: dev/algorithms/essential/data-structures/tree/segment-tree/segment-tree.md
+          - href: dev/algorithms/essential/data-structures/tree/fenwick-tree/fenwick-tree.md
     - name: normal-distribution
       items:
       - href: dev/algorithms/normal-distribution/Box–Muller-transform/Box–Muller-transform.md
