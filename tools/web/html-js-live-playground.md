@@ -277,7 +277,7 @@
     try {
       const compressed = await compressText(htmlInput.value);
       const isExpanded = playground.classList.contains('is-expanded');
-      const shareUrl = `${window.location.origin}${window.location.pathname}#code=${compressed}${isExpanded ? '&expand=1' : ''}`;
+      const shareUrl = `${window.location.origin}${window.location.pathname}#code=${compressed}${isExpanded ? '&e' : ''}`;
       window.history.replaceState(null, '', shareUrl);
       
       await navigator.clipboard.writeText(shareUrl);
@@ -292,21 +292,21 @@
   // Load state from URL hash if available
   async function loadFromURL() {
     const hash = window.location.hash;
-    if (hash.startsWith('#code=')) {
-      try {
-        const params = new URLSearchParams(hash.slice(1));
-        const compressed = params.get('code');
-        const decompressed = await decompressText(compressed);
-        htmlInput.value = decompressed;
-        updatePreview();
-        if (params.get('expand') === '1') {
-          playground.classList.add('is-expanded');
-          toolbar.classList.add('is-expanded');
-          updateExpandButton();
-        }
-      } catch (err) {
-        console.error('Failed to decompress URL parameter:', err);
-      }
+    const params = new URLSearchParams(hash.replace(/^#/, ''));
+    if (params.has('e')) {
+      playground.classList.add('is-expanded');
+      toolbar.classList.add('is-expanded');
+      updateExpandButton();
+    }
+
+    const compressed = params.get('code');
+    if (!compressed) return;
+    try {
+      const decompressed = await decompressText(compressed);
+      htmlInput.value = decompressed;
+      updatePreview();
+    } catch (err) {
+      console.error('Failed to decompress URL parameter:', err);
     }
   }
 
