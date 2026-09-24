@@ -24,6 +24,7 @@
           - name: minimum-spanning-tree
             items:
             - href: dev/algorithms/essential/data-structures/graph/minimum-spanning-tree/kruskal-mst/kruskal-mst.md
+            - href: dev/algorithms/essential/data-structures/graph/minimum-spanning-tree/prims-mst/prims-mst.md
         - name: tree
           items:
           - href: dev/algorithms/essential/data-structures/tree/segment-tree/segment-tree.md
