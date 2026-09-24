@@ -294,6 +294,11 @@
   // Load text from URL parameter (if present) on page load
   async function loadFromUrl() {
     const params = new URLSearchParams(window.location.search);
+    if (params.get('expand') === '1') {
+      tool.classList.add('is-expanded');
+      updateExpandButton();
+    }
+
     const encoded = params.get('text');
     if (!encoded) return;
 
@@ -301,10 +306,6 @@
       const decoded = await decompressText(encoded);
       textInput.value = decoded;
       updateTextMetrics();
-      if (params.get('expand') === '1') {
-        tool.classList.add('is-expanded');
-        updateExpandButton();
-      }
       updateStatus('Loaded shared text.', 'success-msg');
     } catch (err) {
       updateStatus('Error loading shared text.', 'error-msg');
