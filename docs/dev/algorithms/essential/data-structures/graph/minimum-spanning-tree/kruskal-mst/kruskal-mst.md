@@ -1,6 +1,6 @@
 # Kruskal's Minimum Spanning Tree (MST) Algorithm
 
-Kruskal's algorithm is a greedy algorithm used to find the Minimum Spanning Tree (MST) of a connected, undirected graph. The MST is a subset of the edges that connects all vertices together without any cycles and with the minimum possible total edge weight.
+Kruskal's algorithm is a `greedy algorithm` used to find the `Minimum Spanning Tree (MST)` of a `connected, undirected graph`. The MST is a subset of the edges that connects all vertices together without any cycles and with the minimum possible total edge weight.
 
 ## Steps of Kruskal's Algorithm
 1. Sort all the edges in non-decreasing order of their weight.
