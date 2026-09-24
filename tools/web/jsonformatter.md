@@ -50,6 +50,14 @@
       outline: 1px solid var(--accent-color);
     }
 
+    button.btn-success {
+      background-color: #188038;
+    }
+
+    button.btn-warning {
+      background-color: #e08a00;
+    }
+
     .main-container {
       display: flex;
       flex: 1;
@@ -152,7 +160,7 @@
   <div class="panel">
     <div class="panel-header">Raw Input</div>
     <div class="panel-actions">
-      <button id="clearBtn">Clear</button>
+      <button id="clearBtn" class="btn-warning">Clear</button>
     </div>
     <textarea id="jsonInput" placeholder="Paste JSON here..."></textarea>
   </div>

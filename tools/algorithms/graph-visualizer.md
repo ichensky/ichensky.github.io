@@ -50,6 +50,14 @@
       outline: 1px solid var(--accent-color);
     }
 
+    button.btn-success {
+      background-color: #188038;
+    }
+
+    button.btn-warning {
+      background-color: #e08a00;
+    }
+
     .main-container {
       display: flex;
       flex: 1;
@@ -167,7 +175,7 @@
       <div class="panel-header">Edge Data (Node1 Node2 [Weight])</div>
       <div class="panel-actions">
         <button id="copyBtn">Copy</button>
-        <button id="clearBtn">Clear</button>
+        <button id="clearBtn" class="btn-warning">Clear</button>
       </div>
       <textarea id="edgeInput" placeholder="Enter edges per line:&#10;Node1 Node2 Weight&#10;&#10;Examples:&#10;A B 5&#10;B C 3&#10;C A 10&#10;A D"></textarea>
     </div>

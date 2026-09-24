@@ -37,6 +37,14 @@
     outline: 1px solid var(--accent-color);
   }
 
+  button.btn-success {
+    background-color: #188038;
+  }
+
+  button.btn-warning {
+    background-color: #e08a00;
+  }
+
   #fileInput {
     display: none;
   }
@@ -127,7 +135,7 @@
         <label for="fileInput" class="button-label">Upload File</label>
         <input type="file" id="fileInput" />
         <button id="downloadBtn">Download Strings</button>
-        <button id="clearBtn">Clear</button>
+        <button id="clearBtn" class="btn-warning">Clear</button>
       </div>
       <textarea id="textDisplay" placeholder="Upload a file to view extracted strings..." readonly></textarea>
     </div>

@@ -48,6 +48,14 @@
       outline: 1px solid var(--accent-color);
     }
 
+    button.btn-success {
+      background-color: #188038;
+    }
+
+    button.btn-warning {
+      background-color: #e08a00;
+    }
+
     #fileInput {
       display: none;
     }
@@ -149,7 +157,7 @@
     <div class="panel-actions">
       <label for="fileInput" class="button-label">Upload File</label>
       <input type="file" id="fileInput" />
-      <button id="clearBtn">Clear</button>
+    <button id="clearBtn" class="btn-warning">Clear</button>
     </div>
     <textarea id="textInput" placeholder="Enter text or upload a file to hash..."></textarea>
   </div>

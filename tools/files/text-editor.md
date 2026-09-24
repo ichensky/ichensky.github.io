@@ -41,6 +41,14 @@
     outline: 1px solid var(--accent-color);
   }
 
+  button.btn-success {
+    background-color: #188038;
+  }
+
+  button.btn-warning {
+    background-color: #e08a00;
+  }
+
   /* Hide default file input */
   #fileInput {
     display: none;
@@ -135,11 +143,11 @@
     <div class="panel">
       <div class="panel-header">Document Editor</div>
       <div class="panel-actions">
-        <button id="clearBtn">Clear</button>
+        <button id="clearBtn" class="btn-warning">Clear</button>
         <label for="fileInput" class="button-label">Upload Text</label>
         <input type="file" id="fileInput" accept=".txt,.md,.json,.csv,.log,text/*" />
         <button id="downloadBtn">Download Text</button>
-        <button id="shareBtn">Share</button>
+        <button id="shareBtn" class="btn-success">Share</button>
         <button id="expandBtn" type="button" aria-label="Expand editor" aria-pressed="false">Expand</button>
       </div>
       <textarea id="textInput" placeholder="Start typing or upload a text file..."></textarea>

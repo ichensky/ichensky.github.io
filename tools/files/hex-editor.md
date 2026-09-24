@@ -43,6 +43,14 @@
     outline: 1px solid var(--accent-color);
   }
 
+  button.btn-success {
+    background-color: #188038;
+  }
+
+  button.btn-warning {
+    background-color: #e08a00;
+  }
+
   #fileInput {
     display: none;
   }
@@ -167,7 +175,7 @@
         <label for="fileInput" class="button-label">Upload File</label>
         <input type="file" id="fileInput" />
         <button id="downloadBtn">Download Binary</button>
-        <button id="clearBtn">Clear</button>
+        <button id="clearBtn" class="btn-warning">Clear</button>
       </div>
       <div class="hex-container" id="hexContainer">
         <div class="hex-offsets" id="hexOffsets">00000000</div>

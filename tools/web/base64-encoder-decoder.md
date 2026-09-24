@@ -50,6 +50,14 @@
       outline: 1px solid var(--accent-color);
     }
 
+    button.btn-success {
+      background-color: #188038;
+    }
+
+    button.btn-warning {
+      background-color: #e08a00;
+    }
+
     .main-container {
       display: flex;
       flex: 1;
@@ -155,7 +163,7 @@
   <div class="panel">
     <div class="panel-header" id="inputHeader">Base64 Input</div>
     <div class="panel-actions">
-      <button id="clearBtn">Clear</button>
+      <button id="clearBtn" class="btn-warning">Clear</button>
     </div>
     <textarea id="base64Input" placeholder="Paste Base64 encoded string here..."></textarea>
   </div>

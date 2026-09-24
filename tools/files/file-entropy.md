@@ -50,6 +50,14 @@
       outline: 1px solid var(--accent-color);
     }
 
+    button.btn-success {
+      background-color: #188038;
+    }
+
+    button.btn-warning {
+      background-color: #e08a00;
+    }
+
     #fileInput {
       display: none;
     }
@@ -221,7 +229,7 @@
   <div class="panel">
     <div class="panel-header">File Selection</div>
     <div class="panel-actions">
-      <button id="clearBtn">Clear</button>
+      <button id="clearBtn" class="btn-warning">Clear</button>
     </div>
     <div class="upload-section">
       <label for="fileInput" class="button-label" style="padding: 10px 20px; font-size: 1rem;">Select File</label>

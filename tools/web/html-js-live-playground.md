@@ -126,6 +126,14 @@
     background-color: var(--accent-hover);
   }
 
+  .playground-btn.btn-success {
+    background-color: #188038;
+  }
+
+  .playground-btn.btn-warning {
+    background-color: #e08a00;
+  }
+
   #htmlInput {
     flex: 1;
     width: 100%;
@@ -168,7 +176,7 @@
 </style>
 
 <div class="playground-toolbar">
-  <button id="shareBtn" class="playground-btn">Share</button>
+  <button id="shareBtn" class="playground-btn btn-success">Share</button>
   <button id="expandBtn" class="playground-btn" type="button" aria-label="Expand playground" aria-pressed="false">Expand</button>
 </div>
 
@@ -177,7 +185,7 @@
     <div class="panel-header">
       <span>Source Code (HTML + JS)</span>
       <div class="btn-group">
-        <button id="clearBtn" class="playground-btn">Clear</button>
+        <button id="clearBtn" class="playground-btn btn-warning">Clear</button>
       </div>
     </div>
     <textarea id="htmlInput" placeholder="Enter HTML/JS code here..."></textarea>
