@@ -1,3 +1,3 @@
 ---
-redirect_url: /tools/files/text-editor.html?expand=1
+redirect_url: /tools/files/text-editor.html?e
 ---

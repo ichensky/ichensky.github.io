@@ -279,9 +279,9 @@
       url.hash = '';
       url.searchParams.set('text', encoded);
       if (tool.classList.contains('is-expanded')) {
-        url.searchParams.set('expand', '1');
+        url.searchParams.set('e', '');
       } else {
-        url.searchParams.delete('expand');
+        url.searchParams.delete('e');
       }
 
       await navigator.clipboard.writeText(url.toString());
@@ -294,7 +294,7 @@
   // Load text from URL parameter (if present) on page load
   async function loadFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('expand') === '1') {
+    if (params.has('e')) {
       tool.classList.add('is-expanded');
       updateExpandButton();
     }
