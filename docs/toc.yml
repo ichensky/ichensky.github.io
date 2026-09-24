@@ -21,6 +21,9 @@
           - href: dev/algorithms/essential/data-structures/graph/dijkstra-algorithm/dijkstra-algorithm.md
           - href: dev/algorithms/essential/data-structures/graph/memoization-vs-tabulation/memoization-vs-tabulation.md
           - href: dev/algorithms/essential/data-structures/graph/floyd-warshall-algorithm/floyd-warshall-algorithm.md
+          - name: minimum-spanning-tree
+            items:
+            - href: dev/algorithms/essential/data-structures/graph/minimum-spanning-tree/kruskal-mst/kruskal-mst.md
         - name: tree
           items:
           - href: dev/algorithms/essential/data-structures/tree/segment-tree/segment-tree.md
