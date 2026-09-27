@@ -1,4 +1,4 @@
-# &#128274; Chmod Permissions Calculator
+# 🔑 Extended Chmod Permissions Calculator (4-Bit)
 
 <style>
     :root {
@@ -112,13 +112,19 @@
     <table class="perm-table">
       <thead>
         <tr>
-          <th>Role</th>
-          <th>Read (4)</th>
-          <th>Write (2)</th>
-          <th>Execute (1)</th>
+          <th>Category / Role</th>
+          <th>Read (4) / SUID (4)</th>
+          <th>Write (2) / SGID (2)</th>
+          <th>Execute (1) / Sticky (1)</th>
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>Special Bits</td>
+          <td><input type="checkbox" class="perm-cb" data-role="special" data-val="4" id="suid"> <label for="suid">SUID (setuid)</label></td>
+          <td><input type="checkbox" class="perm-cb" data-role="special" data-val="2" id="sgid"> <label for="sgid">SGID (setgid)</label></td>
+          <td><input type="checkbox" class="perm-cb" data-role="special" data-val="1" id="sticky"> <label for="sticky">Sticky Bit</label></td>
+        </tr>
         <tr>
           <td>Owner (u)</td>
           <td><input type="checkbox" class="perm-cb" data-role="owner" data-val="4" checked></td>
@@ -162,6 +168,24 @@
 <div class="status-bar" id="statusBar">Ready</div>
 </div>
 
+
+### Special Permissions
+
+**4  SUID (Set User ID)**
+
+Executes the file with the permissions of the file owner, rather than the user who ran it. (Commonly used for programs like passwd so regular users can temporarily act as root to change their password).
+
+**2 SGID (Set Group ID)**
+
+• On a file: Runs the file with the privileges of the file's group.
+
+• On a directory: Forces any new file created inside to inherit the directory's group, rather than the creator's group (great for shared team folders).
+
+**1 Sticky Bit**
+
+Primarily used on directories. Restricts file deletion so that only the file's owner (or root) can delete or rename a file inside that directory, even if other users have write access. (Commonly used on the public /tmp folder).
+
+
 <script>
   const checkboxes = document.querySelectorAll('.perm-cb');
   const octalOutput = document.getElementById('octalOutput');
@@ -171,12 +195,14 @@
 
   function calculateChmod() {
     let roles = {
+      special: 0,
       owner: 0,
       group: 0,
       other: 0
     };
 
     let flags = {
+      special: { suid: false, sgid: false, sticky: false },
       owner: { r: false, w: false, x: false },
       group: { r: false, w: false, x: false },
       other: { r: false, w: false, x: false }
@@ -187,20 +213,42 @@
       const val = parseInt(cb.dataset.val, 10);
       if (cb.checked) {
         roles[role] += val;
-        if (val === 4){ flags[role].r = true; }
-        if (val === 2){ flags[role].w = true; }
-        if (val === 1){ flags[role].x = true; }
+        if (role === 'special') {
+          if (val === 4) flags.special.suid = true;
+          if (val === 2) flags.special.sgid = true;
+          if (val === 1) flags.special.sticky = true;
+        } else {
+          if (val === 4) flags[role].r = true;
+          if (val === 2) flags[role].w = true;
+          if (val === 1) flags[role].x = true;
+        }
       }
     });
 
-    // 1. Octal Notation
-    const octalVal = `${roles.owner}${roles.group}${roles.other}`;
+    // 1. Octal Notation (4 Digits)
+    const octalVal = `${roles.special}${roles.owner}${roles.group}${roles.other}`;
 
-    // 2. Symbolic Notation (-rwxr-xr--)
-    function getSymbolicTriplet(f) {
-      return (f.r ? 'r' : '-') + (f.w ? 'w' : '-') + (f.x ? 'x' : '-');
+    // 2. Symbolic Notation (-rwsr-sr-t)
+    function getOwnerExecSymbol(x, suid) {
+      if (suid) return x ? 's' : 'S';
+      return x ? 'x' : '-';
     }
-    const symbolicVal = '-' + getSymbolicTriplet(flags.owner) + getSymbolicTriplet(flags.group) + getSymbolicTriplet(flags.other);
+
+    function getGroupExecSymbol(x, sgid) {
+      if (sgid) return x ? 's' : 'S';
+      return x ? 'x' : '-';
+    }
+
+    function getOtherExecSymbol(x, sticky) {
+      if (sticky) return x ? 't' : 'T';
+      return x ? 'x' : '-';
+    }
+
+    const uSymbolic = (flags.owner.r ? 'r' : '-') + (flags.owner.w ? 'w' : '-') + getOwnerExecSymbol(flags.owner.x, flags.special.suid);
+    const gSymbolic = (flags.group.r ? 'r' : '-') + (flags.group.w ? 'w' : '-') + getGroupExecSymbol(flags.group.x, flags.special.sgid);
+    const oSymbolic = (flags.other.r ? 'r' : '-') + (flags.other.w ? 'w' : '-') + getOtherExecSymbol(flags.other.x, flags.special.sticky);
+
+    const symbolicVal = '-' + uSymbolic + gSymbolic + oSymbolic;
 
     // 3. Command Example
     const commandVal = `chmod ${octalVal} file`;

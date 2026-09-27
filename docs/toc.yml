@@ -138,6 +138,10 @@
       - name: firejail
         items: 
         - href: linux/security/sandboxing/firejail/firejail-firefox.md
+    - name: security-subsystems-and-primitives
+      items:
+      - href: linux/security/security-subsystems-and-primitives/security-subsystems-and-primitives.md
+      
   - name: debian
     items:
     - href: linux/debian/build-package-from-source.md
