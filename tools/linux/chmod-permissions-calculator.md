@@ -42,11 +42,24 @@
       font-weight: bold;
     }
 
-    input[type="checkbox"] {
+    table.perm-table td:not(:first-child) {
+      vertical-align: middle;
+    }
+
+    table.perm-table input[type="checkbox"] {
+      display: block;
       width: 18px;
       height: 18px;
+      margin: 0 auto;
       cursor: pointer;
       accent-color: var(--accent-color);
+    }
+
+    table.perm-table label {
+      display: block;
+      margin-top: 5px;
+      line-height: 1.25;
+      cursor: pointer;
     }
 
     .main-container {
@@ -74,7 +87,7 @@
       border-bottom: 1px solid var(--border-color);
     }
 
-    pre {
+    .panel pre {
       flex: 1;
       margin: 0;
       padding: 15px;
@@ -151,17 +164,17 @@
 <div class="main-container">
   <div class="panel">
     <div class="panel-header">Octal Notation</div>
-    <pre id="octalOutput">-</pre>
+    <pre id="octalOutput">0744</pre>
   </div>
 
   <div class="panel">
     <div class="panel-header">Symbolic Notation</div>
-    <pre id="symbolicOutput">-</pre>
+    <pre id="symbolicOutput">-rwxr--r--</pre>
   </div>
 
   <div class="panel">
     <div class="panel-header">Command</div>
-    <pre id="commandOutput">-</pre>
+    <pre id="commandOutput">chmod 0744 file</pre>
   </div>
 </div>
 
