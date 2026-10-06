@@ -24,7 +24,7 @@ Because subproblems must be resolved prior to the states that depend on them, th
 * **Memoization** uses `DFS with recursion`, starting at the target node and diving down to base cases, caching results along the way.
 * **Tabulation** evaluates nodes in `topological order` (often implemented using nested loops or `BFS via Kahn's algorithm`).
 
-## Example
+## Example 1
 
 ### Longest Common Subsequence (LCS)
 An `LCS (longest common subsequence)` is the longest subsequence shared across a set of sequences. 
@@ -205,3 +205,92 @@ public class Solution
 ```
 
 * table[j] holds the value from the previous row (table[i - 1, j]). This replaces the need for the "top" value.
+
+---
+
+## Example 2
+
+The classic Grid Unique Paths problem is the perfect example of a simple 2D DP table.
+Imagine a 3x3 grid (9 cells total). A robot starts at the top-left corner (0,0) and wants to reach the bottom-right corner (2,2). The robot can only move Down or Right at any step.
+The goal is to find the total number of unique ways to reach the destination.
+
+
+### 1. Defining the State and Cell Values
+
+* The State (Indices): The row i and column j represent the robot's current position (i, j).
+* The Cell Value (dp[i][j]): The number stored inside the cell is the total unique paths to reach that specific cell from the starting point.
+
+### 2. The Base Cases
+
+The robot starts at (0,0), which counts as 1 path to begin with. Because the robot can only move right or down, there is only 1 way to reach any cell in the very first row (by just walking straight right) and only 1 way to reach any cell in the first column (by just walking straight down).
+
+### 3. The DP Table Layout and Transitions
+
+To get to any inner cell, the robot must have come from either the cell directly above it or the cell directly to its left. Therefore, the transition formula is:
+$$\text{dp}[i][j] = \text{dp}[i-1][j] + \text{dp}[i][j-1]$$ 
+Here is how the 3x3 table is filled out step-by-step:
+
+| Row / Col | Column 0 | Column 1 | Column 2 |
+|---|---|---|---|
+| Row 0 | 1 (Start) | 1 (Go Right) | 1 (Go Right) |
+| Row 1 | 1 (Go Down) | 2 (1 from top + 1 from left) | 3 (1 from top + 2 from left) |
+| Row 2 | 1 (Go Down) | 3 (2 from top + 1 from left) | 6 (3 from top + 3 from left) |
+
+### Summary of this 2D Table
+
+* Indices [2][2] (The State): Represents the bottom-right corner.
+* Value 6 (The Value): The final answer. There are exactly 6 unique ways for the robot to reach the destination.
+
+### C# Implementation
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int rows = 3;
+        int cols = 3;
+
+        int totalPaths = UniquePaths(rows, cols);
+
+        Console.WriteLine($"Total unique paths to reach the bottom-right corner: {totalPaths}");
+        // Total unique paths to reach the bottom-right corner: 6
+    }
+
+    static int UniquePaths(int m, int n)
+    {
+        // 1. Create the 2D DP Table. 
+        // The indices [i, j] represent the STATE (the current grid position).
+        int[,] dp = new int[m, n];
+
+        // 2. Initialize Base Cases (First Column)
+        // There is only 1 way to reach any cell in the first column (by going straight down).
+        for (int i = 0; i < m; i++)
+        {
+            dp[i, 0] = 1;
+        }
+
+        // 3. Initialize Base Cases (First Row)
+        // There is only 1 way to reach any cell in the first row (by going straight right).
+        for (int j = 0; j < n; j++)
+        {
+            dp[0, j] = 1;
+        }
+
+        // 4. Fill the rest of the DP table using the transition formula
+        for (int i = 1; i < m; i++)
+        {
+            for (int j = 1; j < n; j++)
+            {
+                // The VALUE at this state is the sum of the values from the top and left states.
+                dp[i, j] = dp[i - 1, j] + dp[i, j - 1];
+            }
+        }
+
+        // 5. The final answer is stored at the destination state (bottom-right corner)
+        return dp[m - 1, n - 1];
+    }
+}
+```
