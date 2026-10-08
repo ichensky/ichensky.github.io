@@ -214,6 +214,7 @@ The classic Grid Unique Paths problem is the perfect example of a simple 2D DP t
 Imagine a 3x3 grid (9 cells total). A robot starts at the top-left corner (0,0) and wants to reach the bottom-right corner (2,2). The robot can only move Down or Right at any step.
 The goal is to find the total number of unique ways to reach the destination.
 
+![Robot path](images/robot-path.png)
 
 ### 1. Defining the State and Cell Values
 
