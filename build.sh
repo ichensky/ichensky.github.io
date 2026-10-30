@@ -1,1 +1,1 @@
-docfx docfx.json 
+dotnet docfx docfx.json 

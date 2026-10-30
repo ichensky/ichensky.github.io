@@ -125,6 +125,10 @@
   
 - name: linux
   items:
+  - name: backup
+    items:
+    - href: linux/backup/pc-backup-script.md
+  
   - name: security
     items:
     - name: encyption

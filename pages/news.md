@@ -1,6 +1,8 @@
 Explore the newest additions to the platform. Here are the most recent updates, published articles, and newly integrated tools.
 <hr>
 
+* **[PC Backup Script](/docs/linux/backup/pc-backup-script.html)** - A robust shell script for automated PC backups using `rsync`.
+
 * **[Floyd-Warshall Algorithm: All-Pairs Shortest Path in Graphs](/docs/dev/algorithms/essential/data-structures/graph/floyd-warshall-algorithm/floyd-warshall-algorithm.html)** - A guide to the Floyd-Warshall algorithm, including its implementation for finding the shortest paths between all pairs of vertices in a graph.
 
 * **[Memoization vs Tabulation: LCS example](/docs/dev/algorithms/essential/data-structures/graph/memoization-vs-tabulation/memoization-vs-tabulation.html)** - A note about memoization and tabulation techniques for solving the Longest Common Subsequence problem using dynamic programming.

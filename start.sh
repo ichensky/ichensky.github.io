@@ -1,1 +1,1 @@
-docfx docfx.json --serve
+dotnet docfx docfx.json --serve
