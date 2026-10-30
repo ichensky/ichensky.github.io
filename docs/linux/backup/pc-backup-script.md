@@ -54,7 +54,7 @@ rsync -aAXv --delete \
     /home/iso_images \
     "$dest"
 
-# 2. Backup /home/USER using include/exclude filters with --delete-excluded
+# 2. Backup /home/USER
 rsync -aAXv --delete --delete-excluded \
     --progress \
     --stats \
@@ -88,7 +88,7 @@ rsync -aAXv --delete --delete-excluded \
     /home/USER \
     "$dest"
 
-# 3. Backup /etc paths using include/exclude filters with --delete-excluded
+# 3. Backup /etc paths
 rsync -aAXv --delete --delete-excluded \
     --progress \
     --stats \
@@ -109,7 +109,7 @@ rsync -aAXv --delete --delete-excluded \
     /etc \
     "$dest"
 
-# 4. Backup /usr paths using include/exclude filters with --delete-excluded
+# 4. Backup /usr paths
 rsync -aAXv --delete --delete-excluded \
     --progress \
     --stats \
