@@ -22,6 +22,9 @@
           "**/images/**",
           "robots.txt",
           "favicon.ico"
+        ],
+        "exclude": [
+          "_site/**"
         ]
       }
     ],
